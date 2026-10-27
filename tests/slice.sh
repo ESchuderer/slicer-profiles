@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Smoke-test the generated presets with each slicer's command-line mode. Run ./build.sh first.
-#   ./test_slice.sh        representative slices per printer (U1 and Max 4 through their "(LAN)" presets)
-#   ./test_slice.sh --all  every generated print preset (takes a few minutes)
+# Smoke-test the generated presets with each slicer's command-line mode. Run scripts/build.sh first.
+#   tests/slice.sh        representative slices per printer (U1 and Max 4 through their "(LAN)" presets)
+#   tests/slice.sh --all  every generated print preset (takes a few minutes)
 # Prints key values and the chamber / exhaust / purifier commands read back from the G-code.
 # The CLI cannot test multi-filament supports or tool changes (interfaces are dropped even with stock
 # presets), so check those in the GUI preview instead.
 set -uo pipefail
 export PYTHONDONTWRITEBYTECODE=1
-HERE="$(cd "$(dirname "$0")" && pwd)"
+HERE="$(cd "$(dirname "$0")/.." && pwd)"
 T="$(mktemp -d)"
 trap 'rm -rf "$T"' EXIT
 cd "$T" || exit 1  # the CLI writes result.json into the current directory
@@ -17,7 +17,7 @@ CMDS='^(M141 S|M191 S|M106 P3 S|SET_PURIFIER_MODE|WAIT_CHAMBER_TEMP|SM_PRINT_AUT
 fails=0
 
 slice() {  # slice SLICER(orca|bambu) MACHINE(stock name or generated .json) PROCESS_FILE FILAMENT_FILE [MODEL]
-  local which="$1" machine="$2" proc="$3" fil="$4" model="${5:-$HERE/test_models/cube.stl}"
+  local which="$1" machine="$2" proc="$3" fil="$4" model="${5:-$HERE/tests/models/cube.stl}"
   local bin=orca-slicer flag='' vendor fvendor=OrcaFilamentLibrary mmode=stock
   case "$machine" in *P2S*) vendor=BBL ;; *Snapmaker*) vendor=Snapmaker ;; *) vendor=Qidi ;; esac
   if [[ "$machine" == *.json ]]; then mmode='file'; fi
@@ -26,9 +26,9 @@ slice() {  # slice SLICER(orca|bambu) MACHINE(stock name or generated .json) PRO
     qidi) bin=/opt/qidi-studio-appimage/qidi-studio-appimage.AppImage; flag=--qidi; vendor='X 4 Series'; fvendor='X 4 Series' ;;
     snapmaker) bin=/opt/snapmaker-orca-appimage/snapmaker-orca-appimage.AppImage; flag=--snapmaker ;;
   esac
-  if ! { python3 "$HERE/flat.py" $flag "$mmode" "$vendor" "$machine" m.json &&
-         python3 "$HERE/flat.py" $flag file "$vendor" "$proc" p.json &&
-         python3 "$HERE/flat.py" $flag file "$fvendor" "$fil" f.json; }; then
+  if ! { python3 "$HERE/src/flat.py" $flag "$mmode" "$vendor" "$machine" m.json &&
+         python3 "$HERE/src/flat.py" $flag file "$vendor" "$proc" p.json &&
+         python3 "$HERE/src/flat.py" $flag file "$fvendor" "$fil" f.json; }; then
     echo "FAIL flatten: $proc"; fails=$((fails + 1)); return
   fi
   python3 -c "import json; d = json.load(open('m.json')); d['curr_bed_type'] = 'Textured PEI Plate'; json.dump(d, open('m.json', 'w'))"
@@ -51,7 +51,7 @@ B="$HERE/out/bambu"
 M="$O/machine"
 Q="$HERE/out/qidi"
 SM="$HERE/out/snapmaker"
-[[ -d "$O" && -d "$B" ]] || { echo "Run ./build.sh first." >&2; exit 1; }
+[[ -d "$O" && -d "$B" ]] || { echo "Run scripts/build.sh first." >&2; exit 1; }
 
 if [[ "${1:-}" == "--all" ]]; then
   for p in "$O"/process/*.json; do
@@ -77,8 +77,8 @@ else
   slice orca "$M/Snapmaker U1 (0.8 nozzle) (LAN).json" "$O/process/0.32mm Standard @U1 0.8.json" "$O/filament/SUNLU PLA+ 2.0 HQ.json"
   slice orca "$M/Qidi X-Max 4 0.6 nozzle (LAN).json" "$O/process/0.28mm Strong @X-Max4 0.6.json" "$O/filament/SUNLU ASA HQ.json"
   slice orca "$M/Qidi X-Max 4 0.4 nozzle (LAN).json" "$O/process/0.16mm Quality @X-Max4 0.4.json" "$O/filament/SUNLU PLA+ 2.0 HQ.json"
-  slice orca "$M/Qidi X-Max 4 0.4 nozzle (LAN).json" "$O/process/0.20mm Strong MM-Support @X-Max4 0.4.json" "$O/filament/eSUN PETG HQ.json" "$HERE/test_models/tshape.stl"
-  slice bambu "Bambu Lab P2S 0.4 nozzle" "$B/process/0.16mm Quality MM-Support @P2S 0.4.json" "$B/filament/SUNLU ASA HQ.json" "$HERE/test_models/tshape.stl"
+  slice orca "$M/Qidi X-Max 4 0.4 nozzle (LAN).json" "$O/process/0.20mm Strong MM-Support @X-Max4 0.4.json" "$O/filament/eSUN PETG HQ.json" "$HERE/tests/models/tshape.stl"
+  slice bambu "Bambu Lab P2S 0.4 nozzle" "$B/process/0.16mm Quality MM-Support @P2S 0.4.json" "$B/filament/SUNLU ASA HQ.json" "$HERE/tests/models/tshape.stl"
   slice bambu "Bambu Lab P2S 0.6 nozzle" "$B/process/0.24mm Standard @P2S 0.6.json" "$B/filament/SUNLU PETG 2.0 HQ.json"
   slice bambu "Bambu Lab P2S 0.8 nozzle" "$B/process/0.28mm Quality @P2S 0.8.json" "$B/filament/SUNLU HS Matte PETG HQ.json"
   slice qidi "X-Max 4 0.4 nozzle" "$Q/process/0.20mm Strong @X-Max4 0.4.json" "$Q/filament/SUNLU ASA HQ.json"

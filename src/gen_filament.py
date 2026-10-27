@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Generate OrcaSlicer filament presets from filaments.json. Usage: gen_filament.py OUT_DIR
+"""Generate OrcaSlicer filament presets from config/filaments.json. Usage: gen_filament.py OUT_DIR
 
-Each filaments.json entry:
+Each config/filaments.json entry:
   "inherits": stock parent (Orca library brand preset, else "Generic <type> @System")
   "notes":    maker specs / handling, shown in the preset's Notes tab
   "s":        Orca setting overrides as single values, plus convenience keys:
@@ -50,7 +50,7 @@ def make(name, d):
 
 def main(out):
     os.makedirs(out, exist_ok=True)
-    data = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'filaments.json')))
+    data = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config', 'filaments.json')))
     for name, d in data.items():
         with open(os.path.join(out, name + '.json'), 'w') as f:
             json.dump(make(name, d), f, indent=4)
