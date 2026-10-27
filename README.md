@@ -4,7 +4,7 @@ Generates print, filament and printer presets for OrcaSlicer, Bambu Studio, QIDI
 
 ## Download
 
-Zips per slicer are attached to each [release](https://github.com/ESchuderer/slicer-profiles/releases/latest). Unzip into the slicer's preset folder: [docs/install.md](docs/install.md).
+Zips per slicer are attached to each [release](https://github.com/ESchuderer/slicer-profiles/releases/latest). Unzip into the slicer's preset folder: [docs/install.md](docs/install.md). What the presets set: [docs/profiles.md](docs/profiles.md).
 
 ## Layout
 
@@ -23,6 +23,7 @@ Zips per slicer are attached to each [release](https://github.com/ESchuderer/sli
 | `scripts/release.sh` | Build the release zips into `dist/` (`--publish` creates the GitHub release) |
 | `tests/` | `check.sh` (checksums of the generated output), `slice.sh` (command-line smoke slices), test models |
 | `docs/install.md` | Import instructions for the release zips |
+| `docs/profiles.md` | What the presets contain and which printer fixes the "(LAN)" presets carry |
 | `.installed/` | What `build.sh` installed last and where (`#dest=`); only these files are ever replaced (git-ignored) |
 
 ## Build your own
