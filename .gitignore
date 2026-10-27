@@ -1,4 +1,5 @@
 __pycache__/
 out/
-installed-*.txt
-printers.json
+dist/
+.installed/
+config/printers.json

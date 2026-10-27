@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate OrcaSlicer printer presets with the network connection from printers.json. Usage: gen_machine.py OUT_DIR
+"""Generate OrcaSlicer printer presets with the network connection from config/printers.json. Usage: gen_machine.py OUT_DIR
 
 Orca keeps a printer's address inside a user printer preset, so each networked printer gets one
 "<stock name> (LAN)" preset per nozzle that inherits everything else from the stock preset.
@@ -7,7 +7,7 @@ Print presets listing the stock printer stay compatible with these copies.
 The same presets carry the printer-level fixes in FIXES below (from the 2026-10-01 verification,
 see the playbook's "Verification log" tab).
 
-Each printers.json entry:
+Each config/printers.json entry:
   "host":    IP or hostname of the printer (Moonraker behind the web UI on port 80)
   "parent":  stock printer preset name, "{nozzle}" is replaced per nozzle
   "vendor":  Orca system folder the parent lives in
@@ -125,7 +125,7 @@ def make(name, parent, d):
 
 def main(out):
     os.makedirs(out, exist_ok=True)
-    data = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'printers.json')))
+    data = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config', 'printers.json')))
     count = 0
     for model, d in data.items():
         for nozzle in d['nozzles']:

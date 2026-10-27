@@ -4,7 +4,7 @@
 Same preset format as Orca. Print presets get the fork's stock parents (it names them differently);
 filaments use the same Orca filament library. The fork's own U1 printers already carry Snapmaker's
 tool-change G-code, purifier logic and retraction, so its "(LAN)" printers add only the address
-(from printers.json) and the shared printer settings below.
+(from config/printers.json) and the shared printer settings below.
 """
 import json
 import os
@@ -49,7 +49,7 @@ def main(orca_out, out):
         p['version'] = VERSION
         write(os.path.join(out, 'filament', f), p)
         n['filament'] += 1
-    printers = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'printers.json')))
+    printers = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config', 'printers.json')))
     u1 = printers['Snapmaker U1']
     for nozzle in u1['nozzles']:
         parent = u1['parent'].format(nozzle=nozzle)

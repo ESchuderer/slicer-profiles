@@ -6,7 +6,7 @@ Usage: gen_bambu.py ORCA_OUT_DIR OUT_DIR [bambu|qidi]   (default: bambu)
   qidi:  QIDI Studio, the X-Max 4 presets
 
 Process presets keep their stock parent (both apps ship presets with the same names as Orca).
-Filaments inherit the "<target>.inherits" parent from filaments.json, because these apps have no
+Filaments inherit the "<target>.inherits" parent from config/filaments.json, because these apps have no
 Orca filament library. Keys the app does not know are dropped (and listed); arrays are sized like the parent's.
 """
 import json
@@ -78,7 +78,7 @@ def main(orca_out, out, target='bambu'):
         with open(os.path.join(out, 'process', f), 'w') as fh:
             json.dump(port(p, p['inherits'], 'process', t), fh, indent=4)
         n_proc += 1
-    data = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'filaments.json')))
+    data = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config', 'filaments.json')))
     for name, d in data.items():
         p = json.load(open(os.path.join(orca_out, 'filament', name + '.json')))
         q = port(p, d[target]['inherits'] + t['filament_suffix'], 'filament', t, d[target].get('s'))

@@ -2,7 +2,7 @@
 """Generate OrcaSlicer print (process) presets for the P2S, U1 and X-Max 4.
 
 Every preset inherits the printer's stock preset for its nozzle and stores only the values set here;
-Orca shows everything else as inherited. Edit the tables, then run ./build.sh.
+Orca shows everything else as inherited. Edit the tables, then run scripts/build.sh.
 Usage: gen_process.py OUT_DIR
 """
 import json
