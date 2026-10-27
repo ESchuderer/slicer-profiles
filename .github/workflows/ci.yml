@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Shell scripts
+        run: shellcheck build.sh check.sh test_slice.sh
+      - name: Python compiles
+        run: python3 -m compileall -q .
+      - name: JSON is valid
+        run: for f in filaments.json printers.example.json; do python3 -m json.tool "$f" >/dev/null; done

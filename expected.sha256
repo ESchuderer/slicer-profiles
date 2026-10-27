@@ -1,0 +1,167 @@
+04bda2a16a61cc4a38c84d95a7eef2e00cf7d40aae082eeb589fdd03a20a59d0  out/bambu/filament/Anycubic ASA HQ.json
+b4147b9edcc06e09f3d0a8536763828fe12405236389c1e13bba1c2a68d18f30  out/bambu/filament/CC3D HIPS HQ.json
+7a65aea16a6159fa998f7568471f418e803986cc347645f489231e0c90d21eac  out/bambu/filament/eSUN PETG HQ.json
+a9b3492527f591b94367a42deba36c5871f970c2ae79fbb6d01c2687ca2d5c9a  out/bambu/filament/SUNLU ASA HQ.json
+c656cd6aefd31c8d0f2ffc91a3e532c3ed2e053c520af92171e73b9cdf8d5f1a  out/bambu/filament/SUNLU HS Matte PETG HQ.json
+2fffa2bd8f321fbd202bd488371dec24a6f27ac76c09550f7b5b9462e2e10092  out/bambu/filament/SUNLU PETG 2.0 HQ.json
+4e63d2ba655faab5eb8037f7a859b1be8525753b705174de18b30bcd9a44e977  out/bambu/filament/SUNLU PLA+ 2.0 HQ.json
+366ce2d43a6f5fdd28b83e73e2b4891b139fd97fa38a5ad33b8e89e28231e20d  out/bambu/filament/SUNLU PLA Matte HQ.json
+bfe5ffce4e6f163b86e190bc8a0ba4c0396d9cb1f5bf4154a9bb8708e29dad48  out/bambu/filament/SUNLU TPU 95A HQ.json
+e076978c8229515828f3e48cfb77c32278c3f34f1064bc6b10587c95e057e8fb  out/bambu/process/0.12mm Detail MM-Support @P2S 0.4.json
+51d6862699e59ab1cfc639ab99f7866c234cd4862c1012e978e6afc812b6a381  out/bambu/process/0.12mm Detail @P2S 0.4.json
+8410a3f466864e7911e902f352ab447bebaac7fe154f447bac0359872171bded  out/bambu/process/0.16mm Quality MM-Support @P2S 0.4.json
+baf63068d7540d27fb35d9936f62a3fe464125f55bcbd4e2ac33ab023bfb96b7  out/bambu/process/0.16mm Quality @P2S 0.4.json
+9f8bb0cd72e764e96bdaa0e6bd02d5191ae6dbc21221b4707bab54e375304d52  out/bambu/process/0.20mm Quality MM-Support @P2S 0.6.json
+d653a427a41d67383b5957c883be55b47f0e72ff8f904b6216b0a4f5ec99428c  out/bambu/process/0.20mm Quality @P2S 0.6.json
+42c05c6cc8437237113c45c0c3656c4ceea72d613ea10b7410616467716859dd  out/bambu/process/0.20mm Standard MM-Support @P2S 0.4.json
+288387200604ab2b5de7a8ad614b6e1ff4e7211bc94d8ca12ddfb85eb1e746df  out/bambu/process/0.20mm Standard @P2S 0.4.json
+3ced38f4c0e5d586b36f51bdf37f56504a64407ce38880df1b28956fca2814a9  out/bambu/process/0.20mm Strong MM-Support @P2S 0.4.json
+0b439d5c11fe72f3a4a554e2eee3e6499e7414631ed9897f13d46d6e84a398bb  out/bambu/process/0.20mm Strong @P2S 0.4.json
+402723102ebfc53d57dccc22e9ac846e8ec76b5b8b26c98715505a9c3b0a4002  out/bambu/process/0.24mm Standard MM-Support @P2S 0.6.json
+2df74968c9e1b1e5b88ad79c00b456855400fcf3d970feb3694e0636dc74496c  out/bambu/process/0.24mm Standard @P2S 0.6.json
+20e80fdf51dd89eba297e4da1effc118e05d737ffd941b605c0275e9f0fb8877  out/bambu/process/0.28mm Quality MM-Support @P2S 0.8.json
+c250f4c1a163e9ca1e22d569cce892ea770aa2afb9acf9b0f537dfce4954e4d3  out/bambu/process/0.28mm Quality @P2S 0.8.json
+a0068ff5e0bd8220916c7036224a66dc39e51b393dcbb9f81912770a061d34f9  out/bambu/process/0.28mm Strong MM-Support @P2S 0.6.json
+0e02a76aa3a07ccbc557482d10ff119f7eaed59a76cbc803071cfa9d7d7cd4ea  out/bambu/process/0.28mm Strong @P2S 0.6.json
+1072d729c3bf4ba7bcae45d1dc03ea217d4a40282119677b0333e1579b4c645a  out/bambu/process/0.32mm Standard MM-Support @P2S 0.8.json
+b2fc24db55f00de7ecac7efc50c3e2d41c7aa1336b10a35330dea9ffa421700d  out/bambu/process/0.32mm Standard @P2S 0.8.json
+7e29fbf0310dd0fcf72325d4ee6f8af093aa0986217da590cb04f73dfc1a588e  out/bambu/process/0.36mm Strong MM-Support @P2S 0.8.json
+f75fa9a9ee32dfaf0d643f32457f03ec1c26136a9896c8ebdfb640d26c81bc99  out/bambu/process/0.36mm Strong @P2S 0.8.json
+2af9bab6e33ddfb680eaf3caaaa40f59f6149eac3c94f07be61832a41d516381  out/orca/filament/Anycubic ASA HQ.json
+cd3444aa87b40b836f3298a2540a3018bab82545a13babfc64b8644dfe71a257  out/orca/filament/CC3D HIPS HQ.json
+6d959d6ba309134e39c2daf6b0de99adeab3d9e46bb985745591861cc6dc4943  out/orca/filament/eSUN PETG HQ.json
+441cd9e822529f99a027f72d1b8bfa5c21ad63aa6110ad8f4fb6f89bfe0805c3  out/orca/filament/SUNLU ASA HQ.json
+bb2dd7b2c2f886072821a260c5713f7ed997180b5d8b848998821bb29ee0e3f1  out/orca/filament/SUNLU HS Matte PETG HQ.json
+df7d306e181aa6e49cf3c61b1f5726f28358f4c15752b48f5b43036eab7d37a0  out/orca/filament/SUNLU PETG 2.0 HQ.json
+ab107994cea3e49b71a6202da3f8e0aa72d8719194d17070fbaf12793645a253  out/orca/filament/SUNLU PLA+ 2.0 HQ.json
+8db443ccf1430cfc3e2174faf0966c1e0dab89b1414746380ac61df8d49ed81b  out/orca/filament/SUNLU PLA Matte HQ.json
+8a4e8d52f5e9dc31ba3c83196b7ff7686e508805f284958c159ed6110d1f2397  out/orca/filament/SUNLU TPU 95A HQ.json
+45d44cf0efd0c1292769dff094536f567e8f6bb46bb7b9db0cb977abb8ee018c  out/orca/machine/Qidi X-Max 4 0.4 nozzle (LAN).json
+27c638b5ee8d4a612bdcc898285f5dde82da9b70e742d996e069b02505029a4b  out/orca/machine/Qidi X-Max 4 0.6 nozzle (LAN).json
+9914b3ab29a05148e87cff34aeca24f91fe5001ba61939aa8b54cb6b6f347104  out/orca/machine/Qidi X-Max 4 0.8 nozzle (LAN).json
+82d0245271a6e9e738ab5e927fa22fc54a0199959162324a7940062f46f4ad1c  out/orca/machine/Snapmaker U1 (0.4 nozzle) (LAN).json
+9a01f6d026e9d65843c649631035416a87e8ea879e11dced728f02b7816e3e3d  out/orca/machine/Snapmaker U1 (0.6 nozzle) (LAN).json
+b22cce9ac1cf165c3e2a9367f03b4296cfff7ff8ebf950ca23ef4003b8dc1b8b  out/orca/machine/Snapmaker U1 (0.8 nozzle) (LAN).json
+796c24bc87307db529588782912384c96aa273c5b1af4ff5aa9c7e4d4cd27a45  out/orca/process/0.12mm Decor @U1 0.4.json
+b01a605977beccbd67f5731208ed5cef3cd2daf5ea9de0420030bcc23ab3277b  out/orca/process/0.12mm Detail MM-Support @P2S 0.4.json
+637d3fa60c9643d074519677a318207c848847e86af3ae850b9e0826a0a7ee3f  out/orca/process/0.12mm Detail MM-Support @U1 0.4.json
+c26ef6ee81daf8b40f0b661fcedc29a556b3ae1ab63b69068a12cc424b260fb0  out/orca/process/0.12mm Detail MM-Support @X-Max4 0.4.json
+91b72e533b06d67b8cbe1f356a8333c2228ddf3ada558817bb70c2facda7e0d5  out/orca/process/0.12mm Detail @P2S 0.4.json
+8508070f2e8d70888855522809b24acd6cf47427cf0a6b1d8e0832b55c61d151  out/orca/process/0.12mm Detail @U1 0.4.json
+255c76896d2c5b544c9c678c9f9447c542bde829b7ea5cfd8a1ee9d79f58e4c2  out/orca/process/0.12mm Detail @X-Max4 0.4.json
+0c3bb20d0f0f95d4458d2389fd5f029b3c8f5abef9bb3c637e8e393cac612d74  out/orca/process/0.16mm Quality MM-Support @P2S 0.4.json
+db29cb09bedb10c5986d2c2b9e651441c4cfd13ff4235e5ce58218fbe5a9afb8  out/orca/process/0.16mm Quality MM-Support @U1 0.4.json
+e111f00c121402e31a6d6e898dc5be0d16729fe5895a5606768bc74fda737cb7  out/orca/process/0.16mm Quality MM-Support @X-Max4 0.4.json
+312f9a6ec6b1434456b11c0874fd8fc29bdbed4682ecc971e92395d1b60447b1  out/orca/process/0.16mm Quality @P2S 0.4.json
+bc71251a7eddc59ee84079bb2b770018b85973416fef880d4d1e45754ee9e73c  out/orca/process/0.16mm Quality @U1 0.4.json
+31b0af272996bc95d7b1bc127b99aad35a2258bee81f400c612349a35744132a  out/orca/process/0.16mm Quality @X-Max4 0.4.json
+e6d00c094ecfff78837b67bc0e1ac3b05330f5bc66144aee487ce509801d68a2  out/orca/process/0.20mm Quality MM-Support @P2S 0.6.json
+87809fbc56ec38e645edf55fc1036cf0c342d96dbef5f8cc8403d590733482fe  out/orca/process/0.20mm Quality MM-Support @U1 0.6.json
+4732f3ee00f765f994f3850083484f6b2cd78b5c89232ec8a9ff6bc732bc2d13  out/orca/process/0.20mm Quality MM-Support @X-Max4 0.6.json
+678ffc3eea571fceeadcc662ff24baf877f9dc58b7fbfc2768b0a9e425b192dd  out/orca/process/0.20mm Quality @P2S 0.6.json
+e0e8bc144516739bcbf4cf4e95758f3e6c867294ed4904ff019d09ad48e3a990  out/orca/process/0.20mm Quality @U1 0.6.json
+39d50d3ab84a4f605b1bd72485ea4af213ec83714cfd008884085dbb604eb247  out/orca/process/0.20mm Quality @X-Max4 0.6.json
+d3d01c83ac78df560ec3b7557d73cb5d4e6c24df92a29887c349dc3a3ec41c16  out/orca/process/0.20mm Standard MM-Support @P2S 0.4.json
+8aeeac177cead0f08a172e1e26d02fef3ccd0a2718961fe8602928ed8e7ddb25  out/orca/process/0.20mm Standard MM-Support @U1 0.4.json
+7269b5b7eed1f71586fec0236457cc87627943ae1acba7dc00cdf77f05cc46f2  out/orca/process/0.20mm Standard MM-Support @X-Max4 0.4.json
+4e147a4dfd9432d1f459f4e76e6c4a843439f5a90f21ba52cea4461d425af711  out/orca/process/0.20mm Standard @P2S 0.4.json
+1e8fec37faa4f60550ba279de4829c0ecad31f0b753953d1a62e3006eb047f3c  out/orca/process/0.20mm Standard @U1 0.4.json
+01a4261acb5cf313f230f533223527419b4668b0758fb11b58c15720318506c7  out/orca/process/0.20mm Standard @X-Max4 0.4.json
+ad53f7b9da48ad1fd9e505f3351e5b11c4a5bfeb73495ed1276c6f7df7b1be0e  out/orca/process/0.20mm Strong MM-Support @P2S 0.4.json
+df74ca4d67a6d44c4731c820f532f557c275efb53848a86b376c2740da823b93  out/orca/process/0.20mm Strong MM-Support @U1 0.4.json
+b1feda74c9c99802a362fb5468bbaad8aa781570e166f788381cd916552df498  out/orca/process/0.20mm Strong MM-Support @X-Max4 0.4.json
+e08717f57e55468b71d5ac55c47fc4bf736528b3e3aeb51a1032e71a843d57a7  out/orca/process/0.20mm Strong @P2S 0.4.json
+abd1cebdba3e35ade2f60136ace49f429fd11e7077cbf9dde6f9149889e6b063  out/orca/process/0.20mm Strong @U1 0.4.json
+5a1353e168f51683102a977fe16eefe08210fd7dc9666438103dab2b94f0e635  out/orca/process/0.20mm Strong @X-Max4 0.4.json
+bcb4d48654a573b4dbfa5cd80b103fc9d7c07d255bed6b03ab4c620410d9f8a9  out/orca/process/0.24mm Standard MM-Support @P2S 0.6.json
+c57bb5f11f5a41963ac0f1d78cdb3ce919262bdf6e368662e4460c1b335763b8  out/orca/process/0.24mm Standard MM-Support @U1 0.6.json
+ced556c82148b97f9b55252b22f0a61e06f286ea6a508f1076ec425fff92efbe  out/orca/process/0.24mm Standard MM-Support @X-Max4 0.6.json
+654d92dab0640972c6a0b0ec7c165d7938bfe97da7abcb84574f1134021a47c9  out/orca/process/0.24mm Standard @P2S 0.6.json
+55a32879254d7e6c7fca5981e31ea7dbd6d5d2b04a701daf70167fcef25f649a  out/orca/process/0.24mm Standard @U1 0.6.json
+da54fecf07755330ef77fb47e46b9f87e93e69e9738bf0182f18da9778edf25a  out/orca/process/0.24mm Standard @X-Max4 0.6.json
+e9b6765fa316098b7f642d31ad0237a51f79865417989013f29dad1849dd76b8  out/orca/process/0.28mm Quality MM-Support @P2S 0.8.json
+89a3960222619fc3ee84882bfb9912552c731a5cce2e0a5262447f6e5d5a337a  out/orca/process/0.28mm Quality MM-Support @U1 0.8.json
+7bd911950c6258fe383beb677c06f21e18db196887ea5840ce2f1360aff48f19  out/orca/process/0.28mm Quality MM-Support @X-Max4 0.8.json
+c80132bfe21cf84b9bcc0ba67160db059f6da31a3d06506c4735ffbb1cd99030  out/orca/process/0.28mm Quality @P2S 0.8.json
+c0a34bba3689e58aa99229b8bef0506fd63a08ed033d5c04f1fd2d69df86883e  out/orca/process/0.28mm Quality @U1 0.8.json
+6b749199fedc5aef6949fa89257de63b552db8807b1aed1bb3dffd7a79c6d589  out/orca/process/0.28mm Quality @X-Max4 0.8.json
+95ed96170b38667cbad7c1d36df21ccd2f3069bf5a117a3bb295b079dd118b01  out/orca/process/0.28mm Strong MM-Support @P2S 0.6.json
+04e286c6e8f3f19b88376b359bef0782e92c1ec7944d4e8c56e211051ead7049  out/orca/process/0.28mm Strong MM-Support @U1 0.6.json
+c124c3854041a8fab999c96f3483e02ca55452c11125ce639a1fdb913d752385  out/orca/process/0.28mm Strong MM-Support @X-Max4 0.6.json
+dfbc8febc558caf2c786d88c1f3cbc4169c5f878953732ba45d463c56b699b68  out/orca/process/0.28mm Strong @P2S 0.6.json
+ffe957b5b9c90c56656aeee58f95edd40a4f465a3cdaa7256b58ef2cc542f610  out/orca/process/0.28mm Strong @U1 0.6.json
+9abe855b7780039e0cd1dbe1be3c8b7bc0ba215b20d16870ba3449efcbf53adc  out/orca/process/0.28mm Strong @X-Max4 0.6.json
+9994454d3cde75703988f77c2d52affb3a7fd97a6b55023282188a81b3e3639a  out/orca/process/0.32mm Standard MM-Support @P2S 0.8.json
+3436eb48b61cd585bfc7ec4c3f49028c9a84df4ec8f4f28b26a8c6dbc1c7e29f  out/orca/process/0.32mm Standard MM-Support @U1 0.8.json
+0235500f3200fb6205f67a9e282004489451704c9d9eeb7d30ff25df7f8dc458  out/orca/process/0.32mm Standard MM-Support @X-Max4 0.8.json
+c5d254099a66931c3a0d61e5749eeaba9ac1a02892c2cdfddf02e4ca1d6def39  out/orca/process/0.32mm Standard @P2S 0.8.json
+720c9fa40082edd4849ca9e9f9e21523cf15849669f0cf4daeec1af3a21121ea  out/orca/process/0.32mm Standard @U1 0.8.json
+24b9e4aacef2f42d6d887a4ba508ba9bcdb473d610f33fbf67fe650b4edeb496  out/orca/process/0.32mm Standard @X-Max4 0.8.json
+04ea686aa87aab31dfae63726dee12c8655e567cb9e9fa1afd3e27189a8064cd  out/orca/process/0.36mm Strong MM-Support @P2S 0.8.json
+5b9ec97b864960008133dcee6219bf0dadf7ac8e2852a5f7b6f0cc4cc889ba0f  out/orca/process/0.36mm Strong MM-Support @U1 0.8.json
+7249ba8c2ccccef4b452d4dc9d8a1eb6b7bf11e08791bc42bb148980f49de14c  out/orca/process/0.36mm Strong MM-Support @X-Max4 0.8.json
+2e9f3fa63724eb60b2f5430d5b3e841cd8318304ad42f704ace76987f94b2e8c  out/orca/process/0.36mm Strong @P2S 0.8.json
+f3a58f202241b0bf4c25f115b45063f85985b6b598ccd2c09d157b31fddda185  out/orca/process/0.36mm Strong @U1 0.8.json
+10482be873bc379195c0079226473507f00304221921827657b27f10cec017ca  out/orca/process/0.36mm Strong @X-Max4 0.8.json
+bbbbe92f706b26cbbd28a469dcc7becbf80a0357dc3a6de2786f0f927ce8610a  out/qidi/filament/Anycubic ASA HQ.json
+3ed6a6e309378f4465231c8cf7478e75c075afd9fb4683e78a956b82e6d86985  out/qidi/filament/CC3D HIPS HQ.json
+e03a680c9e340cc4ff62f99f5058fb8af9fa7469ddf6823b5f6024942e3b801f  out/qidi/filament/eSUN PETG HQ.json
+fa9c27e36cb2af06ff99d999c320f424fc973a3264e998419e5031ea09a3fdb7  out/qidi/filament/SUNLU ASA HQ.json
+2a427d9195a946d88420411c1ac6c324a1c350f9baadabd6375f20aad653122d  out/qidi/filament/SUNLU HS Matte PETG HQ.json
+21c7ac697b680756ca351f83ad9f58633ad053379b2d4e515b8f452ca0905ddf  out/qidi/filament/SUNLU PETG 2.0 HQ.json
+667271ce6badc7b8d9e25384e0d7024499fed4e5cc2dfb0c13a227f4c0909f1a  out/qidi/filament/SUNLU PLA+ 2.0 HQ.json
+30c3d4088e9efe5b02b1c9cfd2ef36786cdae092d43eab96fdb093c023709a62  out/qidi/filament/SUNLU PLA Matte HQ.json
+6dec2940d8ee1c1d74bc14851c373b90f2b27291dabd9fc6ca42d0419da09510  out/qidi/filament/SUNLU TPU 95A HQ.json
+48d81669245a497b884ea19949828b99df5887d1a7fb77a0af9dcc74859a87ce  out/qidi/process/0.12mm Detail MM-Support @X-Max4 0.4.json
+f2414d98e375cadf59b51b13be47b87d5a7948274adba2c8115ba2360c09660d  out/qidi/process/0.12mm Detail @X-Max4 0.4.json
+c5f245e45177e14e7ddbd50e6866709c43088b1af73a7d863d70dca1a742b11a  out/qidi/process/0.16mm Quality MM-Support @X-Max4 0.4.json
+160eb8e1e9a611dc6938d7929d76362b5c94eb31bb3cbe6e178929cb31f3362e  out/qidi/process/0.16mm Quality @X-Max4 0.4.json
+038c8242ab2f7c1be8b124362af3a98019ca4f0ba43c4404a42bda3b4f04a40c  out/qidi/process/0.20mm Quality MM-Support @X-Max4 0.6.json
+e8f98271334e29f0ecbd7b96119b0aca7e5c888ccd7f3f94261586ffd904373d  out/qidi/process/0.20mm Quality @X-Max4 0.6.json
+9011215039fec2ce9d55cdeea0f961e67c1f7429e007cfa91ae3ae84a91ac9f8  out/qidi/process/0.20mm Standard MM-Support @X-Max4 0.4.json
+baa7da74db8fb298c6c4f1519b69be6427c3dbc64c95e839c8569e5302b66679  out/qidi/process/0.20mm Standard @X-Max4 0.4.json
+2912140dd23ca814e07aa1ab80b18eaeb83b9e6938071144200bbfe97a34a2b5  out/qidi/process/0.20mm Strong MM-Support @X-Max4 0.4.json
+fcd1faa38542f0ffe2ba815fe9eea1590cc52c94200c295eb29b87383e845732  out/qidi/process/0.20mm Strong @X-Max4 0.4.json
+bd1b6c448d4fcdfa1fd1b870b6123a6ca8eb48ac0b73c375a6c783d5c8e69087  out/qidi/process/0.24mm Standard MM-Support @X-Max4 0.6.json
+5bb43eed3e07617610027cc3c936b8d12b8efb29997230c93cd9a482b462248a  out/qidi/process/0.24mm Standard @X-Max4 0.6.json
+c2e2cf78281a0cb3068a31a9f65153af38cc5bf28f6fc26418cc31e22a091970  out/qidi/process/0.28mm Quality MM-Support @X-Max4 0.8.json
+b1db0ddaf7ec57cc1917d3ea9b520dbde8577188927057f89feb410a1ebe305d  out/qidi/process/0.28mm Quality @X-Max4 0.8.json
+cdf417a67d9a39e2fec0cc6afdd2f205ad836390ad76d1ecf2293c35bbc5eaeb  out/qidi/process/0.28mm Strong MM-Support @X-Max4 0.6.json
+8adeb895a6d5633e2df66159a689b35a5c33cd073f96fbe1fdc7c8eaf7a2ec3b  out/qidi/process/0.28mm Strong @X-Max4 0.6.json
+dc0a781e78f7f9c4ee1515c3aa860c125f7cf96b77e4e137398fd6a4abce5807  out/qidi/process/0.32mm Standard MM-Support @X-Max4 0.8.json
+0197a0ce2d7c036dee6f293cc70c1e3826ce57edf3f2ab5f06ffeb917fa233d2  out/qidi/process/0.32mm Standard @X-Max4 0.8.json
+0d31eb1945b8acff0e03ddbe539b0a8747d06ca7a05486037068002b265048f7  out/qidi/process/0.36mm Strong MM-Support @X-Max4 0.8.json
+2bed96d56c96b2da964c83f81af5425cf26d6338803aaa94e3512cce821624d5  out/qidi/process/0.36mm Strong @X-Max4 0.8.json
+2dea3b1ea0defc33da9e6b8cbc10c319153317a98bf21bbc74a1c825a0a20000  out/snapmaker/filament/Anycubic ASA HQ.json
+9e1efad72467057fe3cf9b4f8a8723219da7696ee59b8cc8e8d96e0523d6812e  out/snapmaker/filament/CC3D HIPS HQ.json
+79ca76b499984c9a37bb7d9a33f57bb034d54c428b9e4ebf2a1389b6ae6adc10  out/snapmaker/filament/eSUN PETG HQ.json
+91518620e7d2610a03084d6d905c2204fb2e5b910eecf839aeb1936f93a29e2e  out/snapmaker/filament/SUNLU ASA HQ.json
+d4e2f86dcfbe9ef0410b0ea44ff8c89f18a3c33d3a634ae89a500315f9877b87  out/snapmaker/filament/SUNLU HS Matte PETG HQ.json
+c4a916dde0c7ebd7099362aff8a60177ff205ec7e2168cb0c8c6539d5a44dda0  out/snapmaker/filament/SUNLU PETG 2.0 HQ.json
+62c020f89ef7bd2f8c9d846e2daa4c50d7c4e4704b3ab50b3bdfa2fd85553f20  out/snapmaker/filament/SUNLU PLA+ 2.0 HQ.json
+8e989ba803b85ae7d8c07df9fa3ca0e462c4aca179bbb64e77eeac80164c3f2a  out/snapmaker/filament/SUNLU PLA Matte HQ.json
+557b87b600f0ad8eeb82ac848db5f4daf67bf7d4d30c147fff2572a23b4d61c8  out/snapmaker/filament/SUNLU TPU 95A HQ.json
+231fc9d3389373fea9418df0524eb44e3bad0cdb64b7244ee4d8b45ece5665bf  out/snapmaker/machine/Snapmaker U1 (0.4 nozzle) (LAN).json
+733db2c1a8521c6754b26f485e5f718667ba5f4e398acab597d548f2fd5d5ca8  out/snapmaker/machine/Snapmaker U1 (0.6 nozzle) (LAN).json
+cf6ed42f31f600313a1c2ae4075fbf12d07b855ab274588aa974b4c7e3591fcf  out/snapmaker/machine/Snapmaker U1 (0.8 nozzle) (LAN).json
+ec666b6bf4e29c10ea08c5b3fadb812b43352c17a6b75b2862bd0ce927a74055  out/snapmaker/process/0.12mm Decor @U1 0.4.json
+a8c2c575cff8faf167e279a2a31d5147230f167f99511cd74bafdc0714fb660f  out/snapmaker/process/0.12mm Detail MM-Support @U1 0.4.json
+004918dc7d74818af74d52f4535dfa74ee7a16546ff319ba85a1f68743b96d92  out/snapmaker/process/0.12mm Detail @U1 0.4.json
+826786e103f4491e033c7339d235324b806b9e407261886d582aef57eee09f6b  out/snapmaker/process/0.16mm Quality MM-Support @U1 0.4.json
+3bab8d5396967e3e6300c7148a5865f83f138dfd32a20b9e6e310ebb6157a1c5  out/snapmaker/process/0.16mm Quality @U1 0.4.json
+a1a5849b86cb8e623eecf256ef50e2d45a97cbdb8e675a5d65b6623bc1c61a58  out/snapmaker/process/0.20mm Quality MM-Support @U1 0.6.json
+d535ec623d3f7db4ab84c5ad6200ce1b03d34194186d94b3fede388267949895  out/snapmaker/process/0.20mm Quality @U1 0.6.json
+3b896d48ead595dee132c8d2bdd3377b8110fe220c53019120c3e17f9019e869  out/snapmaker/process/0.20mm Standard MM-Support @U1 0.4.json
+9b409fa7d990abc00b7eaf7205164e3e8e39b720497921a4bc9dc55f9d8c315b  out/snapmaker/process/0.20mm Standard @U1 0.4.json
+109dcc4b5e19ddebd1893b2a00998a0a97546978cb2ad37026a3b8231bf32b2e  out/snapmaker/process/0.20mm Strong MM-Support @U1 0.4.json
+85a6dbff675ecd9a25913aa69b148028b0a16fa36ce39efd95d5cad88132841e  out/snapmaker/process/0.20mm Strong @U1 0.4.json
+30202c7e1e5d461df056b68387c2be98cd5e7fd7011aca1bf1b196b95940e670  out/snapmaker/process/0.24mm Standard MM-Support @U1 0.6.json
+59b654e925356addb8ddf37f2b6ac4fd9f0128751a9a257cf0d32d2ce3a5a9ba  out/snapmaker/process/0.24mm Standard @U1 0.6.json
+4dd3c4f2b9e52f4c9be13628ceceb4dd19060dea6eea061ce9c839fd15379862  out/snapmaker/process/0.28mm Quality MM-Support @U1 0.8.json
+e52d934e0eceb198caa49d41d70ccedba0e6e689306ce541913fdc436f0fef06  out/snapmaker/process/0.28mm Quality @U1 0.8.json
+354837fc1a5bdb3645b1e9e0b7a501ceac7fa0bfcc5ed6b1b2ee7cc85fdb3ec8  out/snapmaker/process/0.28mm Strong MM-Support @U1 0.6.json
+4d6c16aff34599380850ca54142e623788ef1b75a9fada953963f77c1dfe0571  out/snapmaker/process/0.28mm Strong @U1 0.6.json
+57a6d0c81d172e412911c6b61068c462edd31e7879e36955acdd0fe71360462a  out/snapmaker/process/0.32mm Standard MM-Support @U1 0.8.json
+d700ff9dd4ab3a9703f4578c539c57f2441f1b3fe1885e46f77f17d99c6f10d9  out/snapmaker/process/0.32mm Standard @U1 0.8.json
+1cfe7459a5f6f3ee44325b0f79f8d2b5ba005f09c0ecd9c5af781439c94b1943  out/snapmaker/process/0.36mm Strong MM-Support @U1 0.8.json
+a2c4e5ac99b4d992e5354cc61ac6ff01b5010d9b13e5083af8c42f003f2dde66  out/snapmaker/process/0.36mm Strong @U1 0.8.json

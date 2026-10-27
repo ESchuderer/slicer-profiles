@@ -1,0 +1,300 @@
+{
+  "SUNLU PLA+ 2.0 HQ": {
+    "inherits": "SUNLU PLA+ 2.0 @System",
+    "notes": "SUNLU TDS: 205-245 C (205-215 at 50-100 mm/s), bed 50-60, HDT 56, Vicat 54. Softening set to 45 so the P2S uses PLA cooling mode. Dry 45-50 C for 8-12 h (never 55).",
+    "s": {
+      "nozzle_temperature": 215,
+      "nozzle_temperature_initial_layer": 220,
+      "nozzle_temperature_range_low": 205,
+      "nozzle_temperature_range_high": 245,
+      "bed": 55,
+      "bed_l1": 60,
+      "filament_max_volumetric_speed": 16,
+      "filament_density": 1.21,
+      "chamber": 0,
+      "temperature_vitrification": 45,
+      "filament_adhesiveness_category": 100,
+      "filament_long_retractions_when_cut": 0,
+      "slow_down_layer_time": 8,
+      "slow_down_min_speed": 20,
+      "during_print_exhaust_fan_speed": 100
+    },
+    "bambu": {
+      "inherits": "Generic PLA @BBL P2S",
+      "s": {
+        "filament_vendor": "SUNLU",
+        "filament_density": 1.21
+      }
+    },
+    "qidi": {
+      "inherits": "Generic PLA+"
+    }
+  },
+  "SUNLU PLA Matte HQ": {
+    "inherits": "SUNLU PLA Matte @System",
+    "notes": "SUNLU TDS: 205-245 C (205-215 at 50-100 mm/s), bed 50-60, density 1.31. Decorative or light-duty (39 MPa). Softening set to 45 so the P2S uses PLA cooling mode. Dry 50 C for 6-8 h.",
+    "s": {
+      "nozzle_temperature": 215,
+      "nozzle_temperature_initial_layer": 220,
+      "nozzle_temperature_range_low": 205,
+      "nozzle_temperature_range_high": 245,
+      "bed": 55,
+      "bed_l1": 60,
+      "filament_max_volumetric_speed": 14,
+      "filament_density": 1.31,
+      "chamber": 0,
+      "temperature_vitrification": 45,
+      "filament_adhesiveness_category": 100,
+      "filament_long_retractions_when_cut": 0,
+      "slow_down_layer_time": 8,
+      "slow_down_min_speed": 20,
+      "during_print_exhaust_fan_speed": 100
+    },
+    "bambu": {
+      "inherits": "Generic PLA @BBL P2S",
+      "s": {
+        "filament_vendor": "SUNLU",
+        "filament_flow_ratio": 0.98
+      }
+    },
+    "qidi": {
+      "inherits": "Generic PLA"
+    }
+  },
+  "SUNLU PETG 2.0 HQ": {
+    "inherits": "SUNLU PETG @System",
+    "notes": "SUNLU TDS: 230-270 C (230-240 at 50-100 mm/s), bed 70-80, density 1.22, HDT 71, retraction 0.8-1.2 mm. Glue as release agent on smooth PEI. Dry 65 C for 10-12 h, new spools too.",
+    "s": {
+      "nozzle_temperature": 240,
+      "nozzle_temperature_initial_layer": 245,
+      "nozzle_temperature_range_low": 230,
+      "nozzle_temperature_range_high": 270,
+      "bed": 75,
+      "bed_l1": 75,
+      "filament_max_volumetric_speed": 12,
+      "filament_density": 1.22,
+      "fan_min_speed": 20,
+      "fan_max_speed": 40,
+      "overhang_fan_speed": 90,
+      "close_fan_the_first_x_layers": 3,
+      "filament_retraction_length": 0.8,
+      "filament_retraction_speed": 35,
+      "chamber": 0,
+      "filament_adhesiveness_category": 300,
+      "filament_long_retractions_when_cut": 0,
+      "slow_down_min_speed": 20,
+      "during_print_exhaust_fan_speed": 100
+    },
+    "bambu": {
+      "inherits": "Generic PETG @BBL P2S",
+      "s": {
+        "filament_vendor": "SUNLU",
+        "filament_flow_ratio": 0.95
+      }
+    },
+    "qidi": {
+      "inherits": "Generic PETG"
+    }
+  },
+  "eSUN PETG HQ": {
+    "inherits": "eSUN PETG @System",
+    "notes": "eSUN TDS v2.0: 230-260 C, bed 75-90, density 1.27, HDT 64. The TDS fan 100% is a test condition; moderate cooling here for layer bonding. Dry 60 C for 8-12 h.",
+    "s": {
+      "nozzle_temperature": 245,
+      "nozzle_temperature_initial_layer": 245,
+      "nozzle_temperature_range_low": 230,
+      "nozzle_temperature_range_high": 260,
+      "bed": 75,
+      "bed_l1": 80,
+      "filament_max_volumetric_speed": 12,
+      "fan_min_speed": 30,
+      "fan_max_speed": 50,
+      "overhang_fan_speed": 90,
+      "overhang_fan_threshold": "25%",
+      "close_fan_the_first_x_layers": 3,
+      "filament_retraction_length": 0.8,
+      "filament_retraction_speed": 35,
+      "chamber": 0,
+      "filament_adhesiveness_category": 300,
+      "slow_down_layer_time": 10,
+      "fan_cooling_layer_time": 30,
+      "slow_down_min_speed": 20,
+      "during_print_exhaust_fan_speed": 100
+    },
+    "bambu": {
+      "inherits": "Generic PETG @BBL P2S",
+      "s": {
+        "filament_vendor": "eSUN",
+        "filament_density": 1.27,
+        "filament_flow_ratio": 0.98
+      }
+    },
+    "qidi": {
+      "inherits": "Generic PETG"
+    }
+  },
+  "SUNLU HS Matte PETG HQ": {
+    "inherits": "Generic PETG HF @System",
+    "notes": "SUNLU TDS 2026: 240-260 C, bed 60-70 on textured PEI, density 1.28, HDT 70. Calibrate flow and pressure advance (older PETG community values do not apply). Prefer PETG 2.0 or eSUN for strength-critical parts. Dry 60-65 C for 6-8 h, store below 20 % RH.",
+    "s": {
+      "filament_vendor": "SUNLU",
+      "nozzle_temperature": 245,
+      "nozzle_temperature_initial_layer": 250,
+      "nozzle_temperature_range_low": 235,
+      "nozzle_temperature_range_high": 260,
+      "bed": 70,
+      "bed_l1": 70,
+      "bed_plates": {
+        "cool": [
+          0,
+          0
+        ]
+      },
+      "filament_max_volumetric_speed": 15,
+      "filament_density": 1.28,
+      "filament_flow_ratio": 0.98,
+      "fan_min_speed": 25,
+      "fan_max_speed": 50,
+      "overhang_fan_speed": 90,
+      "overhang_fan_threshold": "10%",
+      "close_fan_the_first_x_layers": 3,
+      "filament_retraction_length": 0.8,
+      "filament_retraction_speed": 35,
+      "chamber": 0,
+      "filament_adhesiveness_category": 300,
+      "slow_down_layer_time": 10,
+      "fan_cooling_layer_time": 30,
+      "slow_down_min_speed": 20,
+      "during_print_exhaust_fan_speed": 100
+    },
+    "bambu": {
+      "inherits": "Generic PETG HF @BBL P2S"
+    },
+    "qidi": {
+      "inherits": "Generic PETG"
+    }
+  },
+  "CC3D HIPS HQ": {
+    "inherits": "Generic HIPS @System",
+    "notes": "CC3D: 240-260 C, bed about 100, enclosure required. Density set to typical HIPS 1.04. Max 4 chamber 50 C (Orca HIPS range 50-60). Breakaway interface for ASA at 0 mm gap; drop toward 245 C if it fuses to ASA. Dry 60-65 C only if exposed.",
+    "s": {
+      "filament_vendor": "CC3D",
+      "nozzle_temperature": 250,
+      "nozzle_temperature_initial_layer": 250,
+      "nozzle_temperature_range_low": 240,
+      "nozzle_temperature_range_high": 260,
+      "bed": 100,
+      "bed_l1": 100,
+      "filament_max_volumetric_speed": 8,
+      "filament_density": 1.04,
+      "fan_min_speed": 0,
+      "fan_max_speed": 20,
+      "overhang_fan_speed": 50,
+      "close_fan_the_first_x_layers": 3,
+      "slow_down_layer_time": 8,
+      "chamber": 50,
+      "filament_adhesiveness_category": 798,
+      "slow_down_min_speed": 20
+    },
+    "bambu": {
+      "inherits": "Generic HIPS @BBL P2S",
+      "s": {
+        "first_x_layer_fan_speed": 0
+      }
+    },
+    "qidi": {
+      "inherits": "Generic ABS"
+    }
+  },
+  "Anycubic ASA HQ": {
+    "inherits": "Generic ASA @System",
+    "notes": "Anycubic TDS V3.0: 255-275 C (new spec 260-280), bed 80-100 with glue, density 1.07 (1.09 new spec). Max 4 chamber 55 C. P2S: bed at max, door and lid closed, start at chamber 40-45 C or more (about 15 min). Dry 70-80 C for 8-12 h.",
+    "s": {
+      "filament_vendor": "Anycubic",
+      "nozzle_temperature": 265,
+      "nozzle_temperature_initial_layer": 265,
+      "bed": 100,
+      "bed_l1": 100,
+      "filament_max_volumetric_speed": 12,
+      "filament_density": 1.07,
+      "fan_min_speed": 15,
+      "fan_max_speed": 30,
+      "overhang_fan_speed": 60,
+      "close_fan_the_first_x_layers": 3,
+      "slow_down_layer_time": 8,
+      "chamber": 55,
+      "filament_adhesiveness_category": 200,
+      "slow_down_min_speed": 20
+    },
+    "bambu": {
+      "inherits": "Generic ASA @BBL P2S"
+    },
+    "qidi": {
+      "inherits": "QIDI ASA"
+    }
+  },
+  "SUNLU ASA HQ": {
+    "inherits": "Generic ASA @System",
+    "notes": "SUNLU TDS: 250-260 C at 50-100 mm/s, 260-280 at 100-200, bed 90-110 (thin glue on textured PEI), density 1.04, HDT 101. Max 4 chamber 55 C. P2S: bed at max, door and lid closed, start at chamber 40-45 C or more (about 15 min). Dry 80 C for 8 h.",
+    "s": {
+      "filament_vendor": "SUNLU",
+      "nozzle_temperature": 260,
+      "nozzle_temperature_initial_layer": 260,
+      "nozzle_temperature_range_low": 250,
+      "nozzle_temperature_range_high": 280,
+      "bed": 100,
+      "bed_l1": 100,
+      "filament_max_volumetric_speed": 12,
+      "filament_density": 1.04,
+      "fan_min_speed": 15,
+      "fan_max_speed": 30,
+      "overhang_fan_speed": 60,
+      "close_fan_the_first_x_layers": 3,
+      "slow_down_layer_time": 8,
+      "chamber": 55,
+      "filament_adhesiveness_category": 200,
+      "slow_down_min_speed": 20
+    },
+    "bambu": {
+      "inherits": "Generic ASA @BBL P2S"
+    },
+    "qidi": {
+      "inherits": "QIDI ASA"
+    }
+  },
+  "SUNLU TPU 95A HQ": {
+    "inherits": "Generic TPU @System",
+    "notes": "SUNLU TDS: 190-230 C, bed 50-60, density 1.21, retraction 0.8-1.2 mm. U1: bypass the feeder (manual load, Auto Loading off for that head, flow calibration off); tool-change retraction 2-4 mm in the printer preset. P2S: external spool from a sealed dry box, top glass off or door open. Max 4: top holder, not the QIDI Box; door open, lid off. Engineering plate 35 C with glue. Dry 50-60 C for 6-12 h.",
+    "s": {
+      "filament_vendor": "SUNLU",
+      "nozzle_temperature": 220,
+      "nozzle_temperature_initial_layer": 225,
+      "nozzle_temperature_range_low": 190,
+      "nozzle_temperature_range_high": 230,
+      "bed": 50,
+      "bed_l1": 50,
+      "bed_plates": {
+        "eng": [
+          35,
+          35
+        ]
+      },
+      "filament_max_volumetric_speed": 3.5,
+      "filament_density": 1.21,
+      "fan_min_speed": 30,
+      "fan_max_speed": 50,
+      "overhang_fan_speed": 80,
+      "filament_retraction_length": 0.8,
+      "filament_retraction_speed": 30,
+      "chamber": 0,
+      "filament_adhesiveness_category": 600,
+      "during_print_exhaust_fan_speed": 100
+    },
+    "bambu": {
+      "inherits": "Generic TPU @BBL P2S"
+    },
+    "qidi": {
+      "inherits": "Generic TPU 95A"
+    }
+  }
+}
