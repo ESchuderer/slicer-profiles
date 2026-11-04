@@ -25,7 +25,8 @@ const config = {
           exclude: ["agents/**"],
           routeBasePath: "docs",
           sidebarPath: false,
-          editUrl: "https://github.com/ESchuderer/slicer-profiles/edit/main/",
+          // Docusaurus appends the page path relative to site/ ("../docs/install.md").
+          editUrl: "https://github.com/ESchuderer/slicer-profiles/edit/main/site/",
         },
         blog: false,
         theme: {},
