@@ -45,9 +45,7 @@ def contents() -> dict[str, Contents]:
     p = printer()
     process = sorted(process_name(p, *job) for job in process_jobs(p))
     filament = sorted(
-        filament_name(name, nozzles)
-        for name, f in filaments().items()
-        for nozzles in filament_groups(p, f["material"]).values()
+        filament_name(name, nozzles) for name, f in filaments().items() for nozzles in filament_groups(p, f).values()
     )
     return {"bambu": {"process": process, "filament": filament, "machine": []}}
 
@@ -74,7 +72,7 @@ def blocks() -> dict[str, str]:
     filament_rows = [
         [filament_name(name, nozzles), f["material"], f"`{parent}`", ", ".join(nozzles)]
         for name, f in filaments().items()
-        for parent, nozzles in filament_groups(p, f["material"]).items()
+        for parent, nozzles in filament_groups(p, f).items()
     ]
     return {
         "zips": _table(["Zip", "Print presets", "Filament presets", "License"], zip_rows),

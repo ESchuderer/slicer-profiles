@@ -8,7 +8,7 @@ The presets are Bambu Studio user presets for the Bambu Lab H3C. Each one inheri
 
 | Zip | Print presets | Filament presets | License |
 |---|---|---|---|
-| `bambu` (Bambu Studio) | 9 | 11 | CC-BY-4.0 |
+| `bambu` (Bambu Studio) | 12 | 17 | CC-BY-4.0 |
 
 <!-- end generated -->
 
@@ -22,6 +22,7 @@ Print speeds, accelerations and cooling stay at the H3C stock values. Each style
 
 | Nozzle | Stock print preset the styles build on |
 |---|---|
+| 0.2 | `0.10mm Standard @BBL H3C 0.2 nozzle` |
 | 0.4 | `0.20mm Standard @BBL H3C` |
 | 0.6 | `0.30mm Standard @BBL H3C 0.6 nozzle` |
 | 0.8 | `0.40mm Standard @BBL H3C 0.8 nozzle` |
@@ -32,6 +33,7 @@ Print speeds, accelerations and cooling stay at the H3C stock values. Each style
 
 | Style or variant | Nozzle | Changed keys |
 |---|---|---|
+| Strong | 0.2 | `wall_loops` 5, `sparse_infill_density` 40%, `sparse_infill_pattern` gyroid, `top_shell_thickness` 1.0, `bottom_shell_thickness` 0.8 |
 | Strong | 0.4 | `wall_loops` 5, `sparse_infill_density` 40%, `sparse_infill_pattern` gyroid, `top_shell_thickness` 1.4, `bottom_shell_thickness` 1.2 |
 | Strong | 0.6 | `wall_loops` 4, `sparse_infill_density` 40%, `sparse_infill_pattern` gyroid, `top_shell_thickness` 1.6, `bottom_shell_thickness` 1.2 |
 | Strong | 0.8 | `wall_loops` 3, `sparse_infill_density` 40%, `sparse_infill_pattern` gyroid, `top_shell_thickness` 1.8, `bottom_shell_thickness` 1.4 |
@@ -52,17 +54,23 @@ Third-party filaments without an H3C stock preset. Each preset inherits the H3C 
 
 | Preset | Material | Stock parent | Nozzles |
 |---|---|---|---|
+| SUNLU PLA+ 2.0 HQ 0.2 nozzle | PLA | `Generic PLA @BBL H3C 0.2 nozzle` | 0.2 |
 | SUNLU PLA+ 2.0 HQ | PLA | `Generic PLA @BBL H3C` | 0.4, 0.6, 0.8 |
+| SUNLU PLA Matte HQ 0.2 nozzle | PLA | `Generic PLA @BBL H3C 0.2 nozzle` | 0.2 |
 | SUNLU PLA Matte HQ | PLA | `Generic PLA @BBL H3C` | 0.4, 0.6, 0.8 |
+| SUNLU PETG 2.0 HQ 0.2 nozzle | PETG | `Generic PETG @BBL H3C 0.2 nozzle` | 0.2 |
 | SUNLU PETG 2.0 HQ | PETG | `Generic PETG @BBL H3C` | 0.4, 0.6, 0.8 |
+| eSUN PETG HQ 0.2 nozzle | PETG | `Generic PETG @BBL H3C 0.2 nozzle` | 0.2 |
 | eSUN PETG HQ | PETG | `Generic PETG @BBL H3C` | 0.4, 0.6, 0.8 |
+| SUNLU HS Matte PETG HQ 0.2 nozzle | PETG HF | `Generic PETG HF @BBL H3C 0.2 nozzle` | 0.2 |
 | SUNLU HS Matte PETG HQ | PETG HF | `Generic PETG HF @BBL H3C 0.4 nozzle` | 0.4, 0.6, 0.8 |
+| CC3D HIPS HQ 0.2 nozzle | HIPS | `Generic HIPS @BBL H3C 0.2 nozzle` | 0.2 |
 | CC3D HIPS HQ | HIPS | `Generic HIPS @BBL H3C 0.4 nozzle` | 0.4, 0.6, 0.8 |
+| Anycubic ASA HQ 0.2 nozzle | ASA | `Generic ASA @BBL H3C 0.2 nozzle` | 0.2 |
 | Anycubic ASA HQ | ASA | `Generic ASA @BBL H3C 0.4 nozzle` | 0.4, 0.6, 0.8 |
+| SUNLU ASA HQ 0.2 nozzle | ASA | `Generic ASA @BBL H3C 0.2 nozzle` | 0.2 |
 | SUNLU ASA HQ | ASA | `Generic ASA @BBL H3C 0.4 nozzle` | 0.4, 0.6, 0.8 |
 | SUNLU TPU 95A HQ | TPU | `Generic TPU @BBL H3C` | 0.4 |
-| SUNLU TPU 95A HQ 0.6 nozzle | TPU | `Generic TPU @BBL H3C 0.6 nozzle` | 0.6 |
-| SUNLU TPU 95A HQ 0.8 nozzle | TPU | `Generic TPU @BBL H3C 0.8 nozzle` | 0.8 |
 
 <!-- end generated -->
 
