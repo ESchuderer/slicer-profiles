@@ -14,22 +14,23 @@ import json
 import os
 import sys
 
-from resolve import BAMBU_PROFILES, QIDI_APPIMAGE, appimage_profiles, resolve
+from resolve import resolve, source
+from targets import preset_version
 
 TARGETS = {
     "bambu": {
-        "profiles": lambda: BAMBU_PROFILES,
+        "profiles": lambda: source("bambu"),
         "vendor": "BBL",
-        "version": "02.08.02.61",
+        "version": preset_version("bambu"),
         "tag": "@P2S",
         "filament_suffix": "",
         # Bambu splits some generic parents by nozzle (e.g. Generic PETG HF); list all P2S nozzles.
         "printers": ["Bambu Lab P2S 0.4 nozzle", "Bambu Lab P2S 0.6 nozzle", "Bambu Lab P2S 0.8 nozzle"],
     },
     "qidi": {
-        "profiles": lambda: appimage_profiles(QIDI_APPIMAGE),
+        "profiles": lambda: source("qidi"),
         "vendor": "X 4 Series",
-        "version": "02.07.02.60",
+        "version": preset_version("qidi"),
         "tag": "@X-Max4",
         # QIDI's filaments exist once per nozzle; inherit the 0.4 one and allow all three nozzles.
         "filament_suffix": " @Qidi X-Max 4 0.4 nozzle",

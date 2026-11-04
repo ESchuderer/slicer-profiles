@@ -11,9 +11,10 @@ import json
 import os
 import sys
 
-from resolve import SNAPMAKER_APPIMAGE, appimage_profiles, resolve
+from resolve import resolve, source
+from targets import preset_version
 
-VERSION = "2.3.3.3"  # the fork's profile version (Snapmaker.json 02.03.03.03)
+VERSION = preset_version("snapmaker")
 # Orca 2.4.2 parent -> Snapmaker Orca parent
 PARENTS = {
     "0.16 High Quality @Snapmaker U1 (0.4 nozzle)": "0.16mm Standard @Snapmaker U1 (0.4 nozzle)",
@@ -33,7 +34,7 @@ def write(path, preset):
 
 
 def main(orca_out, out):
-    fork = appimage_profiles(SNAPMAKER_APPIMAGE)
+    fork = source("snapmaker")
     n = {"process": 0, "filament": 0, "machine": 0}
     for f in sorted(os.listdir(os.path.join(orca_out, "process"))):
         if "@U1" not in f:
@@ -68,7 +69,7 @@ def main(orca_out, out):
             "version": VERSION,
             "host_type": "octoprint",
             "print_host": u1["host"],
-            "print_host_webui": "http://" + u1["host"],
+            "print_host_webui": f"http://{u1['host']}" if u1["host"] else "",
         }
         p.update(PRINTER_SETTINGS)
         write(os.path.join(out, "machine", name + ".json"), p)

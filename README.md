@@ -42,14 +42,14 @@ Change their settings here, not in the GUI, because `build.sh` replaces the file
 
 ## Setup
 
-Linux with `python3`, `bash` and the four slicers installed where the scripts expect them (`/opt/orca-slicer`, `/opt/bambustudio-bin`, `/opt/qidi-studio-appimage`, `/opt/snapmaker-orca-appimage`). The generators read the slicers' stock profiles, so the versions matter. Output was verified with:
+Linux with `python3`, `bash` and the four slicers installed where the scripts expect them (`/opt/orca-slicer`, `/opt/bambustudio-bin`, `/opt/qidi-studio-appimage`, `/opt/snapmaker-orca-appimage`). The generators read the slicers' stock profiles, so the versions matter. Instead of an installed slicer, `SLICER_PROFILES_ORCA`, `SLICER_PROFILES_BAMBU`, `SLICER_PROFILES_QIDI` and `SLICER_PROFILES_SNAPMAKER` can each point at the `resources/profiles` folder of that slicer's source at the tag below. The presets are built for these releases (`upstream.lock.toml`):
 
-| Slicer | Version | Arch Linux package |
+| Slicer | Version | Stock profiles |
 |---|---|---|
-| OrcaSlicer | 2.4.2 | `orca-slicer-bin` 2.4.2-3 |
-| Bambu Studio | 02.08.02.61 | `bambustudio-bin` 02.08.02.61-1 |
-| QIDI Studio | 2.07.02.73 | `qidi-studio-appimage` 2.07.02.73-1 |
-| Snapmaker Orca | 2.4.0 | `snapmaker-orca-appimage` 2.4.0-1 |
+| OrcaSlicer | 2.4.2 | [`OrcaSlicer/OrcaSlicer` v2.4.2](https://github.com/OrcaSlicer/OrcaSlicer/tree/v2.4.2/resources/profiles) |
+| Bambu Studio | 02.09.01.70 | [`bambulab/BambuStudio` v02.09.01.70](https://github.com/bambulab/BambuStudio/tree/v02.09.01.70/resources/profiles) |
+| QIDI Studio | 02.07.02.73 | [`QIDITECH/QIDIStudio` v2.07.02.73](https://github.com/QIDITECH/QIDIStudio/tree/v2.07.02.73/resources/profiles) |
+| Snapmaker Orca | 2.4.1 | [`Snapmaker/OrcaSlicer` v2.4.1](https://github.com/Snapmaker/OrcaSlicer/tree/v2.4.1/resources/profiles) |
 
 `config/printers.json` holds your printers' network addresses and is not committed. `scripts/build.sh` creates it from `config/printers.example.json` when it is missing: edit the addresses, then run it again.
 
@@ -63,7 +63,7 @@ uv run ruff check && uv run ruff format --check && uv run basedpyright && uv run
 uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor .github && uv run typos
 ```
 
-`tests/check.sh` regenerates every preset with the example addresses and compares the files' SHA-256 sums with `tests/expected.sha256`. Run `tests/check.sh --update` after an intended change to the tables or generators and commit the new sums. A mismatch on an unchanged tree usually means a different slicer version than the table above.
+`tests/check.sh` regenerates every preset from `config/printers.example.json` (no addresses) and compares the files' SHA-256 sums with `tests/expected.sha256`. Run `tests/check.sh --update` after an intended change to the tables or generators and commit the new sums. A mismatch on an unchanged tree usually means a different slicer version than the table above.
 
 ## License
 

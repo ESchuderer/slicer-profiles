@@ -8,42 +8,59 @@ VENDOR is the stock folder of the parent (BBL, Snapmaker, Qidi, OrcaFilamentLibr
 
 import json
 import sys
+from pathlib import Path
+from typing import cast
 
-from resolve import BAMBU_PROFILES, ORCA_PROFILES, QIDI_APPIMAGE, SNAPMAKER_APPIMAGE, appimage_profiles, resolve
+from resolve import Preset, resolve, source
 
-args = sys.argv[1:]
-root, orca_format = ORCA_PROFILES, True
-if args and args[0] in ("--bambu", "--qidi", "--snapmaker"):
-    root = {
-        "--bambu": lambda: BAMBU_PROFILES,
-        "--qidi": lambda: appimage_profiles(QIDI_APPIMAGE),
-        "--snapmaker": lambda: appimage_profiles(SNAPMAKER_APPIMAGE),
-    }[args[0]]()
-    orca_format, args = args[0] == "--snapmaker", args[1:]
-if len(args) != 4:
-    sys.exit(__doc__)
-mode, vendor, src, out = args
+ORCA_FORMAT = {"orca", "snapmaker"}
 
 
-def orca_legacy(d):
-    # Orca renames legacy keys when it loads each preset (child values then override the parent's).
-    # Without this, a parent's "chamber_temperatures" would beat the child's "chamber_temperature".
-    if orca_format and "chamber_temperatures" in d:
+def orca_legacy(d: Preset, target: str) -> Preset:
+    """Rename legacy keys the way Orca does when it loads each preset (child values then override the parent's).
+
+    Without this, a parent's "chamber_temperatures" would beat the child's "chamber_temperature".
+    """
+    if target in ORCA_FORMAT and "chamber_temperatures" in d:
         d["chamber_temperature"] = d.pop("chamber_temperatures")
     return d
 
 
-if mode == "file":
-    user = json.load(open(src))
-    settings = orca_legacy(resolve(user["inherits"], vendor, root))
-    settings.update(orca_legacy(dict(user)))
-    if user.get("type") == "machine":
-        # The CLI refuses printer names it does not ship (error -17); the GUI resolves user printers
-        # through "inherits", so test under the parent's name.
-        settings["name"] = settings["printer_settings_id"] = user["inherits"]
-else:
-    settings = orca_legacy(resolve(src, vendor, root))
-settings.pop("inherits", None)
-settings["from"] = "system"
-settings["instantiation"] = "true"
-json.dump(settings, open(out, "w"), indent=1)
+def flatten(mode: str, vendor: str, src: str, target: str) -> Preset:
+    """Return the resolved settings of a stock preset (mode "stock") or a generated preset file (mode "file")."""
+    root = source(target)
+    if mode == "file":
+        user = cast("Preset", json.loads(Path(src).read_text(encoding="utf-8")))
+        inherits = user["inherits"]
+        if not isinstance(inherits, str):
+            msg = f"{src}: inherits is not a string"
+            raise TypeError(msg)
+        settings = orca_legacy(resolve(inherits, vendor, root), target)
+        settings.update(orca_legacy(dict(user), target))
+        if user.get("type") == "machine":
+            # The CLI refuses printer names it does not ship (error -17); the GUI resolves user printers
+            # through "inherits", so test under the parent's name.
+            settings["name"] = settings["printer_settings_id"] = inherits
+    else:
+        settings = orca_legacy(resolve(src, vendor, root), target)
+    _ = settings.pop("inherits", None)
+    settings["from"] = "system"
+    settings["instantiation"] = "true"
+    return settings
+
+
+def main(argv: list[str]) -> int:
+    """Write the flattened preset to OUT.json."""
+    target = "orca"
+    if argv and argv[0] in {"--bambu", "--qidi", "--snapmaker"}:
+        target, argv = argv[0][2:], argv[1:]
+    if len(argv) != 4 or argv[0] not in {"stock", "file"}:  # noqa: PLR2004 (MODE VENDOR SRC OUT)
+        print(__doc__, file=sys.stderr)
+        return 64
+    mode, vendor, src, out = argv
+    _ = Path(out).write_text(json.dumps(flatten(mode, vendor, src, target), indent=1), encoding="utf-8")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

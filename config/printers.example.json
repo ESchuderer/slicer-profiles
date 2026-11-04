@@ -1,6 +1,6 @@
 {
     "Qidi X-Max 4": {
-        "host": "192.0.2.11",
+        "host": "",
         "parent": "Qidi X-Max 4 {nozzle} nozzle",
         "vendor": "Qidi",
         "nozzles": [
@@ -10,7 +10,7 @@
         ]
     },
     "Snapmaker U1": {
-        "host": "192.0.2.12",
+        "host": "",
         "parent": "Snapmaker U1 ({nozzle} nozzle)",
         "vendor": "Snapmaker",
         "nozzles": [
