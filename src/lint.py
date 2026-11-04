@@ -7,7 +7,7 @@ Fails (exit 1) on
   - a command that always fails or rewrites printer state (SAVE_CONFIG, FIRMWARE_RESTART, RESTART,
     M500 to M504, SAVE_VARIABLE), even when listed,
   - any non-empty post_process (Orca-family apps run it without asking),
-  - a printer address or credential key outside "(LAN)" presets, and with --release in any preset.
+  - a printer address or credential outside "(LAN)" presets, and with --release in any preset.
 Only the keys a generated preset writes are checked; inherited stock values are the vendor's.
 """
 
@@ -23,9 +23,11 @@ ALLOWLIST = Path(__file__).resolve().parent.parent / "config" / "gcode-commands.
 ALWAYS_FAIL = frozenset({"SAVE_CONFIG", "FIRMWARE_RESTART", "RESTART", "SAVE_VARIABLE"}) | {
     f"M{n}" for n in range(500, 505)
 }
-HOST_PREFIXES = ("print_host", "printhost_")
+# Keys that hold a printer address or a credential (Orca-family PrintConfig names).
+HOST_KEYS = frozenset({"print_host", "print_host_webui", "printhost_apikey", "printhost_user", "printhost_password"})
 _CONTROL = re.compile(r"\{\s*(?:(?:if|elsif)\b[^{}]*|else\s*|endif\s*)\}")
 _PLACEHOLDER = re.compile(r"\{[^{}]*\}|\[[^\[\]]*\]")
+_NUMBER = re.compile(r"[-+]?[\d.]+")  # a value left by an inline {if}: `S{if a}0{else}...`
 
 
 def _texts(value: Value) -> list[str]:
@@ -35,15 +37,14 @@ def _texts(value: Value) -> list[str]:
 def commands(gcode: str) -> list[str]:
     """Return the command word of every G-code line, with the slicer's template syntax resolved away.
 
-    `{if}`, `{elsif}`, `{else}` and `{endif}` end a line; `{expression}` and `[variable]` count as values.
+    Comments go first; `{if}`, `{elsif}`, `{else}` and `{endif}` end a line; `{expression}` and `[variable]`
+    become `{}`, so a template value inside a command word stays visible (`T{}`). A line that starts with one
+    (a slicer variable holding G-code) or a bare number (a value of an inline `{if}`) is not a command.
     """
-    text = _PLACEHOLDER.sub("0", _CONTROL.sub("\n", gcode))
-    out: list[str] = []
-    for raw in text.splitlines():
-        line = raw.split(";", 1)[0].strip()
-        if line.strip("0 "):
-            out.append(line.split()[0].upper())
-    return out
+    code = "\n".join(line.split(";", 1)[0] for line in gcode.splitlines())
+    text = _PLACEHOLDER.sub("{}", _CONTROL.sub("\n", code))
+    words = (line.split()[0].upper() for line in text.splitlines() if line.strip())
+    return [w for w in words if not w.startswith("{}") and not _NUMBER.fullmatch(w)]
 
 
 def lint_preset(name: str, preset: Preset, allowed: frozenset[str], *, release: bool) -> list[str]:
@@ -59,7 +60,7 @@ def lint_preset(name: str, preset: Preset, allowed: frozenset[str], *, release: 
                     found.append(f"{name}: {key} runs {command}, not in {ALLOWLIST.name}")
         elif key == "post_process" and any(t.strip() for t in _texts(value)):
             found.append(f"{name}: post_process is set")
-        elif key.startswith(HOST_PREFIXES) and any(t.strip() for t in _texts(value)) and (release or not lan):
+        elif key in HOST_KEYS and any(t.strip() for t in _texts(value)) and (release or not lan):
             where = "a release preset" if release else "a preset outside (LAN)"
             found.append(f"{name}: {key} is set in {where}")
     return found

@@ -1,6 +1,7 @@
 """The target slicers from upstream.lock.toml: the one source of every version the build writes."""
 
 import tomllib
+from functools import cache
 from pathlib import Path
 from typing import TypedDict, cast
 
@@ -19,6 +20,7 @@ class Target(TypedDict):
     commit: str
 
 
+@cache
 def load(path: Path = LOCK) -> dict[str, Target]:
     """Read and check the lock: every target present, every field a non-empty string."""
     data = cast("dict[str, object]", tomllib.loads(path.read_text(encoding="utf-8")))
