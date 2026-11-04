@@ -5,11 +5,12 @@ Download the zip for your slicer from the [latest release](https://github.com/ES
 | Slicer | Zip | Presets for |
 |---|---|---|
 | OrcaSlicer | `slicer-profiles-orca-<version>.zip` | Bambu Lab P2S, Snapmaker U1, Qidi X-Max 4 |
+| OrcaSlicer, "(LAN)" printers | `slicer-profiles-orca-machines-<version>.zip` (AGPL-3.0-only) | Snapmaker U1, Qidi X-Max 4 |
 | Bambu Studio | `slicer-profiles-bambu-<version>.zip` | Bambu Lab P2S |
 | QIDI Studio | `slicer-profiles-qidi-<version>.zip` | Qidi X-Max 4 |
 | Snapmaker Orca | `slicer-profiles-snapmaker-<version>.zip` | Snapmaker U1 |
 
-Every preset in each zip is listed in [catalog.md](catalog.md).
+Every preset in each zip is listed in [catalog.md](catalog.md). `NOTICE.md` in the release names the license of each zip.
 
 ## Check the download
 

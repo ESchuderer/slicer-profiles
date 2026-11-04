@@ -19,7 +19,7 @@ import zipfile
 from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
-from docs import contents
+from docs import ZIPS, Zip, contents
 from gen_process import jobs, preset_name
 from targets import load
 
@@ -28,9 +28,9 @@ if TYPE_CHECKING:
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = ROOT / "schemas" / "manifest.schema.json"
+AGPL_TEXT = ROOT / "release" / "LICENSE-AGPL-3.0-only.txt"
 REPOSITORY = "ESchuderer/slicer-profiles"
 FORMAT = "slicer-profiles-release"
-SLICERS = ("orca", "bambu", "qidi", "snapmaker")
 PRINTERS = {"Bambu Lab P2S": "P2S", "Snapmaker U1": "U1", "Qidi X-Max 4": "X-Max4", "X-Max 4": "X-Max4"}
 TARGET_PRINTER = {"bambu": "P2S", "qidi": "X-Max4", "snapmaker": "U1"}
 _NOZZLE = re.compile(r"(\d\.\d) nozzle")
@@ -44,16 +44,16 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def license_of(_slicer: str, _rel: str) -> str:
-    """Return the SPDX license of a generated preset in the release."""
-    return "MIT"
+def zip_files(src: Path, folders: tuple[str, ...]) -> list[Path]:
+    """Return the files of FOLDERS below SRC, sorted by their path in the zip."""
+    return sorted((p for f in folders if (src / f).is_dir() for p in (src / f).rglob("*") if p.is_file()), key=str)
 
 
-def write_zip(src: Path, dst: Path, epoch: int) -> None:
-    """Zip every file below SRC with sorted names, one fixed date and mode 0644."""
+def write_zip(src: Path, files: list[Path], dst: Path, epoch: int) -> None:
+    """Zip FILES (below SRC) with sorted names, one fixed date and mode 0644."""
     stamp = time.gmtime(max(epoch, 315532800))[:6]  # zip dates start in 1980
     with zipfile.ZipFile(dst, "w") as z:
-        for path in sorted(p for p in src.rglob("*") if p.is_file()):
+        for path in files:
             info = zipfile.ZipInfo(path.relative_to(src).as_posix(), date_time=stamp)
             info.compress_type = zipfile.ZIP_DEFLATED
             info.create_system = 3
@@ -61,11 +61,12 @@ def write_zip(src: Path, dst: Path, epoch: int) -> None:
             z.writestr(info, path.read_bytes(), compresslevel=9)
 
 
-def describe(slicer: str, rel: str, data: bytes) -> Entry:
-    """Return the manifest entry of one preset file of a slicer's zip."""
+def describe(stem: str, z: Zip, rel: str, data: bytes) -> Entry:
+    """Return the manifest entry of one preset file of a zip."""
     preset = cast("Preset", json.loads(data))
     kind, name = str(preset.get("type", "")), str(preset.get("name", ""))
-    entry: Entry = {"id": f"{slicer}/{rel}", "type": kind, "name": name, "slicer": slicer}
+    slicer = z.source
+    entry: Entry = {"id": f"{stem}/{rel}", "type": kind, "name": name, "slicer": slicer, "zip": stem}
     entry |= {"printer": None, "nozzle": None, "style": None, "variant": None, "filament": None}
     if kind == "process" and (job := _JOBS.get(name)):
         tag, nozzle, style, suffix = job
@@ -75,7 +76,7 @@ def describe(slicer: str, rel: str, data: bytes) -> Entry:
         entry["nozzle"] = m[1] if (m := _NOZZLE.search(name)) else None
     elif kind == "filament":
         entry |= {"filament": name, "printer": TARGET_PRINTER.get(slicer)}
-    return entry | {"path": rel, "sha256": sha256(data), "license": license_of(slicer, rel)}
+    return entry | {"path": rel, "sha256": sha256(data), "license": z.license}
 
 
 def build(version: str, commit: str, epoch: int, out: Path, dist: Path) -> dict[str, object]:
@@ -83,16 +84,19 @@ def build(version: str, commit: str, epoch: int, out: Path, dist: Path) -> dict[
     dist.mkdir(parents=True, exist_ok=True)
     presets: list[Entry] = []
     artifacts: list[Entry] = []
-    for slicer in SLICERS:
-        name = f"slicer-profiles-{slicer}-{version}.zip"
-        write_zip(out / slicer, dist / name, epoch)
-        presets += [
-            describe(slicer, p.relative_to(out / slicer).as_posix(), p.read_bytes())
-            for p in sorted((out / slicer).rglob("*.json"))
-        ]
+    for stem, z in ZIPS.items():
+        name = f"slicer-profiles-{stem}-{version}.zip"
+        src = out / z.source
+        files = zip_files(src, z.folders)
+        write_zip(src, files, dist / name, epoch)
+        presets += [describe(stem, z, p.relative_to(src).as_posix(), p.read_bytes()) for p in files]
         artifacts.append(_artifact("presets", name, dist, version))
     _ = shutil.copyfile(SCHEMA, dist / SCHEMA.name)
     artifacts.append(_artifact("schema", SCHEMA.name, dist, version))
+    _ = shutil.copyfile(AGPL_TEXT, dist / AGPL_TEXT.name)
+    artifacts.append(_artifact("license", AGPL_TEXT.name, dist, version))
+    _ = (dist / "NOTICE.md").write_text(notice(version, commit), encoding="utf-8")
+    artifacts.append(_artifact("notice", "NOTICE.md", dist, version))
     manifest: dict[str, object] = {
         "format": FORMAT,
         "schema_version": 1,
@@ -117,13 +121,38 @@ def _artifact(kind: str, name: str, dist: Path, version: str) -> Entry:
     return {"kind": kind, "name": name, "url": url, "sha256": sha256(data), "size": len(data)}
 
 
+def notice(version: str, commit: str) -> str:
+    """Return NOTICE.md: the license of every release file and, for the AGPL zip, its source."""
+    orca = load()["orca"]
+    rows = "".join(f"| `slicer-profiles-{stem}-{version}.zip` | {z.license} |\n" for stem, z in ZIPS.items())
+    agpl = next(stem for stem, z in ZIPS.items() if z.license == "AGPL-3.0-only")
+    return f"""# Licenses of slicer-profiles {version}
+
+Built from https://github.com/{REPOSITORY} at commit `{commit}`.
+
+| File | License |
+|---|---|
+{rows}| `manifest.json`, `manifest.schema.json`, this file | CC-BY-4.0 |
+
+CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/): credit "slicer-profiles by ESchuderer,
+https://github.com/{REPOSITORY}". The presets name a stock preset of each slicer as their parent and
+hold only the values set by this project; values taken from makers' data sheets are cited facts.
+
+AGPL-3.0-only (`slicer-profiles-{agpl}-{version}.zip`): the "(LAN)" printer presets for the Snapmaker U1
+and the Qidi X-Max 4 hold start G-code copied from OrcaSlicer's stock profiles and changed by this
+project ({version}). OrcaSlicer licenses them under the GNU Affero General Public License version 3;
+the text is `{AGPL_TEXT.name}` beside this file. Source: the JSON presets are their own source form;
+the generator that writes them is https://github.com/{REPOSITORY}/tree/{commit} (`src/gen_machine.py`,
+changes described in `docs/profiles.md`), and the stock profiles it starts from are
+https://github.com/{orca["repository"]}/tree/{orca["commit"]}/resources/profiles ({orca["tag"]}).
+"""
+
+
 def catalog_differences(presets: list[Entry]) -> list[str]:
     """Return the zips whose preset names differ from the generated catalog (docs/catalog.md)."""
     found: list[str] = []
     for slicer, expected in contents().items():
-        built = {
-            k: sorted(str(p["name"]) for p in presets if p["slicer"] == slicer and p["type"] == k) for k in expected
-        }
+        built = {k: sorted(str(p["name"]) for p in presets if p["zip"] == slicer and p["type"] == k) for k in expected}
         if built != expected:
             found.append(f"{slicer}: built {built}, catalog {expected}")
     return found
@@ -139,7 +168,7 @@ def main(argv: list[str]) -> int:
     if stale := catalog_differences(cast("list[Entry]", manifest["presets"])):
         print("docs/catalog.md does not match the build:\n  " + "\n  ".join(stale), file=sys.stderr)
         return 1
-    print(f"{len(cast('list[object]', manifest['presets']))} presets in {len(SLICERS)} zips -> {dist}")
+    print(f"{len(cast('list[object]', manifest['presets']))} presets in {len(ZIPS)} zips -> {dist}")
     return 0
 
 

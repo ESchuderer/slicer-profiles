@@ -12,7 +12,7 @@ import re
 import sys
 from functools import cache
 from pathlib import Path
-from typing import cast
+from typing import NamedTuple, cast
 
 from gen_process import SPEED, STYLES, jobs, preset_name
 
@@ -21,12 +21,28 @@ CATALOG = ROOT / "docs" / "catalog.md"
 PROFILES = ROOT / "docs" / "profiles.md"
 PRINTER_NAMES = {"P2S": "Bambu Lab P2S", "U1": "Snapmaker U1", "X-Max4": "Qidi X-Max 4"}
 MATERIALS = ("PLA", "PETG", "HIPS", "ASA", "TPU")
-# slicer key: (app, print presets of these printer tags, printer models with "(LAN)" presets)
+
+
+class Zip(NamedTuple):
+    """One release zip: the app, the build folder it comes from, what it holds and its license."""
+
+    app: str
+    source: str  # folder below out/
+    folders: tuple[str, ...]  # the subfolders of SOURCE this zip takes
+    tags: tuple[str, ...]  # print presets of these printer tags
+    models: tuple[str, ...]  # "(LAN)" printer presets of these printer models
+    license: str
+
+
+PRESETS = ("process", "filament")
+# The six OrcaSlicer "(LAN)" presets carry start G-code copied from OrcaSlicer's stock profiles, which
+# OrcaSlicer licenses as AGPL-3.0-only (README at v2.4.2), so they ship in their own zip (SP-LIC = a).
 ZIPS = {
-    "orca": ("OrcaSlicer", ("P2S", "U1", "X-Max4"), ("Qidi X-Max 4", "Snapmaker U1")),
-    "bambu": ("Bambu Studio", ("P2S",), ()),
-    "qidi": ("QIDI Studio", ("X-Max4",), ()),
-    "snapmaker": ("Snapmaker Orca", ("U1",), ("Snapmaker U1",)),
+    "orca": Zip("OrcaSlicer", "orca", PRESETS, ("P2S", "U1", "X-Max4"), (), "CC-BY-4.0"),
+    "orca-machines": Zip("OrcaSlicer", "orca", ("machine",), (), ("Qidi X-Max 4", "Snapmaker U1"), "AGPL-3.0-only"),
+    "bambu": Zip("Bambu Studio", "bambu", PRESETS, ("P2S",), (), "CC-BY-4.0"),
+    "qidi": Zip("QIDI Studio", "qidi", PRESETS, ("X-Max4",), (), "CC-BY-4.0"),
+    "snapmaker": Zip("Snapmaker Orca", "snapmaker", (*PRESETS, "machine"), ("U1",), ("Snapmaker U1",), "CC-BY-4.0"),
 }
 CATALOG_INTRO = """# Preset catalog
 
@@ -43,11 +59,12 @@ def _json(path: Path) -> dict[str, dict[str, object]]:
 
 @cache
 def contents() -> dict[str, Contents]:
-    """Return the preset names of every zip: {slicer: {"process": [...], "filament": [...], "machine": [...]}}."""
+    """Return the preset names of every zip: {zip: {"process": [...], "filament": [...], "machine": [...]}}."""
     filaments = sorted(_json(ROOT / "config" / "filaments.json"))
     printers = _json(ROOT / "config" / "printers.example.json")
     out: dict[str, Contents] = {}
-    for slicer, (_, tags, models) in ZIPS.items():
+    for stem, z in ZIPS.items():
+        tags, models = z.tags, z.models
         process = sorted(
             preset_name(tag, nozzle, style, suffix) for tag, nozzle, style, suffix, _ in jobs() if tag in tags
         )
@@ -56,7 +73,7 @@ def contents() -> dict[str, Contents]:
             for m in models
             for n in cast("list[str]", printers[m]["nozzles"])
         )
-        out[slicer] = {"process": process, "filament": filaments, "machine": machine}
+        out[stem] = {"process": process, "filament": filaments if "filament" in z.folders else [], "machine": machine}
     return out
 
 
@@ -73,16 +90,16 @@ def blocks() -> dict[str, str]:
     """Return the generated tables of docs/profiles.md by block name."""
     zips = contents()
     rows: list[list[str]] = []
-    for slicer, (app, tags, _) in ZIPS.items():
-        names = zips[slicer]["process"]
-        per = [f"{PRINTER_NAMES[t]} {sum(f'@{t} ' in n for n in names)}" for t in tags]
-        machine = zips[slicer]["machine"]
+    for stem, z in ZIPS.items():
+        names, machine, filaments = zips[stem]["process"], zips[stem]["machine"], zips[stem]["filament"]
+        per = [f"{PRINTER_NAMES[t]} {sum(f'@{t} ' in n for n in names)}" for t in z.tags]
         rows.append(
             [
-                f"`{slicer}` ({app})",
-                f"{len(names)}: {', '.join(per)}",
-                str(len(zips[slicer]["filament"])),
+                f"`{stem}` ({z.app})",
+                f"{len(names)}: {', '.join(per)}" if names else "none",
+                str(len(filaments)) if filaments else "none",
                 f'{len(machine)} "(LAN)"' if machine else "none",
+                z.license,
             ]
         )
     styles = [
@@ -95,7 +112,7 @@ def blocks() -> dict[str, str]:
     for name in zips["orca"]["filament"]:
         by_material.setdefault(_material(name), []).append(name)
     return {
-        "zips": _table(["Zip", "Print presets", "Filament presets", "Printer presets"], rows),
+        "zips": _table(["Zip", "Print presets", "Filament presets", "Printer presets", "License"], rows),
         "styles": _table(
             ["Nozzle", "Style", "Layer mm", "Walls", "Gyroid infill", "Top shell mm", "Bottom shell mm"], styles
         ),
@@ -122,14 +139,16 @@ def catalog() -> str:
     """Return docs/catalog.md."""
     parts = [CATALOG_INTRO]
     zips = contents()
-    for slicer, (app, _, _) in ZIPS.items():
-        zip_contents = zips[slicer]
-        parts.append(f"\n## {app}: `slicer-profiles-{slicer}-<version>.zip`\n")
-        parts.append(f"\n### Print presets ({len(zip_contents['process'])})\n\n")
-        rows = [[n, PRINTER_NAMES[_tag(n)], n[-3:]] for n in zip_contents["process"]]
-        parts.append(_table(["Preset", "Printer", "Nozzle"], rows))
-        parts.append(f"\n### Filament presets ({len(zip_contents['filament'])})\n\n")
-        parts.append("".join(f"- {n}\n" for n in zip_contents["filament"]))
+    for stem, z in ZIPS.items():
+        zip_contents = zips[stem]
+        parts.append(f"\n## {z.app}: `slicer-profiles-{stem}-<version>.zip` ({z.license})\n")
+        if zip_contents["process"]:
+            parts.append(f"\n### Print presets ({len(zip_contents['process'])})\n\n")
+            rows = [[n, PRINTER_NAMES[_tag(n)], n[-3:]] for n in zip_contents["process"]]
+            parts.append(_table(["Preset", "Printer", "Nozzle"], rows))
+        if zip_contents["filament"]:
+            parts.append(f"\n### Filament presets ({len(zip_contents['filament'])})\n\n")
+            parts.append("".join(f"- {n}\n" for n in zip_contents["filament"]))
         if zip_contents["machine"]:
             parts.append(f'\n### "(LAN)" printer presets ({len(zip_contents["machine"])})\n\n')
             parts.append("".join(f"- {n}\n" for n in zip_contents["machine"]))

@@ -6,12 +6,13 @@ Every preset inherits a stock preset of the slicer by name and stores only the v
 
 <!-- generated: zips -->
 
-| Zip | Print presets | Filament presets | Printer presets |
-|---|---|---|---|
-| `orca` (OrcaSlicer) | 61: Bambu Lab P2S 20, Snapmaker U1 21, Qidi X-Max 4 20 | 9 | 6 "(LAN)" |
-| `bambu` (Bambu Studio) | 20: Bambu Lab P2S 20 | 9 | none |
-| `qidi` (QIDI Studio) | 20: Qidi X-Max 4 20 | 9 | none |
-| `snapmaker` (Snapmaker Orca) | 21: Snapmaker U1 21 | 9 | 3 "(LAN)" |
+| Zip | Print presets | Filament presets | Printer presets | License |
+|---|---|---|---|---|
+| `orca` (OrcaSlicer) | 61: Bambu Lab P2S 20, Snapmaker U1 21, Qidi X-Max 4 20 | 9 | none | CC-BY-4.0 |
+| `orca-machines` (OrcaSlicer) | none | none | 6 "(LAN)" | AGPL-3.0-only |
+| `bambu` (Bambu Studio) | 20: Bambu Lab P2S 20 | 9 | none | CC-BY-4.0 |
+| `qidi` (QIDI Studio) | 20: Qidi X-Max 4 20 | 9 | none | CC-BY-4.0 |
+| `snapmaker` (Snapmaker Orca) | 21: Snapmaker U1 21 | 9 | 3 "(LAN)" | CC-BY-4.0 |
 
 <!-- end generated -->
 
@@ -91,7 +92,7 @@ Each preset inherits the stock preset of the same filament (or the generic one f
 
 ## "(LAN)" printer presets
 
-Source: `src/gen_machine.py` (Orca) and `src/gen_snapmaker.py` (Snapmaker Orca). Orca stores a printer's network address inside a user printer preset, so each networked printer gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle. Each copy holds the address from `config/printers.json` (release zips: none, set yours in the preset's `print_host` field) and the printer fixes below. Print presets that list the stock printer stay compatible with these copies.
+Source: `src/gen_machine.py` (Orca, in the `orca-machines` zip under AGPL-3.0-only, because their start G-code is copied from OrcaSlicer's stock profiles) and `src/gen_snapmaker.py` (Snapmaker Orca). Orca stores a printer's network address inside a user printer preset, so each networked printer gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle. Each copy holds the address from `config/printers.json` (release zips: none, set yours in the preset's `print_host` field) and the printer fixes below. Print presets that list the stock printer stay compatible with these copies.
 
 Bed temperature in jobs with several filaments, per slicer:
 

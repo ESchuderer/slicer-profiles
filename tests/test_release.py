@@ -69,8 +69,9 @@ def test_manifest_validates_and_describes_presets(out: Path, tmp_path: Path) -> 
         "Strong",
         "MM-Support",
     )
-    machine = presets["orca/machine/Snapmaker U1 (0.4 nozzle) (LAN).json"]
-    assert (machine["printer"], machine["nozzle"]) == ("U1", "0.4")
+    machine = presets["orca-machines/machine/Snapmaker U1 (0.4 nozzle) (LAN).json"]
+    assert (machine["printer"], machine["nozzle"], machine["license"]) == ("U1", "0.4", "AGPL-3.0-only")
+    assert strong["license"] == "CC-BY-4.0"
     assert presets["bambu/filament/SUNLU PLA+ 2.0 HQ.json"]["printer"] == "P2S"
     decor = presets["snapmaker/process/0.12mm Decor @U1 0.4.json"]
     assert (decor["style"], decor["variant"]) == ("Detail", "Decor")
@@ -91,4 +92,12 @@ def test_manifest_and_sums_hold_no_local_path(out: Path, tmp_path: Path) -> None
 def test_catalog_check_reports_a_missing_preset(out: Path, tmp_path: Path) -> None:
     manifest = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
     stale = release.catalog_differences(cast("list[release.Entry]", manifest["presets"]))
-    assert {line.split(":", 1)[0] for line in stale} == {"orca", "bambu", "qidi", "snapmaker"}
+    assert {line.split(":", 1)[0] for line in stale} == {"orca", "orca-machines", "bambu", "qidi", "snapmaker"}
+
+
+def test_notice_names_every_zip_and_the_agpl_source(out: Path, tmp_path: Path) -> None:
+    _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
+    text = (tmp_path / "d" / "NOTICE.md").read_text(encoding="utf-8")
+    assert "| `slicer-profiles-orca-machines-v0.2.0.zip` | AGPL-3.0-only |" in text
+    assert f"https://github.com/ESchuderer/slicer-profiles/tree/{COMMIT}" in text
+    assert (tmp_path / "d" / "LICENSE-AGPL-3.0-only.txt").is_file()

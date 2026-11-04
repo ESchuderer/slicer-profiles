@@ -3,7 +3,7 @@
 Every preset in the release zips, generated from the tables by `src/docs.py`. What the presets set:
 [profiles.md](profiles.md). Install: [install.md](install.md).
 
-## OrcaSlicer: `slicer-profiles-orca-<version>.zip`
+## OrcaSlicer: `slicer-profiles-orca-<version>.zip` (CC-BY-4.0)
 
 ### Print presets (61)
 
@@ -83,6 +83,8 @@ Every preset in the release zips, generated from the tables by `src/docs.py`. Wh
 - SUNLU TPU 95A HQ
 - eSUN PETG HQ
 
+## OrcaSlicer: `slicer-profiles-orca-machines-<version>.zip` (AGPL-3.0-only)
+
 ### "(LAN)" printer presets (6)
 
 - Qidi X-Max 4 0.4 nozzle (LAN)
@@ -92,7 +94,7 @@ Every preset in the release zips, generated from the tables by `src/docs.py`. Wh
 - Snapmaker U1 (0.6 nozzle) (LAN)
 - Snapmaker U1 (0.8 nozzle) (LAN)
 
-## Bambu Studio: `slicer-profiles-bambu-<version>.zip`
+## Bambu Studio: `slicer-profiles-bambu-<version>.zip` (CC-BY-4.0)
 
 ### Print presets (20)
 
@@ -131,7 +133,7 @@ Every preset in the release zips, generated from the tables by `src/docs.py`. Wh
 - SUNLU TPU 95A HQ
 - eSUN PETG HQ
 
-## QIDI Studio: `slicer-profiles-qidi-<version>.zip`
+## QIDI Studio: `slicer-profiles-qidi-<version>.zip` (CC-BY-4.0)
 
 ### Print presets (20)
 
@@ -170,7 +172,7 @@ Every preset in the release zips, generated from the tables by `src/docs.py`. Wh
 - SUNLU TPU 95A HQ
 - eSUN PETG HQ
 
-## Snapmaker Orca: `slicer-profiles-snapmaker-<version>.zip`
+## Snapmaker Orca: `slicer-profiles-snapmaker-<version>.zip` (CC-BY-4.0)
 
 ### Print presets (21)
 

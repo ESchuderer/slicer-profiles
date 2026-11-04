@@ -38,7 +38,7 @@
         "additionalProperties": false,
         "required": ["kind", "name", "url", "sha256", "size"],
         "properties": {
-          "kind": { "enum": ["presets", "schema"] },
+          "kind": { "enum": ["presets", "schema", "license", "notice"] },
           "name": { "type": "string", "pattern": "^[\\w.-]+$" },
           "url": { "type": "string", "pattern": "^https://github\\.com/ESchuderer/slicer-profiles/releases/download/" },
           "sha256": { "$ref": "#/$defs/sha256" },
@@ -51,12 +51,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "type", "name", "slicer", "printer", "nozzle", "style", "variant", "filament", "path", "sha256", "license"],
+        "required": ["id", "type", "name", "slicer", "zip", "printer", "nozzle", "style", "variant", "filament", "path", "sha256", "license"],
         "properties": {
           "id": { "type": "string" },
           "type": { "enum": ["process", "filament", "machine"] },
           "name": { "type": "string" },
           "slicer": { "enum": ["orca", "bambu", "qidi", "snapmaker"] },
+          "zip": { "type": "string", "pattern": "^[a-z-]+$", "description": "The zip that holds the preset: slicer-profiles-<zip>-<version>.zip." },
           "printer": { "type": ["string", "null"] },
           "nozzle": { "type": ["string", "null"], "pattern": "^\\d\\.\\d$" },
           "style": { "type": ["string", "null"] },
