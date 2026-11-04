@@ -80,6 +80,27 @@ jobs:
       - name: release build
         run: scripts/release.sh v0.0.0
 
+  # The Docusaurus site of docs/ (published by pages.yml from main).
+  site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: site
+      - name: build (fails on broken links and anchors)
+        run: npm run build
+        working-directory: site
+
   links:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -91,7 +112,7 @@ jobs:
           persist-credentials: false
       - uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --no-progress --max-retries 3 --include-fragments './**/*.md'
+          args: --no-progress --max-retries 3 --include-fragments --exclude-path site './**/*.md'
           fail: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -118,7 +139,7 @@ jobs:
   # The one required status check: green only when every job above passed or was skipped.
   check:
     if: always()
-    needs: [python, repository, generate, links, dependency-review]
+    needs: [python, repository, generate, site, links, dependency-review]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     permissions: {}

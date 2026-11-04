@@ -49,5 +49,5 @@ unzip -o ~/Downloads/slicer-profiles-orca-machines-v0.2.0.zip
 ## After the import
 
 - Select the "(LAN)" printers in Orca (from the `orca-machines` zip) and Snapmaker Orca. They carry the printer fixes and no address: set your printer's address in the preset's `print_host` field (Device tab).
-- The presets inherit from each slicer's stock profiles by name. They match the slicer versions in the [README](../README.md#setup); other versions may report a missing parent preset (unverified).
-- Generate your own set with your addresses and filaments instead: [README](../README.md#build-your-own).
+- The presets inherit from each slicer's stock profiles by name. They match the slicer versions in the [README](https://github.com/ESchuderer/slicer-profiles/blob/main/README.md); other versions may report a missing parent preset (unverified).
+- Generate your own set with your addresses and filaments instead: [README](https://github.com/ESchuderer/slicer-profiles/blob/main/README.md).

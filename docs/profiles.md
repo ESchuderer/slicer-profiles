@@ -119,5 +119,5 @@ Bed temperature in jobs with several filaments, per slicer:
 
 ## Limits
 
-- The presets match the slicer versions in the [README](../README.md#setup). Other versions may report a missing parent preset (unverified).
+- The presets match the slicer versions in the [README](https://github.com/ESchuderer/slicer-profiles/blob/main/README.md). Other versions may report a missing parent preset (unverified).
 - Temperatures and drying advice in the filament notes come from the makers' data sheets and are starting points for your own spool.
