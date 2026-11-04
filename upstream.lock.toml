@@ -6,14 +6,6 @@
 #   repository, tag, commit   where the stock profiles (resources/profiles) of that release live
 schema_version = 1
 
-[targets.orca]
-app = "OrcaSlicer"
-version = "2.4.2"
-preset_version = "2.4.2.0"
-repository = "OrcaSlicer/OrcaSlicer"
-tag = "v2.4.2"
-commit = "8500fcdccaa10b5099ac20d252af3a7c560046f1"
-
 [targets.bambu]
 app = "Bambu Studio"
 version = "02.09.01.70"
@@ -21,19 +13,3 @@ preset_version = "02.09.01.70"
 repository = "bambulab/BambuStudio"
 tag = "v02.09.01.70"
 commit = "56a57d00a591360cf41bf21383915ee5bf357be5"
-
-[targets.qidi]
-app = "QIDI Studio"
-version = "02.07.02.73"
-preset_version = "02.07.02.73"
-repository = "QIDITECH/QIDIStudio"
-tag = "v2.07.02.73"
-commit = "403b619d56147160bb883e94f95a7951245bc6d0"
-
-[targets.snapmaker]
-app = "Snapmaker Orca"
-version = "2.4.1"
-preset_version = "2.3.4.4" # the fork's profile version (Snapmaker.json 02.03.04.04)
-repository = "Snapmaker/OrcaSlicer"
-tag = "v2.4.1"
-commit = "bac6fd5c1e1c23ddf057cf6471ba4ed7ed621c4c"

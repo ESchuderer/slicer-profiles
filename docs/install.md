@@ -1,15 +1,6 @@
 # Install the presets
 
-Download the zip for your slicer from the [latest release](https://github.com/ESchuderer/slicer-profiles/releases/latest) and import it.
-
-| Slicer | Zip | Presets for |
-|---|---|---|
-| OrcaSlicer | `slicer-profiles-orca-<version>.zip` | Bambu Lab P2S, Snapmaker U1, Qidi X-Max 4 |
-| Bambu Studio | `slicer-profiles-bambu-<version>.zip` | Bambu Lab P2S |
-| QIDI Studio | `slicer-profiles-qidi-<version>.zip` | Qidi X-Max 4 |
-| Snapmaker Orca | `slicer-profiles-snapmaker-<version>.zip` | Snapmaker U1 |
-
-Every preset in each zip is listed in [catalog.md](catalog.md). `NOTICE.md` in the release names the license of each zip.
+Download `slicer-profiles-bambu-<version>.zip` from the [latest release](https://github.com/ESchuderer/slicer-profiles/releases/latest) and import it into Bambu Studio. It holds the print and filament presets for the Bambu Lab H3C; every preset is listed in [catalog.md](catalog.md), and `NOTICE.md` in the release names its license.
 
 ## Check the download
 
@@ -21,31 +12,20 @@ sha256sum --ignore-missing -c SHA256SUMS
 
 ## Import
 
-1. In the slicer, choose **File > Import > Import Configs**.
+1. In Bambu Studio, choose **File > Import > Import Configs**.
 2. Select the zip, or the JSON files from inside it, and confirm.
-3. Restart the slicer if the new presets do not show up.
+3. Restart Bambu Studio if the new presets do not show up.
 
 ## Fallback: unzip into the preset folder
 
-If the import refuses the zip, close the slicer, unzip into its user preset folder and start it again. The zips hold `process/` and `filament/`; `snapmaker` also holds `machine/`. These folders must land directly in the preset folder:
-
-| Slicer | Preset folder (Linux, tested) |
-|---|---|
-| OrcaSlicer | `~/.config/OrcaSlicer/user/default/` |
-| Bambu Studio | `~/.config/BambuStudio/user/default/` |
-| QIDI Studio | `~/.config/QIDIStudio/user/default/` |
-| Snapmaker Orca | `~/.config/Snapmaker_Orca/user/default/` |
-
-When you are logged in to a slicer account, use the folder `user/<account id>/` that the app loads (`preset_folder` in `~/.config/<app>/<app>.conf`) instead of `default`. Presets there may sync to the vendor's cloud.
-Windows and macOS: the same `user/default/` folder lives in the app's data directory (unverified: `%APPDATA%\<app>\` and `~/Library/Application Support/<app>/`).
+If the import refuses the zip, close Bambu Studio, unzip into its user preset folder and start it again. The zip holds `process/` and `filament/`; both must land directly in the preset folder, `~/.config/BambuStudio/user/default/` on Linux (tested). When you are logged in, use the folder `user/<account id>/` that the app loads (`preset_folder` in `~/.config/BambuStudio/BambuStudio.conf`) instead of `default`; presets there may sync to Bambu's cloud. Windows and macOS keep the same folder in the app's data directory (unverified: `%APPDATA%\BambuStudio\` and `~/Library/Application Support/BambuStudio/`).
 
 ```
-cd ~/.config/OrcaSlicer/user/default
-unzip -o ~/Downloads/slicer-profiles-orca-v0.2.0.zip
+cd ~/.config/BambuStudio/user/default
+unzip -o ~/Downloads/slicer-profiles-bambu-v0.2.0.zip
 ```
 
 ## After the import
 
-- Select the "(LAN)" printers in Snapmaker Orca. They carry the printer fixes and no address: set your printer's address in the preset's `print_host` field (Device tab).
-- The presets inherit from each slicer's stock profiles by name. They match the slicer versions in the [README](../README.md#setup); other versions may report a missing parent preset (unverified).
-- Generate your own set with your addresses and filaments instead: [README](../README.md#build-your-own).
+- Choose the stock `Bambu Lab H3C <size> nozzle` printer; the presets show for the nozzles they are made for.
+- The presets inherit from Bambu Studio's stock profiles by name. They match the version in the [README](https://github.com/ESchuderer/slicer-profiles/blob/main/README.md); other versions may report a missing parent preset (unverified).

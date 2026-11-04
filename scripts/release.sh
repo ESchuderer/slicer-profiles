@@ -14,9 +14,8 @@ tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
 mkdir "$tmp/w"
 git archive "$commit" | tar -x -C "$tmp/w"
 # Everything below runs from the archive of the commit, never from the working tree.
-cp "$tmp/w/config/printers.example.json" "$tmp/w/config/printers.json"
 (cd "$tmp/w" && scripts/build.sh --no-install >/dev/null)
-python3 "$tmp/w/src/lint.py" "$tmp/w/out" --release
+python3 "$tmp/w/src/lint.py" "$tmp/w/out"
 rm -rf dist
 python3 "$tmp/w/src/release.py" "$version" "$commit" "$epoch" "$tmp/w/out" dist
 ls -l dist

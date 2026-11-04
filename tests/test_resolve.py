@@ -52,12 +52,6 @@ def test_corrupt_file_fails_the_build(tmp_path: Path) -> None:
         _ = resolve.resolve("ok", "V", root)
 
 
-def test_allow_listed_failure_is_skipped(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    root = tree(tmp_path, {"V": {"ok.json": {"name": "ok"}, "broken.json": "{"}})
-    monkeypatch.setattr(resolve, "PARSE_FAILURES_ALLOWED", frozenset({"V/broken.json"}))
-    assert resolve.resolve("ok", "V", root) == {"name": "ok"}
-
-
 def test_value_that_is_not_a_string_fails(tmp_path: Path) -> None:
     root = tree(tmp_path, {"V": {"odd.json": {"name": "odd", "n": 3}}})
     with pytest.raises(ResolveError, match="neither a string nor a list of strings"):
@@ -65,14 +59,8 @@ def test_value_that_is_not_a_string_fails(tmp_path: Path) -> None:
 
 
 def test_missing_parent_names_what_was_searched(tmp_path: Path) -> None:
-    root = tree(
-        tmp_path,
-        {
-            "V": {"child.json": {"name": "child", "inherits": "gone"}},
-            "OrcaFilamentLibrary": {"lib.json": {"name": "lib"}},
-        },
-    )
-    with pytest.raises(ResolveError, match=r"'gone' \(searched V, OrcaFilamentLibrary in "):
+    root = tree(tmp_path, {"V": {"child.json": {"name": "child", "inherits": "gone"}}})
+    with pytest.raises(ResolveError, match=r"'gone' \(searched V in "):
         _ = resolve.resolve("child", "V", root)
 
 
@@ -92,16 +80,6 @@ def test_no_fallback_to_other_vendors(tmp_path: Path) -> None:
     root = tree(tmp_path, {"A": {"only.json": {"name": "only"}}, "B": {"other.json": {"name": "other"}}})
     with pytest.raises(ResolveError, match=r"'only' \(searched B in "):
         _ = resolve.resolve("only", "B", root)
-
-
-def test_library_fallback_is_reported(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    root = tree(
-        tmp_path,
-        {"V": {"x.json": {"name": "x"}}, "OrcaFilamentLibrary": {"pla.json": {"name": "Generic PLA", "t": "210"}}},
-    )
-    assert resolve.resolve("Generic PLA", "V", root)["t"] == "210"
-    _ = resolve.resolve("Generic PLA", "V", root)
-    assert capsys.readouterr().err.count("taken from OrcaFilamentLibrary") == 1
 
 
 def test_duplicate_name_in_one_vendor_fails(tmp_path: Path) -> None:
@@ -125,14 +103,6 @@ def test_file_outside_the_index_is_not_read(tmp_path: Path) -> None:
         _ = resolve.resolve("unlisted", "V", root)
 
 
-def test_library_with_empty_index_loads_files_from_disk(tmp_path: Path) -> None:
-    root = tree(tmp_path, {"OrcaFilamentLibrary": {}})
-    folder = root / "OrcaFilamentLibrary" / "filament" / "SUNLU"
-    folder.mkdir(parents=True)
-    _ = (folder / "p.json").write_text('{"name": "SUNLU PLA @base", "t": "215"}', encoding="utf-8")
-    assert resolve.resolve("SUNLU PLA @base", "OrcaFilamentLibrary", root)["t"] == "215"
-
-
 def test_old_name_resolves_through_renamed_from(tmp_path: Path) -> None:
     root = tree(tmp_path, {"V": {"new.json": {"name": "new", "renamed_from": "old;older", "a": "1"}}})
     assert resolve.resolve("older", "V", root)["a"] == "1"
@@ -154,5 +124,5 @@ def test_inheritance_cycle_is_an_error(tmp_path: Path) -> None:
 
 
 def test_source_prefers_the_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    monkeypatch.setenv("SLICER_PROFILES_QIDI", str(tmp_path))
-    assert resolve.source("qidi") == tmp_path
+    monkeypatch.setenv("SLICER_PROFILES_BAMBU", str(tmp_path))
+    assert resolve.source("bambu") == tmp_path

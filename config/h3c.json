@@ -1,0 +1,99 @@
+{
+  "printer": "Bambu Lab H3C",
+  "tag": "H3C",
+  "nozzles": [
+    "0.2",
+    "0.4",
+    "0.6",
+    "0.8"
+  ],
+  "processes": {
+    "0.2": "0.10mm Standard @BBL H3C 0.2 nozzle",
+    "0.4": "0.20mm Standard @BBL H3C",
+    "0.6": "0.30mm Standard @BBL H3C 0.6 nozzle",
+    "0.8": "0.40mm Standard @BBL H3C 0.8 nozzle"
+  },
+  "materials": {
+    "PLA": {
+      "0.2": "Generic PLA @BBL H3C 0.2 nozzle",
+      "0.4": "Generic PLA @BBL H3C",
+      "0.6": "Generic PLA @BBL H3C",
+      "0.8": "Generic PLA @BBL H3C"
+    },
+    "PETG": {
+      "0.2": "Generic PETG @BBL H3C 0.2 nozzle",
+      "0.4": "Generic PETG @BBL H3C",
+      "0.6": "Generic PETG @BBL H3C",
+      "0.8": "Generic PETG @BBL H3C"
+    },
+    "PETG HF": {
+      "0.2": "Generic PETG HF @BBL H3C 0.2 nozzle",
+      "0.4": "Generic PETG HF @BBL H3C 0.4 nozzle",
+      "0.6": "Generic PETG HF @BBL H3C 0.4 nozzle",
+      "0.8": "Generic PETG HF @BBL H3C 0.4 nozzle"
+    },
+    "HIPS": {
+      "0.2": "Generic HIPS @BBL H3C 0.2 nozzle",
+      "0.4": "Generic HIPS @BBL H3C 0.4 nozzle",
+      "0.6": "Generic HIPS @BBL H3C 0.4 nozzle",
+      "0.8": "Generic HIPS @BBL H3C 0.4 nozzle"
+    },
+    "ASA": {
+      "0.2": "Generic ASA @BBL H3C 0.2 nozzle",
+      "0.4": "Generic ASA @BBL H3C 0.4 nozzle",
+      "0.6": "Generic ASA @BBL H3C 0.4 nozzle",
+      "0.8": "Generic ASA @BBL H3C 0.4 nozzle"
+    },
+    "TPU": {
+      "0.4": "Generic TPU @BBL H3C"
+    }
+  },
+  "styles": {
+    "Strong": {
+      "0.2": {
+        "wall_loops": 5,
+        "sparse_infill_density": "40%",
+        "sparse_infill_pattern": "gyroid",
+        "top_shell_thickness": 1.0,
+        "bottom_shell_thickness": 0.8
+      },
+      "0.4": {
+        "wall_loops": 5,
+        "sparse_infill_density": "40%",
+        "sparse_infill_pattern": "gyroid",
+        "top_shell_thickness": 1.4,
+        "bottom_shell_thickness": 1.2
+      },
+      "0.6": {
+        "wall_loops": 4,
+        "sparse_infill_density": "40%",
+        "sparse_infill_pattern": "gyroid",
+        "top_shell_thickness": 1.6,
+        "bottom_shell_thickness": 1.2
+      },
+      "0.8": {
+        "wall_loops": 3,
+        "sparse_infill_density": "40%",
+        "sparse_infill_pattern": "gyroid",
+        "top_shell_thickness": 1.8,
+        "bottom_shell_thickness": 1.4
+      }
+    }
+  },
+  "variants": {
+    "MM-Support": {
+      "enable_support": "1",
+      "support_type": "normal(auto)",
+      "support_top_z_distance": "0",
+      "support_bottom_z_distance": "0",
+      "support_interface_top_layers": "3",
+      "support_interface_bottom_layers": "3",
+      "support_interface_spacing": "0",
+      "support_interface_pattern": "rectilinear_interlaced",
+      "support_interface_filament": "2",
+      "support_base_pattern": "rectilinear-grid",
+      "support_object_xy_distance": "0.3",
+      "independent_support_layer_height": "0"
+    }
+  }
+}
