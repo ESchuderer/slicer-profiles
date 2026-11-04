@@ -11,7 +11,6 @@ no local path.
 
 import hashlib
 import json
-import re
 import shutil
 import sys
 import time
@@ -20,7 +19,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
 from docs import ZIPS, Zip, contents
-from gen_process import jobs, preset_name
+from generate import printer, process_jobs, process_name
 from targets import load
 
 if TYPE_CHECKING:
@@ -30,12 +29,10 @@ ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = ROOT / "schemas" / "manifest.schema.json"
 REPOSITORY = "ESchuderer/slicer-profiles"
 FORMAT = "slicer-profiles-release"
-PRINTERS = {"Bambu Lab P2S": "P2S", "Snapmaker U1": "U1", "Qidi X-Max 4": "X-Max4", "X-Max 4": "X-Max4"}
-TARGET_PRINTER = {"bambu": "P2S", "qidi": "X-Max4", "snapmaker": "U1"}
-_NOZZLE = re.compile(r"(\d\.\d) nozzle")
 type Entry = dict[str, str | int | None]
-# print preset name -> (printer tag, nozzle, style, variant suffix), from the generator's own job list
-_JOBS = {preset_name(t, n, s, x): (t, n, s, x) for t, n, s, x, _ in jobs()}
+_PRINTER = printer()
+# print preset name -> (nozzle, style, variant), from the generator's own job list
+_JOBS = {process_name(_PRINTER, *job): job for job in process_jobs(_PRINTER)}
 
 
 def sha256(data: bytes) -> str:
@@ -68,13 +65,10 @@ def describe(stem: str, z: Zip, rel: str, data: bytes) -> Entry:
     entry: Entry = {"id": f"{stem}/{rel}", "type": kind, "name": name, "slicer": slicer, "zip": stem}
     entry |= {"printer": None, "nozzle": None, "style": None, "variant": None, "filament": None}
     if kind == "process" and (job := _JOBS.get(name)):
-        tag, nozzle, style, suffix = job
-        entry |= {"printer": tag, "nozzle": nozzle, "style": style, "variant": suffix or None}
-    elif kind == "machine":
-        entry["printer"] = next((tag for prefix, tag in PRINTERS.items() if name.startswith(prefix)), None)
-        entry["nozzle"] = m[1] if (m := _NOZZLE.search(name)) else None
+        nozzle, style, variant = job
+        entry |= {"printer": _PRINTER["tag"], "nozzle": nozzle, "style": style or None, "variant": variant or None}
     elif kind == "filament":
-        entry |= {"filament": name, "printer": TARGET_PRINTER.get(slicer)}
+        entry |= {"filament": name, "printer": _PRINTER["tag"]}
     return entry | {"path": rel, "sha256": sha256(data), "license": z.license}
 
 

@@ -18,19 +18,12 @@ COMMIT = "a" * 40
 @pytest.fixture
 def out(tmp_path: Path) -> Path:
     presets = {
-        "orca/process/0.20mm Strong MM-Support @U1 0.4.json": {
+        "bambu/process/0.20mm Strong MM-Support @H3C 0.4.json": {
             "type": "process",
-            "name": "0.20mm Strong MM-Support @U1 0.4",
+            "name": "0.20mm Strong MM-Support @H3C 0.4",
         },
-        "snapmaker/machine/Snapmaker U1 (0.4 nozzle) (LAN).json": {
-            "type": "machine",
-            "name": "Snapmaker U1 (0.4 nozzle) (LAN)",
-        },
-        "orca/filament/SUNLU PLA+ 2.0 HQ.json": {"type": "filament", "name": "SUNLU PLA+ 2.0 HQ"},
-        "bambu/process/0.12mm Detail @P2S 0.4.json": {"type": "process", "name": "0.12mm Detail @P2S 0.4"},
+        "bambu/process/0.30mm MM-Support @H3C 0.6.json": {"type": "process", "name": "0.30mm MM-Support @H3C 0.6"},
         "bambu/filament/SUNLU PLA+ 2.0 HQ.json": {"type": "filament", "name": "SUNLU PLA+ 2.0 HQ"},
-        "qidi/process/0.24mm Standard @X-Max4 0.6.json": {"type": "process", "name": "0.24mm Standard @X-Max4 0.6"},
-        "snapmaker/process/0.12mm Decor @U1 0.4.json": {"type": "process", "name": "0.12mm Decor @U1 0.4"},
     }
     for rel, preset in presets.items():
         path = tmp_path / "out" / rel
@@ -50,7 +43,7 @@ def test_two_builds_are_byte_identical(out: Path, tmp_path: Path) -> None:
 
 def test_zip_entries_are_normalized(out: Path, tmp_path: Path) -> None:
     _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
-    with zipfile.ZipFile(tmp_path / "d" / "slicer-profiles-orca-v0.2.0.zip") as z:
+    with zipfile.ZipFile(tmp_path / "d" / "slicer-profiles-bambu-v0.2.0.zip") as z:
         infos = z.infolist()
     assert [i.filename for i in infos] == sorted(i.filename for i in infos)
     assert {i.date_time for i in infos} == {time.gmtime(EPOCH)[:6]}
@@ -62,20 +55,18 @@ def test_manifest_validates_and_describes_presets(out: Path, tmp_path: Path) -> 
     schema = cast("dict[str, object]", json.loads(release.SCHEMA.read_text(encoding="utf-8")))
     jsonschema.validate(manifest, schema)
     presets = {str(p["id"]): p for p in cast("list[release.Entry]", manifest["presets"])}
-    strong = presets["orca/process/0.20mm Strong MM-Support @U1 0.4.json"]
+    strong = presets["bambu/process/0.20mm Strong MM-Support @H3C 0.4.json"]
     assert (strong["printer"], strong["nozzle"], strong["style"], strong["variant"]) == (
-        "U1",
+        "H3C",
         "0.4",
         "Strong",
         "MM-Support",
     )
-    machine = presets["snapmaker/machine/Snapmaker U1 (0.4 nozzle) (LAN).json"]
-    assert (machine["printer"], machine["nozzle"], machine["license"]) == ("U1", "0.4", "CC-BY-4.0")
     assert strong["license"] == "CC-BY-4.0"
-    assert presets["bambu/filament/SUNLU PLA+ 2.0 HQ.json"]["printer"] == "P2S"
-    decor = presets["snapmaker/process/0.12mm Decor @U1 0.4.json"]
-    assert (decor["style"], decor["variant"]) == ("Detail", "Decor")
-    assert manifest["printers"] == ["P2S", "U1", "X-Max4"]
+    support = presets["bambu/process/0.30mm MM-Support @H3C 0.6.json"]
+    assert (support["style"], support["variant"]) == (None, "MM-Support")
+    assert presets["bambu/filament/SUNLU PLA+ 2.0 HQ.json"]["printer"] == "H3C"
+    assert manifest["printers"] == ["H3C"]
 
 
 def test_manifest_and_sums_hold_no_local_path(out: Path, tmp_path: Path) -> None:
@@ -92,13 +83,13 @@ def test_manifest_and_sums_hold_no_local_path(out: Path, tmp_path: Path) -> None
 def test_catalog_check_reports_a_missing_preset(out: Path, tmp_path: Path) -> None:
     manifest = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
     stale = release.catalog_differences(cast("list[release.Entry]", manifest["presets"]))
-    assert {line.split(":", 1)[0] for line in stale} == {"orca", "bambu", "qidi", "snapmaker"}
+    assert {line.split(":", 1)[0] for line in stale} == {"bambu"}
 
 
 def test_notice_names_every_zip(out: Path, tmp_path: Path) -> None:
     _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
     text = (tmp_path / "d" / "NOTICE.md").read_text(encoding="utf-8")
-    assert "| `slicer-profiles-orca-v0.2.0.zip` | CC-BY-4.0 |" in text
+    assert "| `slicer-profiles-bambu-v0.2.0.zip` | CC-BY-4.0 |" in text
     assert "AGPL" not in text
     assert f"at commit `{COMMIT}`" in text
 

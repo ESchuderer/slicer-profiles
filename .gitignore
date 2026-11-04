@@ -2,4 +2,3 @@ __pycache__/
 out/
 dist/
 .installed/
-config/printers.json

@@ -19,8 +19,8 @@ def test_readme_table_matches_the_lock() -> None:
 
 
 def test_missing_field_is_refused(tmp_path: Path) -> None:
-    text = targets.LOCK.read_text(encoding="utf-8").replace('preset_version = "2.4.2.0"\n', "")
+    text = targets.LOCK.read_text(encoding="utf-8").replace('preset_version = "02.09.01.70"\n', "")
     lock = tmp_path / "upstream.lock.toml"
     _ = lock.write_text(text, encoding="utf-8")
-    with pytest.raises(ValueError, match=r"\[targets.orca\] needs exactly"):
+    with pytest.raises(ValueError, match=r"\[targets.bambu\] needs exactly"):
         _ = targets.load(lock)

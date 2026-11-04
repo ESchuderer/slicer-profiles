@@ -154,5 +154,5 @@ def test_inheritance_cycle_is_an_error(tmp_path: Path) -> None:
 
 
 def test_source_prefers_the_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    monkeypatch.setenv("SLICER_PROFILES_QIDI", str(tmp_path))
-    assert resolve.source("qidi") == tmp_path
+    monkeypatch.setenv("SLICER_PROFILES_BAMBU", str(tmp_path))
+    assert resolve.source("bambu") == tmp_path

@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Resolve stock preset inheritance in a slicer's profile tree.
 
-Usage: resolve.py [--bambu|--qidi|--snapmaker] VENDOR "PRESET NAME" [key ...]
-  e.g. resolve.py BBL "0.16mm High Quality @BBL P2S" outer_wall_speed wall_loops
-       resolve.py OrcaFilamentLibrary "Generic PETG @System" nozzle_temperature
-       resolve.py --bambu BBL "Generic PLA @BBL P2S" nozzle_temperature
+Usage: resolve.py VENDOR "PRESET NAME" [key ...]   (Bambu Studio's stock profiles)
+  e.g. resolve.py BBL "0.20mm Standard @BBL H3C" outer_wall_speed wall_loops
+       resolve.py BBL "Generic PLA @BBL H3C" nozzle_temperature
 Prints the fully resolved value of each key (all keys if none given).
 
 The resolver reads what the slicer reads: the presets each vendor index (`<vendor>.json`) lists, or the
@@ -27,12 +26,7 @@ type Preset = dict[str, Value]
 
 # Profile folders of the installed slicers (the owner's machine). SLICER_PROFILES_<TARGET> overrides each,
 # for example with a stock profile tree checked out at the slicer's release tag.
-INSTALLED = {
-    "orca": "/opt/orca-slicer/resources/profiles",
-    "bambu": "/opt/bambustudio-bin/resources/profiles",
-    "qidi": "/opt/qidi-studio-appimage/qidi-studio-appimage.AppImage",
-    "snapmaker": "/opt/snapmaker-orca-appimage/snapmaker-orca-appimage.AppImage",
-}
+INSTALLED = {"bambu": "/opt/bambustudio-bin/resources/profiles"}
 LIBRARY = "OrcaFilamentLibrary"
 INDEX_LISTS = ("machine_model_list", "process_list", "filament_list", "machine_list")
 # Vendor-relative paths (as `Vendor/sub_path`) that may fail to parse; every entry needs a reason.
@@ -190,7 +184,7 @@ def appimage_profiles(appimage: Path) -> Path:
 
 def resolve(name: str, vendor: str, root: Path | str | None = None) -> Preset:
     """Fully resolved settings of a stock preset: parents first, each child overriding."""
-    base = Path(root) if root is not None else source("orca")
+    base = Path(root) if root is not None else source("bambu")
     chain: list[Preset] = []
     seen: list[str] = []
     while True:
@@ -212,9 +206,7 @@ def resolve(name: str, vendor: str, root: Path | str | None = None) -> Preset:
 
 def main(argv: list[str]) -> int:
     """Print resolved values of one stock preset."""
-    target = "orca"
-    if argv and argv[0] in {"--bambu", "--qidi", "--snapmaker"}:
-        target, argv = argv[0][2:], argv[1:]
+    target = "bambu"
     if len(argv) < 2:  # noqa: PLR2004 (VENDOR and NAME)
         print(__doc__, file=sys.stderr)
         return 64

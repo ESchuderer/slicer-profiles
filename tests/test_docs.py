@@ -13,12 +13,7 @@ def test_generated_pages_are_up_to_date() -> None:
 
 def test_zip_counts_follow_the_tables() -> None:
     counts = {slicer: {kind: len(names) for kind, names in c.items()} for slicer, c in docs.contents().items()}
-    assert counts == {
-        "orca": {"process": 61, "filament": 9, "machine": 0},
-        "bambu": {"process": 20, "filament": 9, "machine": 0},
-        "qidi": {"process": 20, "filament": 9, "machine": 0},
-        "snapmaker": {"process": 21, "filament": 9, "machine": 3},
-    }
+    assert counts == {"bambu": {"process": 9, "filament": 11, "machine": 0}}
 
 
 def test_unknown_block_is_named(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
