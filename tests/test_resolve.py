@@ -138,6 +138,21 @@ def test_old_name_resolves_through_renamed_from(tmp_path: Path) -> None:
     assert resolve.resolve("older", "V", root)["a"] == "1"
 
 
+def test_exact_name_wins_over_a_former_name(tmp_path: Path) -> None:
+    root = tree(
+        tmp_path,
+        {"V": {"a.json": {"name": "A", "x": "a"}, "b.json": {"name": "B", "renamed_from": "A", "inherits": "A"}}},
+    )
+    assert resolve.resolve("A", "V", root)["x"] == "a"
+    assert resolve.resolve("B", "V", root)["name"] == "B"
+
+
+def test_inheritance_cycle_is_an_error(tmp_path: Path) -> None:
+    root = tree(tmp_path, {"V": {"a.json": {"name": "a", "inherits": "b"}, "b.json": {"name": "b", "inherits": "a"}}})
+    with pytest.raises(ResolveError, match="inheritance cycle: a -> b -> a"):
+        _ = resolve.resolve("a", "V", root)
+
+
 def test_source_prefers_the_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     monkeypatch.setenv("SLICER_PROFILES_QIDI", str(tmp_path))
     assert resolve.source("qidi") == tmp_path

@@ -89,7 +89,8 @@ class _Vendor:
                 self.renamed[old_name] = name
 
     def get(self, name: str) -> Preset | None:
-        return self.presets.get(self.renamed.get(name, name))
+        exact = self.presets.get(name)
+        return exact if exact is not None else self.presets.get(self.renamed.get(name, ""))
 
 
 def _library_files(library: Path) -> list[str]:
@@ -130,7 +131,7 @@ def _preset(data: dict[str, object]) -> Preset:
 
 
 _vendors: dict[tuple[Path, str], _Vendor] = {}
-_reported: set[tuple[str, str]] = set()
+_reported: set[tuple[Path, str, str]] = set()
 
 
 def _vendor(root: Path, vendor: str) -> _Vendor:
@@ -153,8 +154,8 @@ def _find(name: str, vendor: str, root: Path) -> tuple[str, Preset]:
     if vendor != LIBRARY and (root / f"{LIBRARY}.json").is_file():
         tried.append(LIBRARY)
         if (preset := _vendor(root, LIBRARY).get(name)) is not None:
-            if (name, vendor) not in _reported:
-                _reported.add((name, vendor))
+            if (root, name, vendor) not in _reported:
+                _reported.add((root, name, vendor))
                 print(f"resolve: {name!r} not in {vendor}, taken from {LIBRARY}", file=sys.stderr)
             return LIBRARY, preset
     msg = f"stock preset not found: {name!r} (searched {', '.join(tried)} in {root})"
@@ -190,10 +191,22 @@ def appimage_profiles(appimage: Path) -> Path:
 def resolve(name: str, vendor: str, root: Path | str | None = None) -> Preset:
     """Fully resolved settings of a stock preset: parents first, each child overriding."""
     base = Path(root) if root is not None else source("orca")
-    found_in, preset = _find(name, vendor, base)
-    parent = preset.get("inherits")
-    out: Preset = dict(resolve(parent, found_in, base)) if isinstance(parent, str) and parent else {}
-    out.update(preset)
+    chain: list[Preset] = []
+    seen: list[str] = []
+    while True:
+        vendor, preset = _find(name, vendor, base)
+        seen.append(name)
+        chain.append(preset)
+        parent = preset.get("inherits")
+        if not isinstance(parent, str) or not parent:
+            break
+        if parent in seen:
+            msg = f"inheritance cycle: {' -> '.join([*seen, parent])}"
+            raise ResolveError(msg)
+        name = parent
+    out: Preset = {}
+    for preset in reversed(chain):
+        out.update(preset)
     return out
 
 

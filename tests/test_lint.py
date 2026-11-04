@@ -19,6 +19,15 @@ def test_commands_resolve_template_syntax() -> None:
     assert lint.commands(gcode) == ["G28", "M104", "G1", "SET_PURIFIER_MODE"]
 
 
+def test_comments_and_inline_values_are_not_commands() -> None:
+    gcode = "M104 S200 ; heat {if fast}quick{endif}\nM141 S{if a <= 50}0{else}{t}{endif}\n{custom_gcode}"
+    assert lint.commands(gcode) == ["M104", "M141"]
+
+
+def test_template_value_inside_a_command_word_stays_visible() -> None:
+    assert lint.commands("T{initial_tool}\nM50[n] S1") == ["T{}", "M50{}"]
+
+
 def test_listed_commands_pass() -> None:
     preset: Preset = {"name": "p", "machine_start_gcode": "G28\nM104 S200", "layer_change_gcode": ["G1 Z1"]}
     assert lint.lint_preset("p", preset, ALLOWED, release=False) == []
@@ -47,7 +56,7 @@ def test_post_process_fails() -> None:
 
 def test_address_only_in_lan_presets_and_never_in_releases() -> None:
     lan: Preset = {"name": "U1 (LAN)", "print_host": "10.0.0.5", "print_host_webui": ""}
-    other: Preset = {"name": "0.20mm Standard", "printhost_apikey": "x"}
+    other: Preset = {"name": "0.20mm Standard", "printhost_apikey": "x", "printhost_authorization_type": "key"}
     assert lint.lint_preset("lan", lan, ALLOWED, release=False) == []
     assert lint.lint_preset("lan", lan, ALLOWED, release=True) == ["lan: print_host is set in a release preset"]
     assert lint.lint_preset("o", other, ALLOWED, release=False) == [
