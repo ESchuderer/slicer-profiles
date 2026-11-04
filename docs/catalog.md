@@ -83,17 +83,6 @@ Every preset in the release zips, generated from the tables by `src/docs.py`. Wh
 - SUNLU TPU 95A HQ
 - eSUN PETG HQ
 
-## OrcaSlicer: `slicer-profiles-orca-machines-<version>.zip` (AGPL-3.0-only)
-
-### "(LAN)" printer presets (6)
-
-- Qidi X-Max 4 0.4 nozzle (LAN)
-- Qidi X-Max 4 0.6 nozzle (LAN)
-- Qidi X-Max 4 0.8 nozzle (LAN)
-- Snapmaker U1 (0.4 nozzle) (LAN)
-- Snapmaker U1 (0.6 nozzle) (LAN)
-- Snapmaker U1 (0.8 nozzle) (LAN)
-
 ## Bambu Studio: `slicer-profiles-bambu-<version>.zip` (CC-BY-4.0)
 
 ### Print presets (20)

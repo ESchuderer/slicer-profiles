@@ -36,12 +36,6 @@ df7d306e181aa6e49cf3c61b1f5726f28358f4c15752b48f5b43036eab7d37a0  out/orca/filam
 ab107994cea3e49b71a6202da3f8e0aa72d8719194d17070fbaf12793645a253  out/orca/filament/SUNLU PLA+ 2.0 HQ.json
 8a4e8d52f5e9dc31ba3c83196b7ff7686e508805f284958c159ed6110d1f2397  out/orca/filament/SUNLU TPU 95A HQ.json
 6d959d6ba309134e39c2daf6b0de99adeab3d9e46bb985745591861cc6dc4943  out/orca/filament/eSUN PETG HQ.json
-328af7bda449a2f3aaa6f66aeedf97d695b0a8fe912185d166ea6aa272e0f0d9  out/orca/machine/Qidi X-Max 4 0.4 nozzle (LAN).json
-cb585499846ccccd5b5facd13da0a2f6ebc7c0d2984dd3095c1bd86e2b183be1  out/orca/machine/Qidi X-Max 4 0.6 nozzle (LAN).json
-25b919bdb4ef5ca1411dbdbafdc0fa46c1d63f7a9f2b87e5695769213bb12762  out/orca/machine/Qidi X-Max 4 0.8 nozzle (LAN).json
-61f39d3aa2b9cd3dae87d5a4c9f87347034d03ffd5855a3a1c183d1c6ac7ef48  out/orca/machine/Snapmaker U1 (0.4 nozzle) (LAN).json
-865004fa3e2d0b675f76929be937eb1cdcbae736b81042adc305676f28eab2cd  out/orca/machine/Snapmaker U1 (0.6 nozzle) (LAN).json
-762617aac798363fe14c2f890fb2315aa8751cef48a5169fa8c6ac4d67562db8  out/orca/machine/Snapmaker U1 (0.8 nozzle) (LAN).json
 796c24bc87307db529588782912384c96aa273c5b1af4ff5aa9c7e4d4cd27a45  out/orca/process/0.12mm Decor @U1 0.4.json
 91b72e533b06d67b8cbe1f356a8333c2228ddf3ada558817bb70c2facda7e0d5  out/orca/process/0.12mm Detail @P2S 0.4.json
 8508070f2e8d70888855522809b24acd6cf47427cf0a6b1d8e0832b55c61d151  out/orca/process/0.12mm Detail @U1 0.4.json

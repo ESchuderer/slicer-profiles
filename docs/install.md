@@ -5,7 +5,6 @@ Download the zip for your slicer from the [latest release](https://github.com/ES
 | Slicer | Zip | Presets for |
 |---|---|---|
 | OrcaSlicer | `slicer-profiles-orca-<version>.zip` | Bambu Lab P2S, Snapmaker U1, Qidi X-Max 4 |
-| OrcaSlicer, "(LAN)" printers | `slicer-profiles-orca-machines-<version>.zip` (AGPL-3.0-only) | Snapmaker U1, Qidi X-Max 4 |
 | Bambu Studio | `slicer-profiles-bambu-<version>.zip` | Bambu Lab P2S |
 | QIDI Studio | `slicer-profiles-qidi-<version>.zip` | Qidi X-Max 4 |
 | Snapmaker Orca | `slicer-profiles-snapmaker-<version>.zip` | Snapmaker U1 |
@@ -28,7 +27,7 @@ sha256sum --ignore-missing -c SHA256SUMS
 
 ## Fallback: unzip into the preset folder
 
-If the import refuses the zip, close the slicer, unzip into its user preset folder and start it again. The zips hold `process/` and `filament/`; `orca-machines` and `snapmaker` also hold `machine/`. These folders must land directly in the preset folder, so for OrcaSlicer unzip both the `orca` and the `orca-machines` zip there:
+If the import refuses the zip, close the slicer, unzip into its user preset folder and start it again. The zips hold `process/` and `filament/`; `snapmaker` also holds `machine/`. These folders must land directly in the preset folder:
 
 | Slicer | Preset folder (Linux, tested) |
 |---|---|
@@ -43,11 +42,10 @@ Windows and macOS: the same `user/default/` folder lives in the app's data direc
 ```
 cd ~/.config/OrcaSlicer/user/default
 unzip -o ~/Downloads/slicer-profiles-orca-v0.2.0.zip
-unzip -o ~/Downloads/slicer-profiles-orca-machines-v0.2.0.zip
 ```
 
 ## After the import
 
-- Select the "(LAN)" printers in Orca (from the `orca-machines` zip) and Snapmaker Orca. They carry the printer fixes and no address: set your printer's address in the preset's `print_host` field (Device tab).
+- Select the "(LAN)" printers in Snapmaker Orca. They carry the printer fixes and no address: set your printer's address in the preset's `print_host` field (Device tab).
 - The presets inherit from each slicer's stock profiles by name. They match the slicer versions in the [README](../README.md#setup); other versions may report a missing parent preset (unverified).
 - Generate your own set with your addresses and filaments instead: [README](../README.md#build-your-own).

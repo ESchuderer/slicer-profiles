@@ -47,7 +47,6 @@ fi
 rm -rf out
 python3 src/gen_process.py out/orca/process
 python3 src/gen_filament.py out/orca/filament
-python3 src/gen_machine.py out/orca/machine
 python3 src/gen_bambu.py out/orca out/bambu bambu
 python3 src/gen_bambu.py out/orca out/qidi qidi
 python3 src/gen_snapmaker.py out/orca out/snapmaker

@@ -8,7 +8,7 @@ Questions the code cannot answer, tried by hand in the slicers. Each result name
 | E4 | Do QIDI Studio and Bambu Studio write the printer address (`print_host`) into a project 3MF? | the print log (project files stay out of git) | not run |
 | E5 | Does Snapmaker Orca resolve a preset whose parent has an old name listed in `renamed_from`? | pinning the Snapmaker profile tree | after the pinned upstream trees (next milestone) |
 
-Until E3 passes, `NOTICE.md` and the AGPL license text ship beside the zips as release files, not inside them.
+Until E3 passes, `NOTICE.md` ships beside the zips as a release file, not inside them.
 
 ## E3: zip import
 

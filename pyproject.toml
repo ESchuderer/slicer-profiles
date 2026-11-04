@@ -52,7 +52,7 @@ max-positional-args = 5
 # The ignored rule families are annotations (ANN), docstrings (D), pathlib (PTH) and the open() and
 # shebang findings that the same rewrite removes.
 [tool.ruff.lint.per-file-ignores]
-"src/{gen_process,gen_filament,gen_machine,gen_bambu,gen_snapmaker}.py" = [
+"src/{gen_process,gen_filament,gen_bambu,gen_snapmaker}.py" = [
     "ANN", "D", "PTH", "SIM115", "E501", "EXE001", "PLW2901", "PLR2004",
 ]
 "tests/**" = [
@@ -70,7 +70,7 @@ extraPaths = ["src"]
 # The legacy modules of the typing plan above; the list only shrinks.
 ignore = [
     "src/gen_process.py", "src/gen_filament.py",
-    "src/gen_machine.py", "src/gen_bambu.py", "src/gen_snapmaker.py",
+    "src/gen_bambu.py", "src/gen_snapmaker.py",
 ]
 
 [tool.pytest.ini_options]
