@@ -52,7 +52,7 @@ Set the same way in every print preset:
 Two variants are built on top of the styles:
 
 - **MM-Support**: every style of every printer also exists with ` MM-Support` in the name. It prints supports with the support base in the model filament (slot 1) and the interface layers from slot or tool 2, for example PLA under PETG, with zero Z gap, and turns on the prime tower. On the U1 the tower shell uses the model filament and a wider brim, because PLA+PETG towers delaminate on Snapmaker's printer.
-- **Decor** (`0.12mm Decor @U1 0.4`, U1 only): the Detail style with a scarf seam, ironed top surfaces and Snapmaker's prime-tower values for 0.12 mm layers, for multicolour display pieces.
+- **Decor** (`0.12mm Decor @U1 0.4`, U1 only): the Detail style with a scarf seam, ironed top surfaces and Snapmaker's prime-tower values for 0.12 mm layers, for multicolor display pieces.
 
 ## Filament presets
 
