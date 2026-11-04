@@ -10,6 +10,7 @@ import json
 import math
 import os
 import sys
+from functools import cache
 
 from resolve import resolve
 from targets import preset_version
@@ -166,13 +167,29 @@ EXTRA += [
     (("U1",), "0.4", "Detail", "Decor", DECOR),
 ]
 
-# Keys stored per extruder variant (arrays) — detected from a P2S stock preset.
-VECTOR_KEYS = {k for k, v in resolve("0.16mm High Quality @BBL P2S", "BBL").items() if isinstance(v, list)}
+
+@cache
+def vector_keys():
+    """Keys stored per extruder variant (arrays), detected from a P2S stock preset."""
+    return {k for k, v in resolve("0.16mm High Quality @BBL P2S", "BBL").items() if isinstance(v, list)}
 
 
 def val(key, value, variants):
     value = str(value)
-    return [value] * variants if key in VECTOR_KEYS else value
+    return [value] * variants if key in vector_keys() else value
+
+
+def preset_name(tag: str, nozzle: str, style: str, suffix: str = "") -> str:
+    """Name of a print preset, e.g. "0.20mm Strong MM-Support @U1 0.4"."""
+    lh = next(s for s in STYLES[nozzle] if s[0] == style)[1]
+    label = suffix if suffix == "Decor" else f"{style} {suffix}".strip()
+    return f"{lh:.2f}mm {label} @{tag} {nozzle}"
+
+
+def jobs() -> list[tuple[str, str, str, str, dict[str, object] | None]]:
+    """Every print preset to build: (printer tag, nozzle, style, suffix, overrides)."""
+    out = [(tag, nozzle, style[0], "", None) for tag in PRINTERS for nozzle in STYLES for style in STYLES[nozzle]]
+    return out + [(tag, nozzle, style, suffix, ov) for tags, nozzle, style, suffix, ov in EXTRA for tag in tags]
 
 
 def make(tag, nozzle, style, suffix="", overrides=None):
@@ -188,8 +205,7 @@ def make(tag, nozzle, style, suffix="", overrides=None):
     if style == "Detail":
         so, st = 40, 60
     n = float(nozzle)
-    label = suffix if suffix == "Decor" else f"{style} {suffix}".strip()
-    name = f"{lh:.2f}mm {label} @{tag} {nozzle}"
+    name = preset_name(tag, nozzle, style, suffix)
 
     s = dict(COMMON)
     s.update(
@@ -247,13 +263,12 @@ def make(tag, nozzle, style, suffix="", overrides=None):
 
 def main(out):
     os.makedirs(out, exist_ok=True)
-    jobs = [(tag, nozzle, style[0], "", None) for tag in PRINTERS for nozzle in STYLES for style in STYLES[nozzle]]
-    jobs += [(tag, nozzle, style, suffix, ov) for tags, nozzle, style, suffix, ov in EXTRA for tag in tags]
-    for job in jobs:
+    todo = jobs()
+    for job in todo:
         preset = make(*job)
         with open(os.path.join(out, preset["name"] + ".json"), "w") as f:
             json.dump(preset, f, indent=4)
-    print(len(jobs), "process presets ->", out)
+    print(len(todo), "process presets ->", out)
 
 
 if __name__ == "__main__":

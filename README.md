@@ -67,4 +67,4 @@ uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor 
 
 ## License
 
-MIT, see [LICENSE](LICENSE). The generated presets inherit from each slicer's stock profiles and are not part of this repository.
+MIT, see [LICENSE](LICENSE). The generated presets are not committed; they are published as release zips.

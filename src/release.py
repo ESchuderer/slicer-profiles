@@ -19,6 +19,7 @@ import zipfile
 from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
+from docs import contents
 from targets import load
 
 if TYPE_CHECKING:
@@ -113,6 +114,18 @@ def _artifact(kind: str, name: str, dist: Path, version: str) -> Entry:
     return {"kind": kind, "name": name, "url": url, "sha256": sha256(data), "size": len(data)}
 
 
+def catalog_differences(presets: list[Entry]) -> list[str]:
+    """Return the zips whose preset names differ from the generated catalog (docs/catalog.md)."""
+    found: list[str] = []
+    for slicer, expected in contents().items():
+        built = {
+            k: sorted(str(p["name"]) for p in presets if p["slicer"] == slicer and p["type"] == k) for k in expected
+        }
+        if built != expected:
+            found.append(f"{slicer}: built {built}, catalog {expected}")
+    return found
+
+
 def main(argv: list[str]) -> int:
     """Build the release files."""
     if len(argv) != 5 or not argv[2].isdigit():  # noqa: PLR2004 (VERSION COMMIT EPOCH OUT DIST)
@@ -120,6 +133,9 @@ def main(argv: list[str]) -> int:
         return 64
     version, commit, epoch, out, dist = argv
     manifest = build(version, commit, int(epoch), Path(out), Path(dist))
+    if stale := catalog_differences(cast("list[Entry]", manifest["presets"])):
+        print("docs/catalog.md does not match the build:\n  " + "\n  ".join(stale), file=sys.stderr)
+        return 1
     print(f"{len(cast('list[object]', manifest['presets']))} presets in {len(SLICERS)} zips -> {dist}")
     return 0
 

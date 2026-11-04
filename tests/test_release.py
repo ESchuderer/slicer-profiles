@@ -84,3 +84,9 @@ def test_manifest_and_sums_hold_no_local_path(out: Path, tmp_path: Path) -> None
         assert "192.0.2." not in text
     sums = (dist / "SHA256SUMS").read_text(encoding="utf-8").splitlines()
     assert [line.split("  ")[1] for line in sums] == sorted(p.name for p in dist.iterdir() if p.name != "SHA256SUMS")
+
+
+def test_catalog_check_reports_a_missing_preset(out: Path, tmp_path: Path) -> None:
+    manifest = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
+    stale = release.catalog_differences(cast("list[release.Entry]", manifest["presets"]))
+    assert {line.split(":", 1)[0] for line in stale} == {"orca", "bambu", "qidi", "snapmaker"}
