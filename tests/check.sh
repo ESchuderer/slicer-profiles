@@ -8,7 +8,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
 mkdir "$tmp/w"
-git ls-files -z --cached --others --exclude-standard | tar --null -T - -cf - | tar -xf - -C "$tmp/w"
+# tracked and new files that exist (a tracked file deleted without `git rm` is skipped)
+git ls-files -z --cached --others --exclude-standard \
+  | python3 -c 'import os, sys; sys.stdout.write("".join(p + "\0" for p in sys.stdin.read().split("\0") if p and os.path.lexists(p)))' \
+  | tar --null -T - -cf - | tar -xf - -C "$tmp/w"
+# Use the pinned stock profiles (a no-op when cached); SLICER_PROFILES_* still win when set.
+python3 src/fetch.py >/dev/null
 rm -rf "$tmp/w/out" "$tmp/w/tests/golden"
 cp config/printers.example.json "$tmp/w/config/printers.json"
 (cd "$tmp/w" && scripts/build.sh --no-install >/dev/null)

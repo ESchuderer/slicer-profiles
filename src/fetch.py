@@ -33,7 +33,10 @@ def tree_dir(t: Target) -> Path:
 
 
 def _git(*args: str, cwd: Path) -> str:
-    done = subprocess.run(["git", *args], cwd=cwd, check=True, capture_output=True, text=True)  # noqa: S603, S607 (git from PATH, arguments from the lock)
+    done = subprocess.run(["git", *args], cwd=cwd, check=False, capture_output=True, text=True)  # noqa: S603, S607 (git from PATH, arguments from the lock)
+    if done.returncode:
+        msg = f"git {args[0]} failed in {cwd}: {done.stderr.strip()}"
+        raise RuntimeError(msg)
     return done.stdout.strip()
 
 
@@ -44,8 +47,16 @@ def problems(t: Target, checkout: Path) -> list[str]:
         found.append(f"commit {head}, lock {t['commit']}")
     if (tree := _git("rev-parse", f"HEAD:{PROFILES}", cwd=checkout)) != t["tree"]:
         found.append(f"tree {tree}, lock {t['tree']}")
+    if changed := _git("status", "--porcelain", "--", PROFILES, cwd=checkout):
+        found.append(f"files changed in the cache: {changed.splitlines()[:3]}")
     for vendor, version in t["vendors"].items():
-        index = cast("dict[str, object]", json.loads((checkout / PROFILES / f"{vendor}.json").read_text("utf-8-sig")))
+        try:
+            index = cast(
+                "dict[str, object]", json.loads((checkout / PROFILES / f"{vendor}.json").read_text("utf-8-sig"))
+            )
+        except (OSError, ValueError) as e:
+            found.append(f"{vendor}.json unreadable: {e}")
+            continue
         if index.get("version") != version:
             found.append(f"{vendor}.json version {index.get('version')}, lock {version}")
     return found
@@ -57,22 +68,13 @@ def fetch(name: str, t: Target) -> Path:
     if not dest.is_dir():
         dest.parent.mkdir(parents=True, exist_ok=True)
         work = Path(tempfile.mkdtemp(dir=dest.parent, prefix=".fetch-"))
-        url = f"https://github.com/{t['repository']}.git"
-        _ = _git(
-            "clone",
-            "--quiet",
-            "--filter=blob:none",
-            "--no-checkout",
-            "--depth=1",
-            "--branch",
-            t["tag"],
-            url,
-            ".",
-            cwd=work,
-        )
-        _ = _git("sparse-checkout", "set", "--no-cone", f"/{PROFILES}/**/*.json", f"/{PROFILES}/*.json", cwd=work)
-        _ = _git("checkout", "--quiet", cwd=work)
-        if found := problems(t, work):
+        try:
+            _clone(t, work)
+            found = problems(t, work)
+        except RuntimeError:
+            shutil.rmtree(work)
+            raise
+        if found:
             shutil.rmtree(work)
             msg = f"{name}: {t['repository']} {t['tag']} does not match upstream.lock.toml: {'; '.join(found)}"
             raise RuntimeError(msg)
@@ -81,6 +83,14 @@ def fetch(name: str, t: Target) -> Path:
         msg = f"{name}: cached tree {dest} does not match upstream.lock.toml: {'; '.join(found)}"
         raise RuntimeError(msg)
     return dest / PROFILES
+
+
+def _clone(t: Target, work: Path) -> None:
+    url = f"https://github.com/{t['repository']}.git"
+    clone = ("clone", "--quiet", "--filter=blob:none", "--no-checkout", "--depth=1", "--branch", t["tag"], url, ".")
+    _ = _git(*clone, cwd=work)
+    _ = _git("sparse-checkout", "set", "--no-cone", f"/{PROFILES}/**/*.json", f"/{PROFILES}/*.json", cwd=work)
+    _ = _git("checkout", "--quiet", cwd=work)
 
 
 def main(argv: list[str]) -> int:

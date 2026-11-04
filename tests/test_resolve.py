@@ -6,7 +6,9 @@ from typing import cast
 
 import pytest
 
+import fetch
 import resolve
+import targets
 from resolve import ResolveError
 
 
@@ -151,6 +153,14 @@ def test_inheritance_cycle_is_an_error(tmp_path: Path) -> None:
     root = tree(tmp_path, {"V": {"a.json": {"name": "a", "inherits": "b"}, "b.json": {"name": "b", "inherits": "a"}}})
     with pytest.raises(ResolveError, match="inheritance cycle: a -> b -> a"):
         _ = resolve.resolve("a", "V", root)
+
+
+def test_source_takes_the_pinned_tree_before_the_installed_app(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    monkeypatch.delenv("SLICER_PROFILES_ORCA", raising=False)
+    monkeypatch.setenv("SLICER_PROFILES_CACHE", str(tmp_path))
+    pinned = fetch.tree_dir(targets.load()["orca"]) / fetch.PROFILES
+    pinned.mkdir(parents=True)
+    assert resolve.source("orca") == pinned
 
 
 def test_source_prefers_the_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

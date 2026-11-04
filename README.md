@@ -42,7 +42,7 @@ Change their settings here, not in the GUI, because `build.sh` replaces the file
 
 ## Setup
 
-Linux or macOS with `python3`, `bash` and `git`. The generators read each slicer's stock profiles: first `SLICER_PROFILES_<TARGET>` if set, then the trees `src/fetch.py` pinned, then the four slicers installed where the scripts expect them (`/opt/orca-slicer`, `/opt/bambustudio-bin`, `/opt/qidi-studio-appimage`, `/opt/snapmaker-orca-appimage`). `uv run python src/fetch.py` (see Check) makes the installed slicers unnecessary for building. The presets are built for these releases (`upstream.lock.toml`):
+Linux with `python3`, `bash` and `git` (on macOS, generating, checking and releasing work; installing does not, since the preset folders differ). The generators read each slicer's stock profiles: first `SLICER_PROFILES_<TARGET>` if set, then the trees `src/fetch.py` pinned, then the four slicers installed where the scripts expect them (`/opt/orca-slicer`, `/opt/bambustudio-bin`, `/opt/qidi-studio-appimage`, `/opt/snapmaker-orca-appimage`). `uv run python src/fetch.py` (see Check) makes the installed slicers unnecessary for building. The presets are built for these releases (`upstream.lock.toml`):
 
 | Slicer | Version | Stock profiles |
 |---|---|---|
