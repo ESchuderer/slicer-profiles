@@ -28,9 +28,7 @@
     "filament_vendor": [
         "SUNLU"
     ],
-    "filament_notes": [
-        "SUNLU TDS: 190-230 C, bed 50-60, density 1.21, retraction 0.8-1.2 mm. Engineering plate 35 C with glue. Dry 50-60 C for 6-12 h."
-    ],
+    "filament_notes": "SUNLU TDS: 190-230 C, bed 50-60, density 1.21, retraction 0.8-1.2 mm. Engineering plate 35 C with glue. Dry 50-60 C for 6-12 h.",
     "compatible_printers": [
         "Bambu Lab H3C 0.4 nozzle"
     ]

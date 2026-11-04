@@ -28,9 +28,7 @@
     "filament_vendor": [
         "SUNLU"
     ],
-    "filament_notes": [
-        "SUNLU TDS 2026: 240-260 C, bed 60-70 on textured PEI, density 1.28, HDT 70. Calibrate flow and pressure advance (older PETG community values do not apply). Prefer PETG 2.0 or eSUN for strength-critical parts. Dry 60-65 C for 6-8 h, store below 20 % RH."
-    ],
+    "filament_notes": "SUNLU TDS 2026: 240-260 C, bed 60-70 on textured PEI, density 1.28, HDT 70. Calibrate flow and pressure advance (older PETG community values do not apply). Prefer PETG 2.0 or eSUN for strength-critical parts. Dry 60-65 C for 6-8 h, store below 20 % RH.",
     "compatible_printers": [
         "Bambu Lab H3C 0.2 nozzle"
     ]

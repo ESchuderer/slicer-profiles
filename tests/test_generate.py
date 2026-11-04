@@ -60,7 +60,7 @@ def test_values_fill_every_slot_of_the_parent() -> None:
     parent: Preset = {"nozzle_temperature": ["220", "220", "220"], "wall_loops": "2"}
     assert generate.fit("nozzle_temperature", 215, parent, "P") == ["215", "215", "215"]
     assert generate.fit("wall_loops", 5, parent, "P") == "5"
-    assert generate.fit("filament_notes", "dry first", parent, "P") == ["dry first"]
+    assert generate.fit("filament_notes", "dry first", parent, "P") == "dry first"
     assert generate.fit("independent_support_layer_height", 0, parent, "P") == "0"
 
 

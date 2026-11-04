@@ -28,9 +28,7 @@
     "filament_vendor": [
         "SUNLU"
     ],
-    "filament_notes": [
-        "SUNLU TDS: 205-245 C (205-215 at 50-100 mm/s), bed 50-60, density 1.31. Decorative or light-duty (39 MPa). Dry 50 C for 6-8 h."
-    ],
+    "filament_notes": "SUNLU TDS: 205-245 C (205-215 at 50-100 mm/s), bed 50-60, density 1.31. Decorative or light-duty (39 MPa). Dry 50 C for 6-8 h.",
     "compatible_printers": [
         "Bambu Lab H3C 0.2 nozzle"
     ]

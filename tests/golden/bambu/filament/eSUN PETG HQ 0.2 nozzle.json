@@ -25,9 +25,7 @@
     "filament_vendor": [
         "eSUN"
     ],
-    "filament_notes": [
-        "eSUN TDS v2.0: 230-260 C, bed 75-90, density 1.27, HDT 64. The TDS fan 100% is a test condition; moderate cooling here for layer bonding. Dry 60 C for 8-12 h."
-    ],
+    "filament_notes": "eSUN TDS v2.0: 230-260 C, bed 75-90, density 1.27, HDT 64. The TDS fan 100% is a test condition; moderate cooling here for layer bonding. Dry 60 C for 8-12 h.",
     "compatible_printers": [
         "Bambu Lab H3C 0.2 nozzle"
     ]
