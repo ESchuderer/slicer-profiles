@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerate every preset from config/printers.example.json and compare it with the golden files in tests/golden/.
+# Regenerate every preset and compare it with the golden files in tests/golden/.
 #   tests/check.sh           compare; on a difference, show it and exit 1
 #   tests/check.sh --update  replace tests/golden/ after an intended change, then review `git diff tests/golden`
 # The stock profiles come from the trees src/fetch.py pinned (upstream.lock.toml), unless SLICER_PROFILES_* point

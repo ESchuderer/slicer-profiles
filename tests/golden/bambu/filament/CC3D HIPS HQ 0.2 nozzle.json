@@ -22,17 +22,11 @@
     "nozzle_temperature_range_high": [
         "260"
     ],
-    "filament_density": [
-        "1.04"
-    ],
-    "chamber_temperatures": [
-        "50"
-    ],
     "filament_vendor": [
         "CC3D"
     ],
     "filament_notes": [
-        "CC3D: 240-260 C, bed about 100, enclosure required. Density set to typical HIPS 1.04. Breakaway interface for ASA at 0 mm gap; drop toward 245 C if it fuses to ASA. Dry 60-65 C only if exposed."
+        "CC3D: 240-260 C, bed about 100, enclosure required. Breakaway interface for ASA at 0 mm gap; drop toward 245 C if it fuses to ASA. Dry 60-65 C only if exposed. Chamber off and density 1.06: the H3C stock values (Generic HIPS @BBL H3C, Bambu Studio 2.9.1); no maker, OrcaFilamentLibrary (OrcaSlicer 2.4.2) or online database value found."
     ],
     "compatible_printers": [
         "Bambu Lab H3C 0.2 nozzle"

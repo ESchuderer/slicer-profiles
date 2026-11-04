@@ -5,7 +5,8 @@ Usage: generate.py OUT_DIR   (writes OUT_DIR/bambu/filament/ and OUT_DIR/bambu/p
 Every preset inherits a stock H3C preset by name and stores only the values set here. A value is written
 once per slot of the parent's list (the H3C keeps one slot per hotend variant: Direct Drive Standard,
 High Flow and TPU285), so every hotend gets it. A key the parent does not have stops the build, unless it
-is in EXTRA_KEYS.
+is in EXTRA_KEYS. Written keys are checked against the parent, not a key list from the app source; for the
+H3C this replaces plan item SE9 (owner, 2026-11-04).
 """
 
 import json
@@ -19,8 +20,9 @@ from targets import preset_version
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "config"
 VENDOR = "BBL"
-# Keys Bambu Studio reads although its stock files leave them out (checked in Bambu Studio 2.8.2's binary).
-EXTRA_KEYS = frozenset({"filament_notes", "support_interface_not_for_body", "independent_support_layer_height"})
+# Keys Bambu Studio defines (src/libslic3r/PrintConfig.cpp at v02.09.01.70) that its stock files leave out,
+# and whether each one holds a list.
+EXTRA_KEYS = {"filament_notes": True, "independent_support_layer_height": False}
 type Values = dict[str, str | int | float]
 
 
@@ -95,7 +97,7 @@ def fit(key: str, value: object, parent: Preset, parent_name: str) -> Value:
         if key not in EXTRA_KEYS:
             msg = f"{key!r} is not a key of the stock preset {parent_name!r}"
             raise ValueError(msg)
-        return [text]
+        return [text] if EXTRA_KEYS[key] else text
     slots = parent[key]
     return [text] * max(1, len(slots)) if isinstance(slots, list) else text
 
@@ -108,9 +110,8 @@ def compatible(parent: Preset, parent_name: str, printers: list[str]) -> None:
         raise ValueError(msg)
 
 
-def make(kind: str, name: str, parent_name: str, values: Values, root: Path) -> Preset:
-    """Return one user preset: header keys, then VALUES fitted to the parent."""
-    parent = resolve(parent_name, VENDOR, root)
+def make(kind: str, name: str, parent_name: str, parent: Preset, values: Values) -> Preset:
+    """Return one user preset: header keys, then VALUES fitted to the resolved parent."""
     out: Preset = {"type": kind, "from": "User", "name": name, "inherits": parent_name, "is_custom_defined": "0"}
     out["version"] = preset_version("bambu")
     out["print_settings_id" if kind == "process" else "filament_settings_id"] = name if kind == "process" else [name]
@@ -125,16 +126,18 @@ def presets(root: Path) -> dict[str, Preset]:
     out: dict[str, Preset] = {}
     for nozzle, style, variant in process_jobs(p):
         parent_name = p["processes"][nozzle]
-        compatible(resolve(parent_name, VENDOR, root), parent_name, [f"{p['printer']} {nozzle} nozzle"])
         values = {**p["styles"].get(style, {}).get(nozzle, {}), **p["variants"].get(variant, {})}
         name = process_name(p, nozzle, style, variant)
-        out[f"bambu/process/{name}.json"] = make("process", name, parent_name, values, root)
+        parent = resolve(parent_name, VENDOR, root)
+        compatible(parent, parent_name, [f"{p['printer']} {nozzle} nozzle"])
+        out[f"bambu/process/{name}.json"] = make("process", name, parent_name, parent, values)
     for fname, f in filaments().items():
         for parent_name, nozzles in filament_groups(p, f).items():
             printers = [f"{p['printer']} {n} nozzle" for n in nozzles]
-            compatible(resolve(parent_name, VENDOR, root), parent_name, printers)
+            parent = resolve(parent_name, VENDOR, root)
+            compatible(parent, parent_name, printers)
             name = filament_name(fname, nozzles)
-            preset = make("filament", name, parent_name, {**f["s"], "filament_notes": f["notes"]}, root)
+            preset = make("filament", name, parent_name, parent, {**f["s"], "filament_notes": f["notes"]})
             preset["compatible_printers"] = printers
             out[f"bambu/filament/{name}.json"] = preset
     return out

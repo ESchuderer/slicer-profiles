@@ -19,14 +19,11 @@
     "filament_density": [
         "1.07"
     ],
-    "chamber_temperatures": [
-        "55"
-    ],
     "filament_vendor": [
         "Anycubic"
     ],
     "filament_notes": [
-        "Anycubic TDS V3.0: 255-275 C (new spec 260-280), bed 80-100 with glue, density 1.07 (1.09 new spec). Dry 70-80 C for 8-12 h."
+        "Anycubic TDS V3.0: 255-275 C (new spec 260-280), bed 80-100 with glue, density 1.07 (1.09 new spec). Dry 70-80 C for 8-12 h. Chamber: the H3C stock 60 C (Generic ASA @BBL H3C, Bambu Studio 2.9.1); no maker, OrcaFilamentLibrary (OrcaSlicer 2.4.2) or online database value found."
     ],
     "compatible_printers": [
         "Bambu Lab H3C 0.2 nozzle"
