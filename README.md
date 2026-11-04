@@ -14,7 +14,6 @@ Zips per slicer are attached to each [release](https://github.com/ESchuderer/sli
 | `config/printers.example.json` | Template for `config/printers.json` (git-ignored): the network address, parent preset and nozzles of the U1 and the X-Max 4 |
 | `src/gen_process.py` | Print-profile tables (styles per nozzle, widths, speeds, MM-Support, Decor) |
 | `src/gen_filament.py` | Builds Orca filament presets from `config/filaments.json` |
-| `src/gen_machine.py` | Builds the Orca "(LAN)" printer presets: those addresses plus printer fixes (bed by first filament, U1 0.6/0.8 tool-change G-code, U1 purifier and retraction, Max 4 chamber and exhaust) |
 | `src/gen_bambu.py` | Ports presets to Bambu Studio-family apps: P2S to Bambu Studio, Max 4 to QIDI Studio |
 | `src/gen_snapmaker.py` | Ports the U1 presets to Snapmaker Orca (fork parents, "(LAN)" printers) |
 | `src/resolve.py` | Shows the resolved value of any stock preset setting; extracts the AppImages' stock profiles to `~/.cache/slicer-profile/` |
@@ -67,4 +66,9 @@ uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor 
 
 ## License
 
-MIT, see [LICENSE](LICENSE). The generated presets are not committed; they are published as release zips.
+| What | License |
+|---|---|
+| Code (`src/`, `scripts/`, `tests/`, workflows) | ISC, see [LICENSE](LICENSE) |
+| Data, docs and the generated presets in the release zips | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
+
+`REUSE.toml` states the license of every file. Values taken from makers' data sheets and the slicers' stock profiles are cited, not relicensed. v0.1.0 and earlier releases stay MIT. The generated presets are not committed; they are published as release zips.

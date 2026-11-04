@@ -22,7 +22,7 @@ def out(tmp_path: Path) -> Path:
             "type": "process",
             "name": "0.20mm Strong MM-Support @U1 0.4",
         },
-        "orca/machine/Snapmaker U1 (0.4 nozzle) (LAN).json": {
+        "snapmaker/machine/Snapmaker U1 (0.4 nozzle) (LAN).json": {
             "type": "machine",
             "name": "Snapmaker U1 (0.4 nozzle) (LAN)",
         },
@@ -69,8 +69,9 @@ def test_manifest_validates_and_describes_presets(out: Path, tmp_path: Path) -> 
         "Strong",
         "MM-Support",
     )
-    machine = presets["orca/machine/Snapmaker U1 (0.4 nozzle) (LAN).json"]
-    assert (machine["printer"], machine["nozzle"]) == ("U1", "0.4")
+    machine = presets["snapmaker/machine/Snapmaker U1 (0.4 nozzle) (LAN).json"]
+    assert (machine["printer"], machine["nozzle"], machine["license"]) == ("U1", "0.4", "CC-BY-4.0")
+    assert strong["license"] == "CC-BY-4.0"
     assert presets["bambu/filament/SUNLU PLA+ 2.0 HQ.json"]["printer"] == "P2S"
     decor = presets["snapmaker/process/0.12mm Decor @U1 0.4.json"]
     assert (decor["style"], decor["variant"]) == ("Detail", "Decor")
@@ -92,3 +93,17 @@ def test_catalog_check_reports_a_missing_preset(out: Path, tmp_path: Path) -> No
     manifest = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
     stale = release.catalog_differences(cast("list[release.Entry]", manifest["presets"]))
     assert {line.split(":", 1)[0] for line in stale} == {"orca", "bambu", "qidi", "snapmaker"}
+
+
+def test_notice_names_every_zip(out: Path, tmp_path: Path) -> None:
+    _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
+    text = (tmp_path / "d" / "NOTICE.md").read_text(encoding="utf-8")
+    assert "| `slicer-profiles-orca-v0.2.0.zip` | CC-BY-4.0 |" in text
+    assert "AGPL" not in text
+    assert f"at commit `{COMMIT}`" in text
+
+
+def test_build_file_outside_every_zip_stops_the_release(out: Path, tmp_path: Path) -> None:
+    _ = (out / "bambu" / "stray.txt").write_text("x", encoding="utf-8")
+    with pytest.raises(ValueError, match=r"build files in no release zip: \['bambu/stray.txt'\]"):
+        _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")

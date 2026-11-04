@@ -9,7 +9,7 @@ Download the zip for your slicer from the [latest release](https://github.com/ES
 | QIDI Studio | `slicer-profiles-qidi-<version>.zip` | Qidi X-Max 4 |
 | Snapmaker Orca | `slicer-profiles-snapmaker-<version>.zip` | Snapmaker U1 |
 
-Every preset in each zip is listed in [catalog.md](catalog.md).
+Every preset in each zip is listed in [catalog.md](catalog.md). `NOTICE.md` in the release names the license of each zip.
 
 ## Check the download
 
@@ -27,7 +27,7 @@ sha256sum --ignore-missing -c SHA256SUMS
 
 ## Fallback: unzip into the preset folder
 
-If the import refuses the zip, close the slicer, unzip into its user preset folder and start it again. Each zip holds `process/`, `filament/` and, for Orca and Snapmaker Orca, `machine/`; these folders must land directly in the preset folder:
+If the import refuses the zip, close the slicer, unzip into its user preset folder and start it again. The zips hold `process/` and `filament/`; `snapmaker` also holds `machine/`. These folders must land directly in the preset folder:
 
 | Slicer | Preset folder (Linux, tested) |
 |---|---|
@@ -46,6 +46,6 @@ unzip -o ~/Downloads/slicer-profiles-orca-v0.2.0.zip
 
 ## After the import
 
-- Select the "(LAN)" printers in Orca and Snapmaker Orca. They carry the printer fixes and no address: set your printer's address in the preset's `print_host` field (Device tab).
+- Select the "(LAN)" printers in Snapmaker Orca. They carry the printer fixes and no address: set your printer's address in the preset's `print_host` field (Device tab).
 - The presets inherit from each slicer's stock profiles by name. They match the slicer versions in the [README](../README.md#setup); other versions may report a missing parent preset (unverified).
 - Generate your own set with your addresses and filaments instead: [README](../README.md#build-your-own).

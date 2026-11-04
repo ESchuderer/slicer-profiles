@@ -6,12 +6,12 @@ Every preset inherits a stock preset of the slicer by name and stores only the v
 
 <!-- generated: zips -->
 
-| Zip | Print presets | Filament presets | Printer presets |
-|---|---|---|---|
-| `orca` (OrcaSlicer) | 61: Bambu Lab P2S 20, Snapmaker U1 21, Qidi X-Max 4 20 | 9 | 6 "(LAN)" |
-| `bambu` (Bambu Studio) | 20: Bambu Lab P2S 20 | 9 | none |
-| `qidi` (QIDI Studio) | 20: Qidi X-Max 4 20 | 9 | none |
-| `snapmaker` (Snapmaker Orca) | 21: Snapmaker U1 21 | 9 | 3 "(LAN)" |
+| Zip | Print presets | Filament presets | Printer presets | License |
+|---|---|---|---|---|
+| `orca` (OrcaSlicer) | 61: Bambu Lab P2S 20, Snapmaker U1 21, Qidi X-Max 4 20 | 9 | none | CC-BY-4.0 |
+| `bambu` (Bambu Studio) | 20: Bambu Lab P2S 20 | 9 | none | CC-BY-4.0 |
+| `qidi` (QIDI Studio) | 20: Qidi X-Max 4 20 | 9 | none | CC-BY-4.0 |
+| `snapmaker` (Snapmaker Orca) | 21: Snapmaker U1 21 | 9 | 3 "(LAN)" | CC-BY-4.0 |
 
 <!-- end generated -->
 
@@ -91,28 +91,7 @@ Each preset inherits the stock preset of the same filament (or the generic one f
 
 ## "(LAN)" printer presets
 
-Source: `src/gen_machine.py` (Orca) and `src/gen_snapmaker.py` (Snapmaker Orca). Orca stores a printer's network address inside a user printer preset, so each networked printer gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle. Each copy holds the address from `config/printers.json` (release zips: none, set yours in the preset's `print_host` field) and the printer fixes below. Print presets that list the stock printer stay compatible with these copies.
-
-Bed temperature in jobs with several filaments, per slicer:
-
-- OrcaSlicer: the "(LAN)" printers set the bed to follow the filament printed first (a PLA part gets the PLA bed) instead of the default, the hottest filament in the job.
-- Snapmaker Orca: the bed takes the highest first-layer bed temperature of all filaments in the job. The fork has no setting for this, so the bed rule the "(LAN)" printers write has no effect there (it is removed in a later release). A job with PLA and PETG therefore starts at 75 C. Give large PLA parts in such a job a per-object outer brim (5 mm) and elephant-foot compensation.
-
-**Snapmaker U1 in OrcaSlicer**
-
-- The start G-code sets the Top Cover purifier mode from the softening temperature of the filaments (cooling up to 50 C, weaker cooling up to 70 C, otherwise keep warm). Without the cover the firmware ignores the command and the print continues.
-- The start G-code waits up to 180 s for the chamber target before homing Z, as Snapmaker's own profile does.
-- Bed mesh probes 5 mm around the part.
-- 0.4 nozzle: retraction 1.5 mm at 30 mm/s, Snapmaker's current default.
-- 0.6 and 0.8 nozzle: Orca 2.4.2's stock presets for these are a generic five-tool printer without Snapmaker's tool-change G-code. The copies take the G-code of the 0.4 preset and set four tools with Snapmaker's retraction, z-hop, wipe, clearance and tool-change values.
-
-**Snapmaker U1 in Snapmaker Orca**: Snapmaker's fork already has the tool-change G-code, purifier logic and retraction, so its "(LAN)" printers only add the address and the 5 mm mesh margin (and the bed rule above, which the fork ignores). Print presets use the fork's stock parents.
-
-**Qidi X-Max 4 in OrcaSlicer**: the start G-code is changed so that
-
-- the chamber target is the hottest chamber value of all filaments in the job (stock: first filament only);
-- the chamber is never heated when a filament with a softening temperature of 50 C or less (PLA, TPU) is in the job, and the exhaust runs instead;
-- the exhaust fan speed uses the 0 to 255 value QIDI's macro expects (the raw percentage gave about 27 % exhaust).
+Source: `src/gen_snapmaker.py`. Snapmaker Orca stores a printer's network address inside a user printer preset, so the U1 gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle, holding the address from `config/printers.json` (release zips: none, set yours in the preset's `print_host` field) and a 5 mm bed mesh margin. The fork already has the tool-change G-code, purifier logic and retraction; the copies change no G-code. OrcaSlicer gets no printer presets.
 
 **Bambu P2S and QIDI Studio**: Bambu Studio and QIDI Studio get print and filament presets only. Settings those apps do not know are dropped when the presets are ported (`src/gen_bambu.py` prints the list on build), and Orca's "only one wall on top" option is mapped to its Bambu Studio equivalent.
 

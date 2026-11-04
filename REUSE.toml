@@ -1,0 +1,29 @@
+version = 1
+SPDX-PackageName = "slicer-profiles"
+SPDX-PackageDownloadLocation = "https://github.com/ESchuderer/slicer-profiles"
+
+# Code: ISC.
+[[annotations]]
+path = [
+    "src/**",
+    "scripts/**",
+    "tests/**",
+    ".github/**",
+    "pyproject.toml",
+    "uv.lock",
+    ".python-version",
+    ".gitignore",
+    "REUSE.toml",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 ESchuderer"
+SPDX-License-Identifier = "ISC"
+
+# Own data, docs and schemas: CC BY 4.0. Values taken from maker data sheets and slicer stock profiles
+# are cited as third-party facts, not relicensed.
+[[annotations]]
+path = ["config/**", "docs/**", "schemas/**", "README.md", "upstream.lock.toml"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 ESchuderer"
+SPDX-License-Identifier = "CC-BY-4.0"
+
