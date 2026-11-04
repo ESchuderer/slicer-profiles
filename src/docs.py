@@ -28,22 +28,26 @@ class Zip(NamedTuple):
 
     app: str
     source: str  # folder below out/
-    folders: tuple[str, ...]  # the subfolders of SOURCE this zip takes
-    tags: tuple[str, ...]  # print presets of these printer tags
+    tags: tuple[str, ...]  # print presets of these printer tags, with every filament preset
     models: tuple[str, ...]  # "(LAN)" printer presets of these printer models
     license: str
 
+    @property
+    def folders(self) -> tuple[str, ...]:
+        """Return the subfolders of SOURCE this zip takes."""
+        return ("process", "filament") * bool(self.tags) + ("machine",) * bool(self.models)
 
-PRESETS = ("process", "filament")
+
 # The six OrcaSlicer "(LAN)" presets carry start G-code copied from OrcaSlicer's stock profiles, which
 # OrcaSlicer licenses as AGPL-3.0-only (README at v2.4.2), so they ship in their own zip (SP-LIC = a).
 ZIPS = {
-    "orca": Zip("OrcaSlicer", "orca", PRESETS, ("P2S", "U1", "X-Max4"), (), "CC-BY-4.0"),
-    "orca-machines": Zip("OrcaSlicer", "orca", ("machine",), (), ("Qidi X-Max 4", "Snapmaker U1"), "AGPL-3.0-only"),
-    "bambu": Zip("Bambu Studio", "bambu", PRESETS, ("P2S",), (), "CC-BY-4.0"),
-    "qidi": Zip("QIDI Studio", "qidi", PRESETS, ("X-Max4",), (), "CC-BY-4.0"),
-    "snapmaker": Zip("Snapmaker Orca", "snapmaker", (*PRESETS, "machine"), ("U1",), ("Snapmaker U1",), "CC-BY-4.0"),
+    "orca": Zip("OrcaSlicer", "orca", ("P2S", "U1", "X-Max4"), (), "CC-BY-4.0"),
+    "orca-machines": Zip("OrcaSlicer", "orca", (), ("Qidi X-Max 4", "Snapmaker U1"), "AGPL-3.0-only"),
+    "bambu": Zip("Bambu Studio", "bambu", ("P2S",), (), "CC-BY-4.0"),
+    "qidi": Zip("QIDI Studio", "qidi", ("X-Max4",), (), "CC-BY-4.0"),
+    "snapmaker": Zip("Snapmaker Orca", "snapmaker", ("U1",), ("Snapmaker U1",), "CC-BY-4.0"),
 }
+ORCA_LICENSE_URL = "https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/README.md#license"
 CATALOG_INTRO = """# Preset catalog
 
 Every preset in the release zips, generated from the tables by `src/docs.py`. What the presets set:

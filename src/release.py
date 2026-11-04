@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the release files from a generated tree: one zip per slicer, manifest.json and SHA256SUMS.
+"""Build the release files from a generated tree: the zips of docs.ZIPS, manifest.json, NOTICE.md, SHA256SUMS.
 
 Usage: release.py VERSION COMMIT EPOCH OUT_DIR DIST_DIR
   VERSION  release tag (vX.Y.Z), COMMIT the commit it is built from, EPOCH that commit's time
@@ -19,7 +19,7 @@ import zipfile
 from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
-from docs import ZIPS, Zip, contents
+from docs import ORCA_LICENSE_URL, ZIPS, Zip, contents
 from gen_process import jobs, preset_name
 from targets import load
 
@@ -46,7 +46,7 @@ def sha256(data: bytes) -> str:
 
 def zip_files(src: Path, folders: tuple[str, ...]) -> list[Path]:
     """Return the files of FOLDERS below SRC, sorted by their path in the zip."""
-    return sorted((p for f in folders if (src / f).is_dir() for p in (src / f).rglob("*") if p.is_file()), key=str)
+    return sorted((p for f in folders if (src / f).is_dir() for p in (src / f).rglob("*.json")), key=str)
 
 
 def write_zip(src: Path, files: list[Path], dst: Path, epoch: int) -> None:
@@ -84,13 +84,18 @@ def build(version: str, commit: str, epoch: int, out: Path, dist: Path) -> dict[
     dist.mkdir(parents=True, exist_ok=True)
     presets: list[Entry] = []
     artifacts: list[Entry] = []
+    shipped: set[Path] = set()
     for stem, z in ZIPS.items():
         name = f"slicer-profiles-{stem}-{version}.zip"
         src = out / z.source
         files = zip_files(src, z.folders)
+        shipped.update(files)
         write_zip(src, files, dist / name, epoch)
         presets += [describe(stem, z, p.relative_to(src).as_posix(), p.read_bytes()) for p in files]
         artifacts.append(_artifact("presets", name, dist, version))
+    if left := sorted(p.relative_to(out).as_posix() for p in out.rglob("*") if p.is_file() and p not in shipped):
+        msg = f"build files in no release zip: {left}"
+        raise ValueError(msg)
     _ = shutil.copyfile(SCHEMA, dist / SCHEMA.name)
     artifacts.append(_artifact("schema", SCHEMA.name, dist, version))
     _ = shutil.copyfile(AGPL_TEXT, dist / AGPL_TEXT.name)
@@ -122,39 +127,44 @@ def _artifact(kind: str, name: str, dist: Path, version: str) -> Entry:
 
 
 def notice(version: str, commit: str) -> str:
-    """Return NOTICE.md: the license of every release file and, for the AGPL zip, its source."""
+    """Return NOTICE.md: the license of every release file and, for each AGPL zip, its source."""
     orca = load()["orca"]
     rows = "".join(f"| `slicer-profiles-{stem}-{version}.zip` | {z.license} |\n" for stem, z in ZIPS.items())
-    agpl = next(stem for stem, z in ZIPS.items() if z.license == "AGPL-3.0-only")
+    agpl = "".join(
+        f"""
+AGPL-3.0-only (`slicer-profiles-{stem}-{version}.zip`): the "(LAN)" printer presets for {" and ".join(z.models)}
+hold start G-code copied from OrcaSlicer's stock profiles and changed by this project ({version}). OrcaSlicer
+licenses them under the GNU Affero General Public License version 3 ({ORCA_LICENSE_URL}); the text is
+`{AGPL_TEXT.name}` beside this file. Source: the JSON presets are their own source form; the generator that
+writes them is https://github.com/{REPOSITORY}/tree/{commit}/src (changes described in `docs/profiles.md`),
+and the stock profiles it starts from are
+https://github.com/{orca["repository"]}/tree/{orca["commit"]}/resources/profiles ({orca["tag"]}).
+"""
+        for stem, z in ZIPS.items()
+        if z.license == "AGPL-3.0-only"
+    )
     return f"""# Licenses of slicer-profiles {version}
 
 Built from https://github.com/{REPOSITORY} at commit `{commit}`.
 
 | File | License |
 |---|---|
-{rows}| `manifest.json`, `manifest.schema.json`, this file | CC-BY-4.0 |
+{rows}| `manifest.json`, `manifest.schema.json`, `SHA256SUMS`, this file | CC-BY-4.0 |
+| `{AGPL_TEXT.name}` | the license text itself: verbatim copies only |
 
 CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/): credit "slicer-profiles by ESchuderer,
 https://github.com/{REPOSITORY}". The presets name a stock preset of each slicer as their parent and
 hold only the values set by this project; values taken from makers' data sheets are cited facts.
-
-AGPL-3.0-only (`slicer-profiles-{agpl}-{version}.zip`): the "(LAN)" printer presets for the Snapmaker U1
-and the Qidi X-Max 4 hold start G-code copied from OrcaSlicer's stock profiles and changed by this
-project ({version}). OrcaSlicer licenses them under the GNU Affero General Public License version 3;
-the text is `{AGPL_TEXT.name}` beside this file. Source: the JSON presets are their own source form;
-the generator that writes them is https://github.com/{REPOSITORY}/tree/{commit} (`src/gen_machine.py`,
-changes described in `docs/profiles.md`), and the stock profiles it starts from are
-https://github.com/{orca["repository"]}/tree/{orca["commit"]}/resources/profiles ({orca["tag"]}).
-"""
+{agpl}"""
 
 
 def catalog_differences(presets: list[Entry]) -> list[str]:
     """Return the zips whose preset names differ from the generated catalog (docs/catalog.md)."""
     found: list[str] = []
-    for slicer, expected in contents().items():
-        built = {k: sorted(str(p["name"]) for p in presets if p["zip"] == slicer and p["type"] == k) for k in expected}
+    for stem, expected in contents().items():
+        built = {k: sorted(str(p["name"]) for p in presets if p["zip"] == stem and p["type"] == k) for k in expected}
         if built != expected:
-            found.append(f"{slicer}: built {built}, catalog {expected}")
+            found.append(f"{stem}: built {built}, catalog {expected}")
     return found
 
 

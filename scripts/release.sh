@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Build the release files of the current commit into dist/: one preset zip per slicer (no printer
-# addresses), manifest.json with its schema, and SHA256SUMS. Two runs on one commit give identical files.
+# Build the release files of the current commit into dist/: the preset zips (no printer addresses; the
+# OrcaSlicer "(LAN)" presets in their own AGPL zip), NOTICE.md with the AGPL text, manifest.json with its
+# schema, and SHA256SUMS. Two runs on one commit give identical files.
 #   scripts/release.sh v0.2.0                              build only
 #   scripts/release.sh v0.2.0 --publish NOTES.md           also create the GitHub release from a clean main
 # Needs the stock profiles like scripts/build.sh does (installed slicers or SLICER_PROFILES_*).
