@@ -4,7 +4,7 @@
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "slicer-profiles",
-  tagline: "Tuned presets for the P2S, U1 and X-Max 4 in OrcaSlicer, Bambu Studio, QIDI Studio and Snapmaker Orca",
+  tagline: "Bambu Studio presets for the Bambu Lab H3C: third-party filaments and print styles on the stock parents",
   url: "https://eschuderer.github.io",
   baseUrl: "/slicer-profiles/",
   organizationName: "ESchuderer",
@@ -44,7 +44,7 @@ const config = {
       ],
     },
     footer: {
-      copyright: "Code ISC, data and docs CC BY 4.0, OrcaSlicer machine presets AGPL-3.0-only",
+      copyright: "Code ISC, data, docs and presets CC BY 4.0",
     },
   },
 };
