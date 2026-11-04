@@ -105,6 +105,9 @@
       "nozzle_temperature_range_high": 230,
       "filament_density": 1.21,
       "filament_vendor": "SUNLU"
-    }
+    },
+    "nozzles": [
+      "0.4"
+    ]
   }
 }
