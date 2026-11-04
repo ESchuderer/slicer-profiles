@@ -1,0 +1,37 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "SUNLU PLA+ 2.0 HQ 0.2 nozzle",
+    "inherits": "Generic PLA @BBL H3C 0.2 nozzle",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "SUNLU PLA+ 2.0 HQ 0.2 nozzle"
+    ],
+    "nozzle_temperature": [
+        "215",
+        "215"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "220",
+        "220"
+    ],
+    "nozzle_temperature_range_low": [
+        "205"
+    ],
+    "nozzle_temperature_range_high": [
+        "245"
+    ],
+    "filament_density": [
+        "1.21"
+    ],
+    "filament_vendor": [
+        "SUNLU"
+    ],
+    "filament_notes": [
+        "SUNLU TDS: 205-245 C (205-215 at 50-100 mm/s), bed 50-60, HDT 56, Vicat 54. Dry 45-50 C for 8-12 h (never 55)."
+    ],
+    "compatible_printers": [
+        "Bambu Lab H3C 0.2 nozzle"
+    ]
+}

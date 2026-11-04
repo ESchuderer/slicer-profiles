@@ -11,7 +11,7 @@ is in EXTRA_KEYS.
 import json
 import sys
 from pathlib import Path
-from typing import TypedDict, cast
+from typing import NotRequired, TypedDict, cast
 
 from resolve import Preset, Value, resolve, source
 from targets import preset_version
@@ -42,6 +42,7 @@ class Filament(TypedDict):
     material: str
     notes: str
     s: Values
+    nozzles: NotRequired[list[str]]  # the nozzles this filament is made for; default: all of the printer's
 
 
 def printer() -> Printer:
@@ -66,10 +67,14 @@ def process_name(p: Printer, nozzle: str, style: str, variant: str) -> str:
     return f"{layer} {' '.join(x for x in (style, variant) if x)} @{p['tag']} {nozzle}"
 
 
-def filament_groups(p: Printer, material: str) -> dict[str, list[str]]:
-    """Return stock parent -> the printer's nozzles it serves, for one material."""
+def filament_groups(p: Printer, f: Filament) -> dict[str, list[str]]:
+    """Return stock parent -> the nozzles it serves, for the nozzles one filament is made for."""
+    material, nozzles = f["material"], f.get("nozzles", p["nozzles"])
+    if unknown := [n for n in nozzles if n not in p["nozzles"]]:
+        msg = f"config/filaments.json: nozzles {unknown} are not in config/h3c.json"
+        raise ValueError(msg)
     groups: dict[str, list[str]] = {}
-    for nozzle in p["nozzles"]:
+    for nozzle in nozzles:
         parent = p["materials"][material].get(nozzle)
         if parent is None:
             msg = f"config/h3c.json: material {material!r} has no parent for the {nozzle} nozzle"
@@ -125,7 +130,7 @@ def presets(root: Path) -> dict[str, Preset]:
         name = process_name(p, nozzle, style, variant)
         out[f"bambu/process/{name}.json"] = make("process", name, parent_name, values, root)
     for fname, f in filaments().items():
-        for parent_name, nozzles in filament_groups(p, f["material"]).items():
+        for parent_name, nozzles in filament_groups(p, f).items():
             printers = [f"{p['printer']} {n} nozzle" for n in nozzles]
             compatible(resolve(parent_name, VENDOR, root), parent_name, printers)
             name = filament_name(fname, nozzles)

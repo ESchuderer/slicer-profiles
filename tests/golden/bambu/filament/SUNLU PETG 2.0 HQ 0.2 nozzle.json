@@ -1,37 +1,37 @@
 {
     "type": "filament",
     "from": "User",
-    "name": "SUNLU TPU 95A HQ 0.6 nozzle",
-    "inherits": "Generic TPU @BBL H3C 0.6 nozzle",
+    "name": "SUNLU PETG 2.0 HQ 0.2 nozzle",
+    "inherits": "Generic PETG @BBL H3C 0.2 nozzle",
     "is_custom_defined": "0",
     "version": "02.09.01.70",
     "filament_settings_id": [
-        "SUNLU TPU 95A HQ 0.6 nozzle"
+        "SUNLU PETG 2.0 HQ 0.2 nozzle"
     ],
     "nozzle_temperature": [
-        "220",
-        "220"
+        "240",
+        "240"
     ],
     "nozzle_temperature_initial_layer": [
-        "225",
-        "225"
+        "245",
+        "245"
     ],
     "nozzle_temperature_range_low": [
-        "190"
-    ],
-    "nozzle_temperature_range_high": [
         "230"
     ],
+    "nozzle_temperature_range_high": [
+        "270"
+    ],
     "filament_density": [
-        "1.21"
+        "1.22"
     ],
     "filament_vendor": [
         "SUNLU"
     ],
     "filament_notes": [
-        "SUNLU TDS: 190-230 C, bed 50-60, density 1.21, retraction 0.8-1.2 mm. Engineering plate 35 C with glue. Dry 50-60 C for 6-12 h."
+        "SUNLU TDS: 230-270 C (230-240 at 50-100 mm/s), bed 70-80, density 1.22, HDT 71, retraction 0.8-1.2 mm. Glue as release agent on smooth PEI. Dry 65 C for 10-12 h, new spools too."
     ],
     "compatible_printers": [
-        "Bambu Lab H3C 0.6 nozzle"
+        "Bambu Lab H3C 0.2 nozzle"
     ]
 }
