@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# Build the release files of the current commit into dist/: the preset zips (no printer addresses; the
-# OrcaSlicer "(LAN)" presets in their own AGPL zip), NOTICE.md with the AGPL text, manifest.json with its
-# schema, and SHA256SUMS. Two runs on one commit give identical files.
+# Build the release files of the current commit into dist/: the preset zips (no printer addresses), NOTICE.md,
+# manifest.json with its schema, and SHA256SUMS. Two runs on one commit give identical files.
 #   scripts/release.sh v0.2.0                              build only
 #   scripts/release.sh v0.2.0 --publish NOTES.md           also create the GitHub release from a clean main
 # Needs the stock profiles like scripts/build.sh does: SLICER_PROFILES_*, the trees src/fetch.py pinned, or installed slicers.
@@ -15,7 +14,6 @@ tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
 mkdir "$tmp/w"
 git archive "$commit" | tar -x -C "$tmp/w"
 # Everything below runs from the archive of the commit, never from the working tree.
-cp "$tmp/w/config/printers.example.json" "$tmp/w/config/printers.json"
 (cd "$tmp/w" && scripts/build.sh --no-install >/dev/null)
 python3 "$tmp/w/src/lint.py" "$tmp/w/out" --release
 rm -rf dist

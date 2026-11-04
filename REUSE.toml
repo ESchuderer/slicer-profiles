@@ -22,20 +22,12 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 ESchuderer"
 SPDX-License-Identifier = "ISC"
 
-# Golden files: the generated presets as tests expect them. Generated presets are CC BY 4.0, except the six
-# OrcaSlicer "(LAN)" presets whose start G-code is copied from OrcaSlicer's stock profiles: AGPL-3.0-only, as
-# OrcaSlicer states (https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/README.md#license).
+# Golden files: the generated presets as the tests expect them, licensed like the release.
 [[annotations]]
 path = ["tests/golden/**"]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 ESchuderer"
 SPDX-License-Identifier = "CC-BY-4.0"
-
-[[annotations]]
-path = ["tests/golden/orca/machine/**"]
-precedence = "override"
-SPDX-FileCopyrightText = ["2026 ESchuderer", "OrcaSlicer contributors"]
-SPDX-License-Identifier = "AGPL-3.0-only"
 
 # Own data, docs and schemas: CC BY 4.0. Values taken from maker data sheets and slicer stock profiles
 # are cited as third-party facts, not relicensed.

@@ -9,16 +9,6 @@
 # src/fetch.py fills a cache by commit from these entries; nothing of upstream origin is committed.
 schema_version = 1
 
-[targets.orca]
-app = "OrcaSlicer"
-version = "2.4.2"
-preset_version = "2.4.2.0"
-repository = "OrcaSlicer/OrcaSlicer"
-tag = "v2.4.2"
-commit = "8500fcdccaa10b5099ac20d252af3a7c560046f1"
-tree = "deada88828a3d9adac5b133459dbd24d5518c4ad"
-vendors = { BBL = "02.01.00.19", OrcaFilamentLibrary = "02.04.00.03", Qidi = "02.04.00.06", Snapmaker = "02.04.00.07" }
-
 [targets.bambu]
 app = "Bambu Studio"
 version = "02.09.01.70"
@@ -28,25 +18,3 @@ tag = "v02.09.01.70"
 commit = "56a57d00a591360cf41bf21383915ee5bf357be5"
 tree = "0c67abd30c5e8135e0ff218773894473a8869858"
 vendors = { BBL = "02.09.00.74" }
-
-[targets.qidi]
-app = "QIDI Studio"
-version = "02.07.02.73"
-preset_version = "02.07.02.73"
-repository = "QIDITECH/QIDIStudio"
-tag = "v2.07.02.73"
-commit = "403b619d56147160bb883e94f95a7951245bc6d0"
-tree = "10c82d56f8d21dd5d3106e1ea09daded921fa4bd"
-vendors = { "X 4 Series" = "02.07.02.73" }
-
-# Exit trigger: when a Snapmaker Orca release takes its profiles from Snapmaker/snapmaker-profiles (no license
-# stated there), the source and license of this pin are decided again.
-[targets.snapmaker]
-app = "Snapmaker Orca"
-version = "2.4.1"
-preset_version = "2.3.4.4" # the fork's profile version (Snapmaker.json 02.03.04.04)
-repository = "Snapmaker/OrcaSlicer"
-tag = "v2.4.1"
-commit = "bac6fd5c1e1c23ddf057cf6471ba4ed7ed621c4c"
-tree = "73a19ec3f6f72af66d2b7df663bba3470a18f1b3"
-vendors = { OrcaFilamentLibrary = "02.03.01.10", Snapmaker = "02.03.04.04" }

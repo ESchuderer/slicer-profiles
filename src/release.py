@@ -11,7 +11,6 @@ no local path.
 
 import hashlib
 import json
-import re
 import shutil
 import sys
 import time
@@ -19,8 +18,8 @@ import zipfile
 from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
-from docs import ORCA_LICENSE_URL, ZIPS, Zip, contents
-from gen_process import jobs, preset_name
+from docs import ZIPS, Zip, contents
+from generate import printer, process_jobs, process_name
 from targets import load
 
 if TYPE_CHECKING:
@@ -28,16 +27,12 @@ if TYPE_CHECKING:
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = ROOT / "schemas" / "manifest.schema.json"
-AGPL_TEXT = ROOT / "LICENSES" / "AGPL-3.0-only.txt"
-AGPL_ASSET = "LICENSE-AGPL-3.0-only.txt"  # its name beside the zips
 REPOSITORY = "ESchuderer/slicer-profiles"
 FORMAT = "slicer-profiles-release"
-PRINTERS = {"Bambu Lab P2S": "P2S", "Snapmaker U1": "U1", "Qidi X-Max 4": "X-Max4", "X-Max 4": "X-Max4"}
-TARGET_PRINTER = {"bambu": "P2S", "qidi": "X-Max4", "snapmaker": "U1"}
-_NOZZLE = re.compile(r"(\d\.\d) nozzle")
 type Entry = dict[str, str | int | None]
-# print preset name -> (printer tag, nozzle, style, variant suffix), from the generator's own job list
-_JOBS = {preset_name(t, n, s, x): (t, n, s, x) for t, n, s, x, _ in jobs()}
+_PRINTER = printer()
+# print preset name -> (nozzle, style, variant), from the generator's own job list
+_JOBS = {process_name(_PRINTER, *job): job for job in process_jobs(_PRINTER)}
 
 
 def sha256(data: bytes) -> str:
@@ -70,13 +65,10 @@ def describe(stem: str, z: Zip, rel: str, data: bytes) -> Entry:
     entry: Entry = {"id": f"{stem}/{rel}", "type": kind, "name": name, "slicer": slicer, "zip": stem}
     entry |= {"printer": None, "nozzle": None, "style": None, "variant": None, "filament": None}
     if kind == "process" and (job := _JOBS.get(name)):
-        tag, nozzle, style, suffix = job
-        entry |= {"printer": tag, "nozzle": nozzle, "style": style, "variant": suffix or None}
-    elif kind == "machine":
-        entry["printer"] = next((tag for prefix, tag in PRINTERS.items() if name.startswith(prefix)), None)
-        entry["nozzle"] = m[1] if (m := _NOZZLE.search(name)) else None
+        nozzle, style, variant = job
+        entry |= {"printer": _PRINTER["tag"], "nozzle": nozzle, "style": style or None, "variant": variant or None}
     elif kind == "filament":
-        entry |= {"filament": name, "printer": TARGET_PRINTER.get(slicer)}
+        entry |= {"filament": name, "printer": _PRINTER["tag"]}
     return entry | {"path": rel, "sha256": sha256(data), "license": z.license}
 
 
@@ -99,8 +91,6 @@ def build(version: str, commit: str, epoch: int, out: Path, dist: Path) -> dict[
         raise ValueError(msg)
     _ = shutil.copyfile(SCHEMA, dist / SCHEMA.name)
     artifacts.append(_artifact("schema", SCHEMA.name, dist, version))
-    _ = shutil.copyfile(AGPL_TEXT, dist / AGPL_ASSET)
-    artifacts.append(_artifact("license", AGPL_ASSET, dist, version))
     _ = (dist / "NOTICE.md").write_text(notice(version, commit), encoding="utf-8")
     artifacts.append(_artifact("notice", "NOTICE.md", dist, version))
     manifest: dict[str, object] = {
@@ -128,22 +118,8 @@ def _artifact(kind: str, name: str, dist: Path, version: str) -> Entry:
 
 
 def notice(version: str, commit: str) -> str:
-    """Return NOTICE.md: the license of every release file and, for each AGPL zip, its source."""
-    orca = load()["orca"]
+    """Return NOTICE.md: the license of every release file."""
     rows = "".join(f"| `slicer-profiles-{stem}-{version}.zip` | {z.license} |\n" for stem, z in ZIPS.items())
-    agpl = "".join(
-        f"""
-AGPL-3.0-only (`slicer-profiles-{stem}-{version}.zip`): the "(LAN)" printer presets for {" and ".join(z.models)}
-hold start G-code copied from OrcaSlicer's stock profiles and changed by this project ({version}). OrcaSlicer
-licenses them under the GNU Affero General Public License version 3 ({ORCA_LICENSE_URL}); the text is
-`{AGPL_ASSET}` beside this file. Source: the JSON presets are their own source form; the generator that
-writes them is https://github.com/{REPOSITORY}/tree/{commit}/src (changes described in `docs/profiles.md`),
-and the stock profiles it starts from are
-https://github.com/{orca["repository"]}/tree/{orca["commit"]}/resources/profiles ({orca["tag"]}).
-"""
-        for stem, z in ZIPS.items()
-        if z.license == "AGPL-3.0-only"
-    )
     return f"""# Licenses of slicer-profiles {version}
 
 Built from https://github.com/{REPOSITORY} at commit `{commit}`.
@@ -151,12 +127,11 @@ Built from https://github.com/{REPOSITORY} at commit `{commit}`.
 | File | License |
 |---|---|
 {rows}| `manifest.json`, `manifest.schema.json`, `SHA256SUMS`, this file | CC-BY-4.0 |
-| `{AGPL_ASSET}` | the license text itself: verbatim copies only |
 
 CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/): credit "slicer-profiles by ESchuderer,
 https://github.com/{REPOSITORY}". The presets name a stock preset of each slicer as their parent and
 hold only the values set by this project; values taken from makers' data sheets are cited facts.
-{agpl}"""
+"""
 
 
 def catalog_differences(presets: list[Entry]) -> list[str]:

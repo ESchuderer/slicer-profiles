@@ -5,4 +5,3 @@ node_modules/
 site/build/
 site/.docusaurus/
 .installed/
-config/printers.json
