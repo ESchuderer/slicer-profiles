@@ -70,5 +70,5 @@ xfail_strict = true
 locale = "en-us"
 
 [tool.typos.files]
-extend-exclude = ["tests/golden/**", "uv.lock"]
+extend-exclude = ["tests/golden/**", "uv.lock", "site/package-lock.json"]
 

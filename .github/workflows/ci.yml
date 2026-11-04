@@ -80,6 +80,27 @@ jobs:
       - name: release build
         run: scripts/release.sh v0.0.0
 
+  # The Docusaurus site of docs/ (published by pages.yml from main).
+  site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: site
+      - name: build (fails on broken links and anchors)
+        run: npm run build
+        working-directory: site
+
   links:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -91,7 +112,7 @@ jobs:
           persist-credentials: false
       - uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --no-progress --max-retries 3 --include-fragments './**/*.md'
+          args: --no-progress --max-retries 3 --include-fragments --exclude-path site './**/*.md'
           fail: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -109,16 +130,21 @@ jobs:
           # Permissive licenses plus MPL-2.0 and LGPL by default; GPL and AGPL only by a deliberate change here.
           allow-licenses: >-
             0BSD, Apache-2.0, BSD-2-Clause, BSD-3-Clause, BSL-1.0, CC0-1.0, ISC, MIT, MIT-0,
-            Python-2.0, PSF-2.0, Unlicense, Zlib, MPL-2.0, LGPL-2.1-or-later, LGPL-3.0-or-later
+            Python-2.0, PSF-2.0, Unlicense, Zlib, MPL-2.0, LGPL-2.1-or-later, LGPL-3.0-or-later,
+            BlueOak-1.0.0, BSD-2-Clause-Views, CC-BY-4.0
           # typing-extensions declares PSF-2.0 on PyPI; the detected expression adds GPL-1.0-or-later from the
           # history section of the Python license text. reuse (its docs are CC-BY-SA-4.0) and its dependency
           # python-debian (GPL-2.0-or-later) are dev-only tools, never shipped.
-          allow-dependencies-licenses: pkg:pypi/typing-extensions, pkg:pypi/reuse, pkg:pypi/python-debian
+          # Site build tools: path-is-inside is "(WTFPL OR MIT)", detected as "MIT AND WTFPL";
+          # unicode-match-property-value-ecmascript is MIT with Unicode data (no SPDX id in the detection).
+          allow-dependencies-licenses: >-
+            pkg:pypi/typing-extensions, pkg:pypi/reuse, pkg:pypi/python-debian,
+            pkg:npm/path-is-inside, pkg:npm/unicode-match-property-value-ecmascript
 
   # The one required status check: green only when every job above passed or was skipped.
   check:
     if: always()
-    needs: [python, repository, generate, links, dependency-review]
+    needs: [python, repository, generate, site, links, dependency-review]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     permissions: {}

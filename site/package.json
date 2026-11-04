@@ -1,0 +1,25 @@
+{
+  "name": "slicer-profiles-site",
+  "private": true,
+  "description": "Docs site of slicer-profiles, built from ../docs",
+  "license": "ISC",
+  "scripts": {
+    "build": "docusaurus build",
+    "start": "docusaurus start",
+    "serve": "docusaurus serve"
+  },
+  "engines": {
+    "node": ">=20.0"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@mdx-js/react": "3.1.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "overrides": {
+    "tinypool": "2.1.2",
+    "serialize-javascript": "7.1.4"
+  }
+}
