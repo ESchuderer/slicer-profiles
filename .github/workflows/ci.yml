@@ -86,6 +86,9 @@ jobs:
           allow-licenses: >-
             0BSD, Apache-2.0, BSD-2-Clause, BSD-3-Clause, BSL-1.0, CC0-1.0, ISC, MIT, MIT-0,
             Python-2.0, PSF-2.0, Unlicense, Zlib, MPL-2.0, LGPL-2.1-or-later, LGPL-3.0-or-later
+          # typing-extensions declares PSF-2.0 on PyPI; the detected expression adds GPL-1.0-or-later from the
+          # history section of the Python license text.
+          allow-dependencies-licenses: pkg:pypi/typing-extensions
 
   # The one required status check: green only when every job above passed or was skipped.
   check:
