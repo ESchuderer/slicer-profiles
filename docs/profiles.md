@@ -74,7 +74,7 @@ Third-party filaments without an H3C stock preset. Each preset inherits the H3C 
 
 <!-- end generated -->
 
-Each preset sets the maker's nozzle temperatures and range, and the density where a source gives it. Every other value, the chamber target included, comes from the H3C Generic parent, unless a data sheet or a filament database (named in the preset's notes) gives a number. ASA heats the chamber to the stock 60 C; HIPS keeps the stock chamber off. The Notes tab carries the maker's data sheet values and drying advice.
+Each preset sets the maker's nozzle temperatures and range, and the density where a source gives it. Every other value, the chamber target included, comes from the H3C Generic parent, unless a data sheet or a filament database (named in the preset's notes) gives a number. ASA heats the chamber to the stock 60 C; HIPS keeps the stock chamber off. A job heats the chamber to the highest target among its filaments, so an ASA part with HIPS support prints at 60 C. The Notes tab carries the maker's data sheet values and drying advice.
 
 ## Limits
 

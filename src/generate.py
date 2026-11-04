@@ -20,9 +20,9 @@ from targets import preset_version
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "config"
 VENDOR = "BBL"
-# Keys Bambu Studio defines (src/libslic3r/PrintConfig.cpp at v02.09.01.70) that its stock files leave out,
-# and whether each one holds a list.
-EXTRA_KEYS = {"filament_notes": True, "independent_support_layer_height": False}
+# Keys Bambu Studio defines (src/libslic3r/PrintConfig.cpp at v02.09.01.70) that its stock files leave out;
+# both are single values (coString, coBool), so they are written as one string.
+EXTRA_KEYS = {"filament_notes", "independent_support_layer_height"}
 type Values = dict[str, str | int | float]
 
 
@@ -97,7 +97,7 @@ def fit(key: str, value: object, parent: Preset, parent_name: str) -> Value:
         if key not in EXTRA_KEYS:
             msg = f"{key!r} is not a key of the stock preset {parent_name!r}"
             raise ValueError(msg)
-        return [text] if EXTRA_KEYS[key] else text
+        return text
     slots = parent[key]
     return [text] * max(1, len(slots)) if isinstance(slots, list) else text
 
