@@ -12,8 +12,9 @@ import os
 import sys
 
 from resolve import resolve, source
+from targets import preset_version
 
-VERSION = "2.3.3.3"  # the fork's profile version (Snapmaker.json 02.03.03.03)
+VERSION = preset_version("snapmaker")
 # Orca 2.4.2 parent -> Snapmaker Orca parent
 PARENTS = {
     "0.16 High Quality @Snapmaker U1 (0.4 nozzle)": "0.16mm Standard @Snapmaker U1 (0.4 nozzle)",

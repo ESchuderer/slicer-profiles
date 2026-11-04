@@ -12,8 +12,9 @@ import os
 import sys
 
 from resolve import resolve
+from targets import preset_version
 
-ORCA_VERSION = "2.4.2.0"
+ORCA_VERSION = preset_version("orca")
 
 # printer tag -> (Orca vendor folder, stock parent preset per nozzle, extruder variants)
 # P2S presets hold 2 values per speed/acceleration key (Direct Drive Standard / High Flow hotend).

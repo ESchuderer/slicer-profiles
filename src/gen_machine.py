@@ -19,8 +19,9 @@ import os
 import sys
 
 from resolve import resolve
+from targets import preset_version
 
-ORCA_VERSION = "2.4.2.0"
+ORCA_VERSION = preset_version("orca")
 
 # --- Printer-level fixes -----------------------------------------------------------------------
 

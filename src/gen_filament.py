@@ -19,8 +19,9 @@ import os
 import sys
 
 from resolve import resolve
+from targets import preset_version
 
-ORCA_VERSION = "2.4.2.0"
+ORCA_VERSION = preset_version("orca")
 PLATE_KEYS = {
     "hot": "hot_plate_temp",
     "textured": "textured_plate_temp",
