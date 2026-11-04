@@ -1,3 +1,0 @@
-# G-code command words the generated presets may run. The H3C presets write no G-code; a build fails on any
-# G-code word not listed here, so a new one is added only after reading the stock change that brought it.
-# Always-fail commands (SAVE_CONFIG, M500 to M504, ...) are refused even if listed here (src/lint.py).

@@ -15,7 +15,7 @@ mkdir "$tmp/w"
 git archive "$commit" | tar -x -C "$tmp/w"
 # Everything below runs from the archive of the commit, never from the working tree.
 (cd "$tmp/w" && scripts/build.sh --no-install >/dev/null)
-python3 "$tmp/w/src/lint.py" "$tmp/w/out" --release
+python3 "$tmp/w/src/lint.py" "$tmp/w/out"
 rm -rf dist
 python3 "$tmp/w/src/release.py" "$version" "$commit" "$epoch" "$tmp/w/out" dist
 ls -l dist

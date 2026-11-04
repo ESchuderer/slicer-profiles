@@ -14,12 +14,11 @@ The zip is attached to each [release](https://github.com/ESchuderer/slicer-profi
 | --- | --- |
 | `config/h3c.json` | The printer: nozzles, the stock print preset per nozzle, the stock Generic filament preset per material and nozzle, print styles and variants |
 | `config/filaments.json` | One entry per filament: material, maker notes, the maker's values |
-| `config/gcode-commands.txt` | G-code words a preset may run (none today); the lint refuses any other |
 | `upstream.lock.toml` | The Bambu Studio release the presets are built for and its stock profile tree |
 | `src/generate.py` | Builds the presets into `out/bambu/` |
 | `src/resolve.py` | Resolves stock preset inheritance; shows the value of any stock setting |
 | `src/fetch.py`, `src/targets.py` | Fetch and read the pinned stock profiles |
-| `src/lint.py`, `src/install.py`, `src/release.py`, `src/docs.py` | G-code and address lint, install guard, release files, generated docs |
+| `src/lint.py`, `src/install.py`, `src/release.py`, `src/docs.py` | lint (no G-code, post-processing or printer address in a preset), install guard, release files, generated docs |
 | `scripts/build.sh` | Generate into `out/` and install into Bambu Studio |
 | `scripts/release.sh` | Build the release files into `dist/` (`--publish` creates the GitHub release) |
 | `tests/` | pytest tests, `check.sh` (the generated output against the committed expectation) |
@@ -30,7 +29,7 @@ Close Bambu Studio, then `scripts/build.sh` (or `--no-install` to only generate 
 
 ## Setup
 
-Linux with `python3`, `bash` and `git` (on macOS, generating, checking and releasing work; installing does not, since the preset folders differ). The generator reads Bambu Studio's stock profiles: `SLICER_PROFILES_BAMBU` if set, else the installed app in `/opt/bambustudio-bin`. The presets are built for this release (`upstream.lock.toml`):
+Linux with Python 3.12 or later, `bash` and `git` (on macOS, generating, checking and releasing work; installing does not, since the preset folders differ). The generator reads Bambu Studio's stock profiles: `SLICER_PROFILES_BAMBU` if set, else the installed app in `/opt/bambustudio-bin`. The presets are built for this release (`upstream.lock.toml`):
 
 | Slicer | Version | Stock profiles |
 |---|---|---|

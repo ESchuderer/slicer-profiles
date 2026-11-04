@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the release files from a generated tree: the zips of docs.ZIPS, manifest.json, NOTICE.md, SHA256SUMS.
+"""Build the release files from a generated tree: the preset zip, manifest.json, NOTICE.md and SHA256SUMS.
 
 Usage: release.py VERSION COMMIT EPOCH OUT_DIR DIST_DIR
   VERSION  release tag (vX.Y.Z), COMMIT the commit it is built from, EPOCH that commit's time
@@ -18,7 +18,7 @@ import zipfile
 from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
-from docs import ZIPS, Zip, contents
+from docs import APP_LICENSE, SLICER, contents
 from generate import printer, process_jobs, process_name
 from targets import load
 
@@ -40,11 +40,6 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def zip_files(src: Path, folders: tuple[str, ...]) -> list[Path]:
-    """Return the files of FOLDERS below SRC, sorted by their path in the zip."""
-    return sorted((p for f in folders if (src / f).is_dir() for p in (src / f).rglob("*.json")), key=str)
-
-
 def write_zip(src: Path, files: list[Path], dst: Path, epoch: int) -> None:
     """Zip FILES (below SRC) with sorted names, one fixed date and mode 0644."""
     stamp = time.gmtime(max(epoch, 315532800))[:6]  # zip dates start in 1980
@@ -57,38 +52,29 @@ def write_zip(src: Path, files: list[Path], dst: Path, epoch: int) -> None:
             z.writestr(info, path.read_bytes(), compresslevel=9)
 
 
-def describe(stem: str, z: Zip, rel: str, data: bytes) -> Entry:
-    """Return the manifest entry of one preset file of a zip."""
+def describe(rel: str, data: bytes) -> Entry:
+    """Return the manifest entry of one preset file of the zip."""
     preset = cast("Preset", json.loads(data))
     kind, name = str(preset.get("type", "")), str(preset.get("name", ""))
-    slicer = z.source
-    entry: Entry = {"id": f"{stem}/{rel}", "type": kind, "name": name, "slicer": slicer, "zip": stem}
+    entry: Entry = {"id": f"{SLICER}/{rel}", "type": kind, "name": name, "slicer": SLICER}
     entry |= {"printer": None, "nozzle": None, "style": None, "variant": None, "filament": None}
     if kind == "process" and (job := _JOBS.get(name)):
         nozzle, style, variant = job
         entry |= {"printer": _PRINTER["tag"], "nozzle": nozzle, "style": style or None, "variant": variant or None}
     elif kind == "filament":
         entry |= {"filament": name, "printer": _PRINTER["tag"]}
-    return entry | {"path": rel, "sha256": sha256(data), "license": z.license}
+    return entry | {"path": rel, "sha256": sha256(data), "license": APP_LICENSE}
 
 
 def build(version: str, commit: str, epoch: int, out: Path, dist: Path) -> dict[str, object]:
-    """Write the zips, manifest.json, its schema and SHA256SUMS into DIST; return the manifest."""
+    """Write the preset zip, manifest.json, its schema, NOTICE.md and SHA256SUMS into DIST; return the manifest."""
     dist.mkdir(parents=True, exist_ok=True)
-    presets: list[Entry] = []
-    artifacts: list[Entry] = []
-    shipped: set[Path] = set()
-    for stem, z in ZIPS.items():
-        name = f"slicer-profiles-{stem}-{version}.zip"
-        src = out / z.source
-        files = zip_files(src, z.folders)
-        shipped.update(files)
-        write_zip(src, files, dist / name, epoch)
-        presets += [describe(stem, z, p.relative_to(src).as_posix(), p.read_bytes()) for p in files]
-        artifacts.append(_artifact("presets", name, dist, version))
-    if left := sorted(p.relative_to(out).as_posix() for p in out.rglob("*") if p.is_file() and p not in shipped):
-        msg = f"build files in no release zip: {left}"
-        raise ValueError(msg)
+    name = f"slicer-profiles-{SLICER}-{version}.zip"
+    src = out / SLICER
+    files = sorted(src.rglob("*.json"), key=str)
+    write_zip(src, files, dist / name, epoch)
+    presets = [describe(p.relative_to(src).as_posix(), p.read_bytes()) for p in files]
+    artifacts = [_artifact("presets", name, dist, version)]
     _ = shutil.copyfile(SCHEMA, dist / SCHEMA.name)
     artifacts.append(_artifact("schema", SCHEMA.name, dist, version))
     _ = (dist / "NOTICE.md").write_text(notice(version, commit), encoding="utf-8")
@@ -119,14 +105,14 @@ def _artifact(kind: str, name: str, dist: Path, version: str) -> Entry:
 
 def notice(version: str, commit: str) -> str:
     """Return NOTICE.md: the license of every release file."""
-    rows = "".join(f"| `slicer-profiles-{stem}-{version}.zip` | {z.license} |\n" for stem, z in ZIPS.items())
     return f"""# Licenses of slicer-profiles {version}
 
 Built from https://github.com/{REPOSITORY} at commit `{commit}`.
 
 | File | License |
 |---|---|
-{rows}| `manifest.json`, `manifest.schema.json`, `SHA256SUMS`, this file | CC-BY-4.0 |
+| `slicer-profiles-{SLICER}-{version}.zip` | {APP_LICENSE} |
+| `manifest.json`, `manifest.schema.json`, `SHA256SUMS`, this file | CC-BY-4.0 |
 
 CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/): credit "slicer-profiles by ESchuderer,
 https://github.com/{REPOSITORY}". The presets name a stock preset of each slicer as their parent and
@@ -135,13 +121,10 @@ hold only the values set by this project; values taken from makers' data sheets 
 
 
 def catalog_differences(presets: list[Entry]) -> list[str]:
-    """Return the zips whose preset names differ from the generated catalog (docs/catalog.md)."""
-    found: list[str] = []
-    for stem, expected in contents().items():
-        built = {k: sorted(str(p["name"]) for p in presets if p["zip"] == stem and p["type"] == k) for k in expected}
-        if built != expected:
-            found.append(f"{stem}: built {built}, catalog {expected}")
-    return found
+    """Return the preset kinds whose names differ from the generated catalog (docs/catalog.md)."""
+    expected = contents()
+    built = {k: sorted(str(p["name"]) for p in presets if p["type"] == k) for k in expected}
+    return [f"{k}: built {built[k]}, catalog {expected[k]}" for k in expected if built[k] != expected[k]]
 
 
 def main(argv: list[str]) -> int:
@@ -154,7 +137,7 @@ def main(argv: list[str]) -> int:
     if stale := catalog_differences(cast("list[Entry]", manifest["presets"])):
         print("docs/catalog.md does not match the build:\n  " + "\n  ".join(stale), file=sys.stderr)
         return 1
-    print(f"{len(cast('list[object]', manifest['presets']))} presets in {len(ZIPS)} zips -> {dist}")
+    print(f"{len(cast('list[object]', manifest['presets']))} presets -> {dist}")
     return 0
 
 
