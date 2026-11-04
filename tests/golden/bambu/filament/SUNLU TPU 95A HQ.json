@@ -1,0 +1,87 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "SUNLU TPU 95A HQ",
+    "inherits": "Generic TPU @BBL P2S",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "SUNLU TPU 95A HQ"
+    ],
+    "filament_notes": [
+        "SUNLU TDS: 190-230 C, bed 50-60, density 1.21, retraction 0.8-1.2 mm. U1: bypass the feeder (manual load, Auto Loading off for that head, flow calibration off); tool-change retraction 2-4 mm in the printer preset. P2S: external spool from a sealed dry box, top glass off or door open. Max 4: top holder, not the QIDI Box; door open, lid off. Engineering plate 35 C with glue. Dry 50-60 C for 6-12 h."
+    ],
+    "hot_plate_temp": [
+        "50"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "50"
+    ],
+    "textured_plate_temp": [
+        "50"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "50"
+    ],
+    "eng_plate_temp": [
+        "35"
+    ],
+    "eng_plate_temp_initial_layer": [
+        "35"
+    ],
+    "filament_vendor": [
+        "SUNLU"
+    ],
+    "nozzle_temperature": [
+        "220",
+        "220",
+        "220"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "225",
+        "225",
+        "225"
+    ],
+    "nozzle_temperature_range_low": [
+        "190"
+    ],
+    "nozzle_temperature_range_high": [
+        "230"
+    ],
+    "filament_max_volumetric_speed": [
+        "3.5",
+        "3.5",
+        "3.5"
+    ],
+    "filament_density": [
+        "1.21"
+    ],
+    "fan_min_speed": [
+        "30"
+    ],
+    "fan_max_speed": [
+        "50"
+    ],
+    "overhang_fan_speed": [
+        "80"
+    ],
+    "filament_retraction_length": [
+        "0.8",
+        "0.8",
+        "0.8"
+    ],
+    "filament_retraction_speed": [
+        "30"
+    ],
+    "filament_adhesiveness_category": [
+        "600"
+    ],
+    "chamber_temperatures": [
+        "0"
+    ],
+    "compatible_printers": [
+        "Bambu Lab P2S 0.4 nozzle",
+        "Bambu Lab P2S 0.6 nozzle",
+        "Bambu Lab P2S 0.8 nozzle"
+    ]
+}

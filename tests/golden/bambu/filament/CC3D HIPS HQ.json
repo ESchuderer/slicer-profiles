@@ -1,0 +1,93 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "CC3D HIPS HQ",
+    "inherits": "Generic HIPS @BBL P2S",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "CC3D HIPS HQ"
+    ],
+    "filament_notes": [
+        "CC3D: 240-260 C, bed about 100, enclosure required. Density set to typical HIPS 1.04. Max 4 chamber 50 C (Orca HIPS range 50-60). Breakaway interface for ASA at 0 mm gap; drop toward 245 C if it fuses to ASA. Dry 60-65 C only if exposed."
+    ],
+    "hot_plate_temp": [
+        "100"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "100"
+    ],
+    "textured_plate_temp": [
+        "100"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "100"
+    ],
+    "eng_plate_temp": [
+        "100"
+    ],
+    "eng_plate_temp_initial_layer": [
+        "100"
+    ],
+    "filament_vendor": [
+        "CC3D"
+    ],
+    "nozzle_temperature": [
+        "250",
+        "250",
+        "250"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "250",
+        "250",
+        "250"
+    ],
+    "nozzle_temperature_range_low": [
+        "240"
+    ],
+    "nozzle_temperature_range_high": [
+        "260"
+    ],
+    "filament_max_volumetric_speed": [
+        "8",
+        "8",
+        "8"
+    ],
+    "filament_density": [
+        "1.04"
+    ],
+    "fan_min_speed": [
+        "0"
+    ],
+    "fan_max_speed": [
+        "20"
+    ],
+    "overhang_fan_speed": [
+        "50"
+    ],
+    "close_fan_the_first_x_layers": [
+        "3"
+    ],
+    "slow_down_layer_time": [
+        "6"
+    ],
+    "filament_adhesiveness_category": [
+        "798"
+    ],
+    "slow_down_min_speed": [
+        "20",
+        "20",
+        "20"
+    ],
+    "chamber_temperatures": [
+        "50"
+    ],
+    "first_x_layer_fan_speed": [
+        "0"
+    ],
+    "compatible_printers": [
+        "Bambu Lab P2S 0.4 nozzle",
+        "Bambu Lab P2S 0.6 nozzle",
+        "Bambu Lab P2S 0.8 nozzle"
+    ]
+}

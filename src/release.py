@@ -28,7 +28,8 @@ if TYPE_CHECKING:
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = ROOT / "schemas" / "manifest.schema.json"
-AGPL_TEXT = ROOT / "release" / "LICENSE-AGPL-3.0-only.txt"
+AGPL_TEXT = ROOT / "LICENSES" / "AGPL-3.0-only.txt"
+AGPL_ASSET = "LICENSE-AGPL-3.0-only.txt"  # its name beside the zips
 REPOSITORY = "ESchuderer/slicer-profiles"
 FORMAT = "slicer-profiles-release"
 PRINTERS = {"Bambu Lab P2S": "P2S", "Snapmaker U1": "U1", "Qidi X-Max 4": "X-Max4", "X-Max 4": "X-Max4"}
@@ -98,8 +99,8 @@ def build(version: str, commit: str, epoch: int, out: Path, dist: Path) -> dict[
         raise ValueError(msg)
     _ = shutil.copyfile(SCHEMA, dist / SCHEMA.name)
     artifacts.append(_artifact("schema", SCHEMA.name, dist, version))
-    _ = shutil.copyfile(AGPL_TEXT, dist / AGPL_TEXT.name)
-    artifacts.append(_artifact("license", AGPL_TEXT.name, dist, version))
+    _ = shutil.copyfile(AGPL_TEXT, dist / AGPL_ASSET)
+    artifacts.append(_artifact("license", AGPL_ASSET, dist, version))
     _ = (dist / "NOTICE.md").write_text(notice(version, commit), encoding="utf-8")
     artifacts.append(_artifact("notice", "NOTICE.md", dist, version))
     manifest: dict[str, object] = {
@@ -135,7 +136,7 @@ def notice(version: str, commit: str) -> str:
 AGPL-3.0-only (`slicer-profiles-{stem}-{version}.zip`): the "(LAN)" printer presets for {" and ".join(z.models)}
 hold start G-code copied from OrcaSlicer's stock profiles and changed by this project ({version}). OrcaSlicer
 licenses them under the GNU Affero General Public License version 3 ({ORCA_LICENSE_URL}); the text is
-`{AGPL_TEXT.name}` beside this file. Source: the JSON presets are their own source form; the generator that
+`{AGPL_ASSET}` beside this file. Source: the JSON presets are their own source form; the generator that
 writes them is https://github.com/{REPOSITORY}/tree/{commit}/src (changes described in `docs/profiles.md`),
 and the stock profiles it starts from are
 https://github.com/{orca["repository"]}/tree/{orca["commit"]}/resources/profiles ({orca["tag"]}).
@@ -150,7 +151,7 @@ Built from https://github.com/{REPOSITORY} at commit `{commit}`.
 | File | License |
 |---|---|
 {rows}| `manifest.json`, `manifest.schema.json`, `SHA256SUMS`, this file | CC-BY-4.0 |
-| `{AGPL_TEXT.name}` | the license text itself: verbatim copies only |
+| `{AGPL_ASSET}` | the license text itself: verbatim copies only |
 
 CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/): credit "slicer-profiles by ESchuderer,
 https://github.com/{REPOSITORY}". The presets name a stock preset of each slicer as their parent and

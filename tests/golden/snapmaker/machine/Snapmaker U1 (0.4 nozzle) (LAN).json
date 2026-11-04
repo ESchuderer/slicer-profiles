@@ -1,0 +1,14 @@
+{
+    "type": "machine",
+    "from": "User",
+    "name": "Snapmaker U1 (0.4 nozzle) (LAN)",
+    "inherits": "Snapmaker U1 (0.4 nozzle)",
+    "printer_settings_id": "Snapmaker U1 (0.4 nozzle) (LAN)",
+    "is_custom_defined": "0",
+    "version": "2.3.4.4",
+    "host_type": "octoprint",
+    "print_host": "",
+    "print_host_webui": "",
+    "bed_temperature_formula": "by_first_filament",
+    "adaptive_bed_mesh_margin": "5"
+}

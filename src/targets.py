@@ -18,6 +18,8 @@ class Target(TypedDict):
     repository: str
     tag: str
     commit: str
+    tree: str
+    vendors: dict[str, str]
 
 
 @cache
@@ -33,11 +35,14 @@ def load(path: Path = LOCK) -> dict[str, Target]:
     for name in NAMES:
         table = tables.get(name)
         fields = cast("dict[str, object]", table) if isinstance(table, dict) else {}
-        missing = [k for k in Target.__annotations__ if not isinstance(fields.get(k), str) or not fields.get(k)]
-        if missing or set(fields) - set(Target.__annotations__):
+        vendors = fields.get("vendors")
+        missing = [
+            k for k in Target.__annotations__ if k != "vendors" and not (isinstance(fields.get(k), str) and fields[k])
+        ]
+        if missing or set(fields) - set(Target.__annotations__) or not isinstance(vendors, dict) or not vendors:
             msg = f"{path.name}: [targets.{name}] needs exactly {', '.join(Target.__annotations__)}"
             raise ValueError(msg)
-        f = {k: str(v) for k, v in fields.items()}
+        f = {k: str(v) for k, v in fields.items() if k != "vendors"}
         out[name] = Target(
             app=f["app"],
             version=f["version"],
@@ -45,6 +50,8 @@ def load(path: Path = LOCK) -> dict[str, Target]:
             repository=f["repository"],
             tag=f["tag"],
             commit=f["commit"],
+            tree=f["tree"],
+            vendors={str(k): str(v) for k, v in cast("dict[str, object]", vendors).items()},
         )
     return out
 

@@ -1,0 +1,105 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "eSUN PETG HQ",
+    "inherits": "Generic PETG @BBL P2S",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "eSUN PETG HQ"
+    ],
+    "filament_notes": [
+        "eSUN TDS v2.0: 230-260 C, bed 75-90, density 1.27, HDT 64. The TDS fan 100% is a test condition; moderate cooling here for layer bonding. Dry 60 C for 8-12 h."
+    ],
+    "hot_plate_temp": [
+        "75"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "80"
+    ],
+    "textured_plate_temp": [
+        "75"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "80"
+    ],
+    "eng_plate_temp": [
+        "75"
+    ],
+    "eng_plate_temp_initial_layer": [
+        "80"
+    ],
+    "nozzle_temperature": [
+        "245",
+        "245",
+        "245"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "245",
+        "245",
+        "245"
+    ],
+    "nozzle_temperature_range_low": [
+        "230"
+    ],
+    "nozzle_temperature_range_high": [
+        "260"
+    ],
+    "filament_max_volumetric_speed": [
+        "12",
+        "12",
+        "12"
+    ],
+    "fan_min_speed": [
+        "30"
+    ],
+    "fan_max_speed": [
+        "50"
+    ],
+    "overhang_fan_speed": [
+        "90"
+    ],
+    "overhang_fan_threshold": [
+        "25%"
+    ],
+    "close_fan_the_first_x_layers": [
+        "3"
+    ],
+    "filament_retraction_length": [
+        "0.8"
+    ],
+    "filament_retraction_speed": [
+        "35"
+    ],
+    "filament_adhesiveness_category": [
+        "300"
+    ],
+    "slow_down_layer_time": [
+        "10"
+    ],
+    "fan_cooling_layer_time": [
+        "30"
+    ],
+    "slow_down_min_speed": [
+        "20",
+        "20",
+        "20"
+    ],
+    "chamber_temperatures": [
+        "0"
+    ],
+    "filament_vendor": [
+        "eSUN"
+    ],
+    "filament_density": [
+        "1.27"
+    ],
+    "filament_flow_ratio": [
+        "0.98"
+    ],
+    "compatible_printers": [
+        "Bambu Lab P2S 0.4 nozzle",
+        "Bambu Lab P2S 0.6 nozzle",
+        "Bambu Lab P2S 0.8 nozzle"
+    ]
+}

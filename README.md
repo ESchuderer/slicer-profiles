@@ -42,7 +42,7 @@ Change their settings here, not in the GUI, because `build.sh` replaces the file
 
 ## Setup
 
-Linux with `python3`, `bash` and the four slicers installed where the scripts expect them (`/opt/orca-slicer`, `/opt/bambustudio-bin`, `/opt/qidi-studio-appimage`, `/opt/snapmaker-orca-appimage`). The generators read the slicers' stock profiles, so the versions matter. Instead of an installed slicer, `SLICER_PROFILES_ORCA`, `SLICER_PROFILES_BAMBU`, `SLICER_PROFILES_QIDI` and `SLICER_PROFILES_SNAPMAKER` can each point at the `resources/profiles` folder of that slicer's source at the tag below. The presets are built for these releases (`upstream.lock.toml`):
+Linux or macOS with `python3`, `bash` and `git`. The generators read each slicer's stock profiles: first `SLICER_PROFILES_<TARGET>` if set, then the trees `src/fetch.py` pinned, then the four slicers installed where the scripts expect them (`/opt/orca-slicer`, `/opt/bambustudio-bin`, `/opt/qidi-studio-appimage`, `/opt/snapmaker-orca-appimage`). `uv run python src/fetch.py` (see Check) makes the installed slicers unnecessary for building. The presets are built for these releases (`upstream.lock.toml`):
 
 | Slicer | Version | Stock profiles |
 |---|---|---|
@@ -63,7 +63,7 @@ uv run ruff check && uv run ruff format --check && uv run basedpyright && uv run
 uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor .github && uv run typos
 ```
 
-`tests/check.sh` regenerates every preset from `config/printers.example.json` (no addresses) and compares the files' SHA-256 sums with `tests/expected.sha256`. Run `tests/check.sh --update` after an intended change to the tables or generators and commit the new sums. A mismatch on an unchanged tree usually means a different slicer version than the table above.
+`uv run python src/fetch.py` fetches the stock profiles pinned in `upstream.lock.toml` (only their JSON files, checked against the locked commit and tree) into `~/.cache/slicer-profiles/upstream`; the generators then use them before any installed slicer. `tests/check.sh` regenerates every preset from `config/printers.example.json` (no addresses) and compares it with the readable golden files in `tests/golden/`; CI runs both, so no slicer has to be installed. After an intended change to the tables or generators, run `tests/check.sh --update` and review `git diff tests/golden`.
 
 ## License
 
@@ -71,6 +71,6 @@ uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor 
 |---|---|
 | Code (`src/`, `scripts/`, `tests/`, workflows) | ISC, see [LICENSE](LICENSE) |
 | Data, docs and the generated presets in the release zips | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
-| `slicer-profiles-orca-machines` zip: the six OrcaSlicer "(LAN)" printer presets, whose start G-code is copied from OrcaSlicer's stock profiles | [AGPL-3.0-only](release/LICENSE-AGPL-3.0-only.txt), as [OrcaSlicer states for its code](https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/README.md#license) |
+| `slicer-profiles-orca-machines` zip: the six OrcaSlicer "(LAN)" printer presets, whose start G-code is copied from OrcaSlicer's stock profiles | [AGPL-3.0-only](LICENSES/AGPL-3.0-only.txt), as [OrcaSlicer states for its code](https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/README.md#license) |
 
 `REUSE.toml` states the license of every file. Values taken from makers' data sheets and the slicers' stock profiles are cited, not relicensed. v0.1.0 and earlier releases stay MIT. The generated presets are not committed; they are published as release zips.
