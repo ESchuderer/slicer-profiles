@@ -11,7 +11,7 @@ import re
 import sys
 from functools import cache
 from pathlib import Path
-from typing import NamedTuple, cast
+from typing import cast
 
 from generate import filament_groups, filament_name, filaments, printer, process_jobs, process_name
 
@@ -20,34 +20,24 @@ CATALOG = ROOT / "docs" / "catalog.md"
 PROFILES = ROOT / "docs" / "profiles.md"
 
 
-class Zip(NamedTuple):
-    """One release zip: the app, the build folder it comes from and its license."""
-
-    app: str
-    source: str  # folder below out/
-    license: str
-    folders: tuple[str, ...] = ("process", "filament")
-
-
-ZIPS = {"bambu": Zip("Bambu Studio", "bambu", "CC-BY-4.0")}
+SLICER, APP, APP_LICENSE = "bambu", "Bambu Studio", "CC-BY-4.0"
 CATALOG_INTRO = """# Preset catalog
 
 Every preset in the release zips, generated from the tables by `src/docs.py`. What the presets set:
 [profiles.md](profiles.md). Install: [install.md](install.md).
 """
 _BLOCK = re.compile(r"(<!-- generated: (\w+) -->\n).*?(<!-- end generated -->)", re.DOTALL)
-type Contents = dict[str, list[str]]
 
 
 @cache
-def contents() -> dict[str, Contents]:
-    """Return the preset names of every zip: {zip: {"process": [...], "filament": [...], "machine": [...]}}."""
+def contents() -> dict[str, list[str]]:
+    """Return the preset names of the zip: {"process": [...], "filament": [...]}."""
     p = printer()
     process = sorted(process_name(p, *job) for job in process_jobs(p))
     filament = sorted(
         filament_name(name, nozzles) for name, f in filaments().items() for nozzles in filament_groups(p, f).values()
     )
-    return {"bambu": {"process": process, "filament": filament, "machine": []}}
+    return {"process": process, "filament": filament}
 
 
 def _table(header: list[str], rows: list[list[str]]) -> str:
@@ -58,10 +48,7 @@ def _table(header: list[str], rows: list[list[str]]) -> str:
 def blocks() -> dict[str, str]:
     """Return the generated tables of docs/profiles.md by block name."""
     p, zips = printer(), contents()
-    zip_rows = [
-        [f"`{stem}` ({z.app})", str(len(zips[stem]["process"])), str(len(zips[stem]["filament"])), z.license]
-        for stem, z in ZIPS.items()
-    ]
+    zip_rows = [[f"`{SLICER}` ({APP})", str(len(zips["process"])), str(len(zips["filament"])), APP_LICENSE]]
     parents = [[n, f"`{p['processes'][n]}`"] for n in p["nozzles"]]
     styles = [
         [name, n, ", ".join(f"`{k}` {v}" for k, v in by_nozzle[n].items())]
@@ -86,12 +73,10 @@ def catalog() -> str:
     """Return docs/catalog.md."""
     parts = [CATALOG_INTRO]
     zips = contents()
-    for stem, z in ZIPS.items():
-        names = zips[stem]
-        parts.append(f"\n## {z.app}: `slicer-profiles-{stem}-<version>.zip` ({z.license})\n")
-        for kind, title in (("process", "Print presets"), ("filament", "Filament presets")):
-            parts.append(f"\n### {title} ({len(names[kind])})\n\n")
-            parts.append("".join(f"- {n}\n" for n in names[kind]))
+    parts.append(f"\n## {APP}: `slicer-profiles-{SLICER}-<version>.zip` ({APP_LICENSE})\n")
+    for kind, title in (("process", "Print presets"), ("filament", "Filament presets")):
+        parts.append(f"\n### {title} ({len(zips[kind])})\n\n")
+        parts.append("".join(f"- {n}\n" for n in zips[kind]))
     return "".join(parts)
 
 

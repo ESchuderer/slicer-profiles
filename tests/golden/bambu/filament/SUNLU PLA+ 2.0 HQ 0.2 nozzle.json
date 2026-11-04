@@ -29,7 +29,7 @@
         "SUNLU"
     ],
     "filament_notes": [
-        "SUNLU TDS: 205-245 C (205-215 at 50-100 mm/s), bed 50-60, HDT 56, Vicat 54. Dry 45-50 C for 8-12 h (never 55)."
+        "SUNLU TDS: 205-245 C (205-215 at 50-100 mm/s), bed 50-60, HDT 56, Vicat 54. Dry 45-50 C for 8-12 h (never 55). Density 1.21: OrcaFilamentLibrary SUNLU PLA+ 2.0 @base (OrcaSlicer 2.4.2)."
     ],
     "compatible_printers": [
         "Bambu Lab H3C 0.2 nozzle"

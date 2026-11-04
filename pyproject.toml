@@ -1,7 +1,7 @@
 [project]
 name = "slicer-profiles"
 version = "0.1.0"
-description = "Tuned print, filament and printer presets for OrcaSlicer, Bambu Studio, QIDI Studio and Snapmaker Orca."
+description = "Bambu Studio user presets for the Bambu Lab H3C, generated from data on the stock parents."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
@@ -70,7 +70,5 @@ xfail_strict = true
 locale = "en-us"
 
 [tool.typos.files]
-extend-exclude = ["tests/golden/**", "tests/models/*.stl", "uv.lock", "site/package-lock.json"]
+extend-exclude = ["tests/golden/**", "uv.lock", "site/package-lock.json"]
 
-[tool.typos.default.extend-identifiers]
-extruder_colour = "extruder_colour" # slicer key name

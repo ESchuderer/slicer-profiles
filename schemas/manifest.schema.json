@@ -20,7 +20,7 @@
         "additionalProperties": false,
         "required": ["target", "app", "version", "preset_version", "repository", "tag", "commit", "tree", "vendors"],
         "properties": {
-          "target": { "enum": ["orca", "bambu", "qidi", "snapmaker"] },
+          "target": { "enum": ["bambu"] },
           "app": { "type": "string" },
           "version": { "type": "string" },
           "preset_version": { "type": "string" },
@@ -53,19 +53,18 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "type", "name", "slicer", "zip", "printer", "nozzle", "style", "variant", "filament", "path", "sha256", "license"],
+        "required": ["id", "type", "name", "slicer", "printer", "nozzle", "style", "variant", "filament", "path", "sha256", "license"],
         "properties": {
           "id": { "type": "string" },
-          "type": { "enum": ["process", "filament", "machine"] },
+          "type": { "enum": ["process", "filament"] },
           "name": { "type": "string" },
-          "slicer": { "enum": ["orca", "bambu", "qidi", "snapmaker"] },
-          "zip": { "type": "string", "pattern": "^[a-z-]+$", "description": "The zip that holds the preset: slicer-profiles-<zip>-<version>.zip." },
+          "slicer": { "enum": ["bambu"] },
           "printer": { "type": ["string", "null"] },
           "nozzle": { "type": ["string", "null"], "pattern": "^\\d\\.\\d$" },
           "style": { "type": ["string", "null"] },
           "variant": { "type": ["string", "null"] },
           "filament": { "type": ["string", "null"] },
-          "path": { "type": "string", "pattern": "^(process|filament|machine)/[^/]+\\.json$", "description": "Path inside the slicer's zip; never a local path." },
+          "path": { "type": "string", "pattern": "^(process|filament)/[^/]+\\.json$", "description": "Path inside the slicer's zip; never a local path." },
           "sha256": { "$ref": "#/$defs/sha256" },
           "license": { "type": "string", "description": "SPDX license expression." }
         }

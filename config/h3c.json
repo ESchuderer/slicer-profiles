@@ -45,9 +45,7 @@
       "0.8": "Generic ASA @BBL H3C 0.4 nozzle"
     },
     "TPU": {
-      "0.4": "Generic TPU @BBL H3C",
-      "0.6": "Generic TPU @BBL H3C 0.6 nozzle",
-      "0.8": "Generic TPU @BBL H3C 0.8 nozzle"
+      "0.4": "Generic TPU @BBL H3C"
     }
   },
   "styles": {
@@ -86,8 +84,6 @@
     "MM-Support": {
       "enable_support": "1",
       "support_type": "normal(auto)",
-      "support_style": "default",
-      "support_threshold_angle": "30",
       "support_top_z_distance": "0",
       "support_bottom_z_distance": "0",
       "support_interface_top_layers": "3",
@@ -95,14 +91,9 @@
       "support_interface_spacing": "0",
       "support_interface_pattern": "rectilinear_interlaced",
       "support_interface_filament": "2",
-      "support_filament": "1",
-      "support_interface_not_for_body": "1",
       "support_base_pattern": "rectilinear-grid",
-      "support_base_pattern_spacing": "2.5",
       "support_object_xy_distance": "0.3",
-      "independent_support_layer_height": "0",
-      "enable_prime_tower": "1",
-      "support_interface_speed": "60"
+      "independent_support_layer_height": "0"
     }
   }
 }

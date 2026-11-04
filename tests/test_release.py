@@ -83,7 +83,7 @@ def test_manifest_and_sums_hold_no_local_path(out: Path, tmp_path: Path) -> None
 def test_catalog_check_reports_a_missing_preset(out: Path, tmp_path: Path) -> None:
     manifest = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
     stale = release.catalog_differences(cast("list[release.Entry]", manifest["presets"]))
-    assert {line.split(":", 1)[0] for line in stale} == {"bambu"}
+    assert {line.split(":", 1)[0] for line in stale} == {"process", "filament"}
 
 
 def test_notice_names_every_zip(out: Path, tmp_path: Path) -> None:
@@ -92,9 +92,3 @@ def test_notice_names_every_zip(out: Path, tmp_path: Path) -> None:
     assert "| `slicer-profiles-bambu-v0.2.0.zip` | CC-BY-4.0 |" in text
     assert "AGPL" not in text
     assert f"at commit `{COMMIT}`" in text
-
-
-def test_build_file_outside_every_zip_stops_the_release(out: Path, tmp_path: Path) -> None:
-    _ = (out / "bambu" / "stray.txt").write_text("x", encoding="utf-8")
-    with pytest.raises(ValueError, match=r"build files in no release zip: \['bambu/stray.txt'\]"):
-        _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
