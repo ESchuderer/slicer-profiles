@@ -40,7 +40,7 @@
         "additionalProperties": false,
         "required": ["kind", "name", "url", "sha256", "size"],
         "properties": {
-          "kind": { "enum": ["presets", "schema", "license", "notice"] },
+          "kind": { "enum": ["presets", "schema", "notice"] },
           "name": { "type": "string", "pattern": "^[\\w.-]+$" },
           "url": { "type": "string", "pattern": "^https://github\\.com/ESchuderer/slicer-profiles/releases/download/" },
           "sha256": { "$ref": "#/$defs/sha256" },

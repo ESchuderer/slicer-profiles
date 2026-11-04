@@ -15,7 +15,6 @@ git ls-files -z --cached --others --exclude-standard \
 # Use the pinned stock profiles (a no-op when cached); SLICER_PROFILES_* still win when set.
 python3 src/fetch.py >/dev/null
 rm -rf "$tmp/w/out" "$tmp/w/tests/golden"
-cp config/printers.example.json "$tmp/w/config/printers.json"
 (cd "$tmp/w" && scripts/build.sh --no-install >/dev/null)
 if [[ "${1:-}" == "--update" ]]; then
   rm -rf tests/golden

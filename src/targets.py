@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import TypedDict, cast
 
 LOCK = Path(__file__).resolve().parent.parent / "upstream.lock.toml"
-NAMES = ("orca", "bambu", "qidi", "snapmaker")
+NAMES = ("bambu",)  # OrcaSlicer returns once a stable release ships H3C profiles
 
 
 class Target(TypedDict):
