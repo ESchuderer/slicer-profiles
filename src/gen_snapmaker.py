@@ -11,7 +11,7 @@ import json
 import os
 import sys
 
-from resolve import SNAPMAKER_APPIMAGE, appimage_profiles, resolve
+from resolve import resolve, source
 
 VERSION = "2.3.3.3"  # the fork's profile version (Snapmaker.json 02.03.03.03)
 # Orca 2.4.2 parent -> Snapmaker Orca parent
@@ -33,7 +33,7 @@ def write(path, preset):
 
 
 def main(orca_out, out):
-    fork = appimage_profiles(SNAPMAKER_APPIMAGE)
+    fork = source("snapmaker")
     n = {"process": 0, "filament": 0, "machine": 0}
     for f in sorted(os.listdir(os.path.join(orca_out, "process"))):
         if "@U1" not in f:
