@@ -1,6 +1,6 @@
 # Install the presets
 
-Download the zip for your slicer from the [latest release](https://github.com/ESchuderer/slicer-profiles/releases/latest), close the slicer, unzip into its user preset folder and start it again.
+Download the zip for your slicer from the [latest release](https://github.com/ESchuderer/slicer-profiles/releases/latest) and import it.
 
 | Slicer | Zip | Presets for |
 |---|---|---|
@@ -9,7 +9,25 @@ Download the zip for your slicer from the [latest release](https://github.com/ES
 | QIDI Studio | `slicer-profiles-qidi-<version>.zip` | Qidi X-Max 4 |
 | Snapmaker Orca | `slicer-profiles-snapmaker-<version>.zip` | Snapmaker U1 |
 
-Each zip holds `process/`, `filament/` and, for Orca and Snapmaker Orca, `machine/`. Unzip so these folders land directly in the preset folder:
+Every preset in each zip is listed in [catalog.md](catalog.md).
+
+## Check the download
+
+Each release also carries `SHA256SUMS` and `manifest.json` (every preset with its checksum and license). In the download folder:
+
+```
+sha256sum --ignore-missing -c SHA256SUMS
+```
+
+## Import
+
+1. In the slicer, choose **File > Import > Import Configs**.
+2. Select the zip, or the JSON files from inside it, and confirm.
+3. Restart the slicer if the new presets do not show up.
+
+## Fallback: unzip into the preset folder
+
+If the import refuses the zip, close the slicer, unzip into its user preset folder and start it again. Each zip holds `process/`, `filament/` and, for Orca and Snapmaker Orca, `machine/`; these folders must land directly in the preset folder:
 
 | Slicer | Preset folder (Linux, tested) |
 |---|---|
@@ -18,12 +36,12 @@ Each zip holds `process/`, `filament/` and, for Orca and Snapmaker Orca, `machin
 | QIDI Studio | `~/.config/QIDIStudio/user/default/` |
 | Snapmaker Orca | `~/.config/Snapmaker_Orca/user/default/` |
 
-When you are logged in to a slicer account, use the folder `user/<account id>/` that the app loads (`preset_folder` in `~/.config/<app>/<app>.conf`) instead of `default`.
+When you are logged in to a slicer account, use the folder `user/<account id>/` that the app loads (`preset_folder` in `~/.config/<app>/<app>.conf`) instead of `default`. Presets there may sync to the vendor's cloud.
 Windows and macOS: the same `user/default/` folder lives in the app's data directory (unverified: `%APPDATA%\<app>\` and `~/Library/Application Support/<app>/`).
 
 ```
 cd ~/.config/OrcaSlicer/user/default
-unzip -o ~/Downloads/slicer-profiles-orca-v0.1.0.zip
+unzip -o ~/Downloads/slicer-profiles-orca-v0.2.0.zip
 ```
 
 ## After the import
