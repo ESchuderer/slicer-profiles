@@ -27,6 +27,7 @@ python3 src/gen_machine.py out/orca/machine
 python3 src/gen_bambu.py out/orca out/bambu bambu
 python3 src/gen_bambu.py out/orca out/qidi qidi
 python3 src/gen_snapmaker.py out/orca out/snapmaker
+python3 src/lint.py out
 if [[ "${1:-}" == "--no-install" ]]; then
   echo "Generated into ./out (not installed)."
   exit 0

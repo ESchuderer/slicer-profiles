@@ -69,7 +69,7 @@ def main(orca_out, out):
             "version": VERSION,
             "host_type": "octoprint",
             "print_host": u1["host"],
-            "print_host_webui": "http://" + u1["host"],
+            "print_host_webui": f"http://{u1['host']}" if u1["host"] else "",
         }
         p.update(PRINTER_SETTINGS)
         write(os.path.join(out, "machine", name + ".json"), p)

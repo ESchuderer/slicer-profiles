@@ -63,7 +63,7 @@ uv run ruff check && uv run ruff format --check && uv run basedpyright && uv run
 uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor .github && uv run typos
 ```
 
-`tests/check.sh` regenerates every preset with the example addresses and compares the files' SHA-256 sums with `tests/expected.sha256`. Run `tests/check.sh --update` after an intended change to the tables or generators and commit the new sums. A mismatch on an unchanged tree usually means a different slicer version than the table above.
+`tests/check.sh` regenerates every preset from `config/printers.example.json` (no addresses) and compares the files' SHA-256 sums with `tests/expected.sha256`. Run `tests/check.sh --update` after an intended change to the tables or generators and commit the new sums. A mismatch on an unchanged tree usually means a different slicer version than the table above.
 
 ## License
 

@@ -75,7 +75,7 @@ Each preset inherits the stock preset of the same filament (or the generic one f
 
 ## "(LAN)" printer presets
 
-Source: `src/gen_machine.py` (Orca) and `src/gen_snapmaker.py` (Snapmaker Orca). Orca stores a printer's network address inside a user printer preset, so each networked printer gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle. Each copy holds the address from `config/printers.json` (release zips: the example `192.0.2.x`, set yours in the preset's `print_host` field) and the printer fixes below. Print presets that list the stock printer stay compatible with these copies.
+Source: `src/gen_machine.py` (Orca) and `src/gen_snapmaker.py` (Snapmaker Orca). Orca stores a printer's network address inside a user printer preset, so each networked printer gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle. Each copy holds the address from `config/printers.json` (release zips: none, set yours in the preset's `print_host` field) and the printer fixes below. Print presets that list the stock printer stay compatible with these copies.
 
 All "(LAN)" printers: in multi-material jobs the bed temperature follows the filament printed first (a PLA part gets the PLA bed) instead of Orca's default of the hottest filament in the job.
 

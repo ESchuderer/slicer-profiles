@@ -163,7 +163,7 @@ def make(name, parent, d):
         "version": ORCA_VERSION,
         "host_type": "octoprint",
         "print_host": d["host"],
-        "print_host_webui": "http://" + d["host"],
+        "print_host_webui": f"http://{d['host']}" if d["host"] else "",
     }
 
 
