@@ -3,22 +3,102 @@ on:
   push:
     branches: [main]
   pull_request:
-permissions:
-  contents: read
+permissions: {}
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  lint:
+  python:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Shell scripts
-        run: shellcheck scripts/*.sh tests/*.sh
-      - name: Python compiles
-        run: python3 -m compileall -q .
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: false
+      - run: uv sync --locked
+      - name: ruff
+        run: uv run ruff check --output-format=github
+      - name: ruff format
+        run: uv run ruff format --check
+      - name: basedpyright
+        run: uv run basedpyright
+      - name: pytest
+        run: uv run pytest
+
+  repository:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: false
+      - run: uv sync --locked
+      - name: shellcheck
+        run: uv run shellcheck scripts/*.sh tests/*.sh
+      - name: actionlint
+        run: uv run actionlint
+      - name: zizmor
+        run: uv run zizmor --format=github .github
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: typos
+        run: uv run typos
       - name: JSON is valid
-        run: for f in config/filaments.json config/printers.example.json; do python3 -m json.tool "$f" >/dev/null; done
+        run: for f in config/*.json; do uv run python -m json.tool "$f" >/dev/null; done
+
+  links:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --no-progress --max-retries 3 --include-fragments './**/*.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          # Permissive licenses plus MPL-2.0 and LGPL by default; GPL and AGPL only by a deliberate change here.
+          allow-licenses: >-
+            0BSD, Apache-2.0, BSD-2-Clause, BSD-3-Clause, BSL-1.0, CC0-1.0, ISC, MIT, MIT-0,
+            Python-2.0, PSF-2.0, Unlicense, Zlib, MPL-2.0, LGPL-2.1-or-later, LGPL-3.0-or-later
+
+  # The one required status check: green only when every job above passed or was skipped.
+  check:
+    if: always()
+    needs: [python, repository, links, dependency-review]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    permissions: {}
+    steps:
+      - name: All gates passed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          for r in $RESULTS; do
+            case "$r" in success | skipped) ;; *) echo "a gate ended with: $r"; exit 1 ;; esac
+          done
