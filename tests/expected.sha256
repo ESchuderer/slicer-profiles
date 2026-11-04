@@ -1,10 +1,10 @@
-5ab121cc36165f6136bb1359673d859d5fde762fe53845c72386077b260462b2  out/bambu/filament/Anycubic ASA HQ.json
-2b751118976e16adfc875d134fe62146a1797a925ecf7d20315b525464f0bfcc  out/bambu/filament/CC3D HIPS HQ.json
-3e79bb8568d121aea59b4bd2dca659419eb5acb01985ece85259a8fe32bbef70  out/bambu/filament/SUNLU ASA HQ.json
-3af7f9f4d9f66001a0266e5c730720a4b9dfe9e5f4d03b7c340ba76f6f8a690e  out/bambu/filament/SUNLU HS Matte PETG HQ.json
-894c5acd856c0388c03a4312d830dff16968df9d170a9df59e8a57b9c86e2ce8  out/bambu/filament/SUNLU PETG 2.0 HQ.json
-64d9776d04a9068a2c60676988ebddbaccc639d37ff1f11d022dc0a73d1f63e3  out/bambu/filament/SUNLU PLA Matte HQ.json
-e316dbd0e5548517ed041cac435128afeddf542b122e033dc765a9ecbce875d8  out/bambu/filament/SUNLU PLA+ 2.0 HQ.json
+a313a5f5abf87339ab32f55e89eaac46152662d9416effe2fc2287410c31c2de  out/bambu/filament/Anycubic ASA HQ.json
+0abcb6c090ef950a5ac4b0f968b6a6f5b798a42d133721e2c82ce097f9106722  out/bambu/filament/CC3D HIPS HQ.json
+68511a6db1f0fb199a90c38a5c780dee79b357baa4c92a5356750bbf70b3d3fb  out/bambu/filament/SUNLU ASA HQ.json
+6c147cdb4e02719ba92aa07074a5a95a7fbb7c8756181ba77466d1d474c43ca1  out/bambu/filament/SUNLU HS Matte PETG HQ.json
+19167e4641044cb5d54164012db0435e7f9de36ae007a6dd8db70f50dc0261c3  out/bambu/filament/SUNLU PETG 2.0 HQ.json
+7ca48b175c037a781828c6492a654439b9033ed34c1f7c481efaf3a96f7334de  out/bambu/filament/SUNLU PLA Matte HQ.json
+d9253810f118210ee994d3e3368f901f4de047473fcf41228113f83ca35da0a9  out/bambu/filament/SUNLU PLA+ 2.0 HQ.json
 6150775c240acc463fdb6e06def0b964e742d5a6f9ed47733cedb7261825c64d  out/bambu/filament/SUNLU TPU 95A HQ.json
 6434d83f969a6f60c7d59f22a7127df03e82bd4a6dfdda86adbbe5f0ef481c7b  out/bambu/filament/eSUN PETG HQ.json
 ec2eb2dce19c70c3bd71880fca7b764850c08af9e6c1e64588be10a9793cdfa3  out/bambu/process/0.12mm Detail @P2S 0.4.json
@@ -27,13 +27,13 @@ d0108525d80a4742c16edc862de01761702d8883304ac50a1b73fefa98336968  out/bambu/proc
 f5ba35197ea2d6bd398c721467ca75975dc010f374798dea99c74af2e2a792df  out/bambu/process/0.32mm Standard MM-Support @P2S 0.8.json
 72f8af17976b756ac171bd8bc61588bee9ef6a71846e1014fcedd2011809ffe6  out/bambu/process/0.36mm Strong @P2S 0.8.json
 4c05ef4e2065a139148ab4e90e2cf8f1bd91dce399f1e4750ec0bd722502e681  out/bambu/process/0.36mm Strong MM-Support @P2S 0.8.json
-2af9bab6e33ddfb680eaf3caaaa40f59f6149eac3c94f07be61832a41d516381  out/orca/filament/Anycubic ASA HQ.json
-cd3444aa87b40b836f3298a2540a3018bab82545a13babfc64b8644dfe71a257  out/orca/filament/CC3D HIPS HQ.json
-441cd9e822529f99a027f72d1b8bfa5c21ad63aa6110ad8f4fb6f89bfe0805c3  out/orca/filament/SUNLU ASA HQ.json
-bb2dd7b2c2f886072821a260c5713f7ed997180b5d8b848998821bb29ee0e3f1  out/orca/filament/SUNLU HS Matte PETG HQ.json
-df7d306e181aa6e49cf3c61b1f5726f28358f4c15752b48f5b43036eab7d37a0  out/orca/filament/SUNLU PETG 2.0 HQ.json
-8db443ccf1430cfc3e2174faf0966c1e0dab89b1414746380ac61df8d49ed81b  out/orca/filament/SUNLU PLA Matte HQ.json
-ab107994cea3e49b71a6202da3f8e0aa72d8719194d17070fbaf12793645a253  out/orca/filament/SUNLU PLA+ 2.0 HQ.json
+71877311513507710cc8048a713aa00091a90aec9b40b41084118e2ce55eec09  out/orca/filament/Anycubic ASA HQ.json
+083629d93cd724fc125859e1aae3333108410e6f7bec7ce899f76d64487370f3  out/orca/filament/CC3D HIPS HQ.json
+9d3c14b911c2e58b64373a64b35207442b854ac7ae01dd165be3db533e050bcd  out/orca/filament/SUNLU ASA HQ.json
+e58bf04d3dc94f8adc3f71c986d44ad42c1e4015f90a0c82684340049be6b438  out/orca/filament/SUNLU HS Matte PETG HQ.json
+73a6d0d0e43fb11d914fc1d6df3ef07e8f8bab47cf8d4f6a47f817ccf4fe7f41  out/orca/filament/SUNLU PETG 2.0 HQ.json
+ab45bf9e54f667d3b2b64319b4eb7c3a523a2b428aad88d8ef3103634fdac1cb  out/orca/filament/SUNLU PLA Matte HQ.json
+cd58229f0735b3ca4d4feaca7ff7028881d94c05fbcd0425ad0135124f929090  out/orca/filament/SUNLU PLA+ 2.0 HQ.json
 8a4e8d52f5e9dc31ba3c83196b7ff7686e508805f284958c159ed6110d1f2397  out/orca/filament/SUNLU TPU 95A HQ.json
 6d959d6ba309134e39c2daf6b0de99adeab3d9e46bb985745591861cc6dc4943  out/orca/filament/eSUN PETG HQ.json
 328af7bda449a2f3aaa6f66aeedf97d695b0a8fe912185d166ea6aa272e0f0d9  out/orca/machine/Qidi X-Max 4 0.4 nozzle (LAN).json
@@ -103,13 +103,13 @@ f3a58f202241b0bf4c25f115b45063f85985b6b598ccd2c09d157b31fddda185  out/orca/proce
 04ea686aa87aab31dfae63726dee12c8655e567cb9e9fa1afd3e27189a8064cd  out/orca/process/0.36mm Strong MM-Support @P2S 0.8.json
 5b9ec97b864960008133dcee6219bf0dadf7ac8e2852a5f7b6f0cc4cc889ba0f  out/orca/process/0.36mm Strong MM-Support @U1 0.8.json
 7249ba8c2ccccef4b452d4dc9d8a1eb6b7bf11e08791bc42bb148980f49de14c  out/orca/process/0.36mm Strong MM-Support @X-Max4 0.8.json
-0239035df570a4525b761779f3924a87255531c99ea8f053948c3ccdb7f00ee3  out/qidi/filament/Anycubic ASA HQ.json
-b2e19f061152eb8e9940df65879de8dca72b4ca179ce572611770623c9e89395  out/qidi/filament/CC3D HIPS HQ.json
-890ad064689a36315f2b050ad86346c4a3c6a528f2606541b1e35778fa4c411f  out/qidi/filament/SUNLU ASA HQ.json
-eab161f9d00c54791f533a342663c5a3f547b68351028442cd34e67b20636912  out/qidi/filament/SUNLU HS Matte PETG HQ.json
-eab170470a11d6ceb4fbada73ef0ffd493039b643212ca53ea8aa8a258b54ad1  out/qidi/filament/SUNLU PETG 2.0 HQ.json
-92968f43ce43028bb6c4947e2447f12ab05951fc3a423a2fec17857b032b6044  out/qidi/filament/SUNLU PLA Matte HQ.json
-377b263a86301bd3821c73c67aa0fc0aa2ec29d76aea1da7a8243b54412d1864  out/qidi/filament/SUNLU PLA+ 2.0 HQ.json
+7e499375738d1f4c43b9c11d01e591991a48862761050160059e48ed90b317e9  out/qidi/filament/Anycubic ASA HQ.json
+564d1cb031e43e60205c2be91509d44534c30fa79195e27a691eda3c733440f7  out/qidi/filament/CC3D HIPS HQ.json
+08c9bf4751982bfbbf76b6b6240c151c95cda663596db0b7f22f6ddafec74ca6  out/qidi/filament/SUNLU ASA HQ.json
+30664fd97bb3dc9a1f39417fcd25dcaeb90ac866a8c433529b5ce8e9923bde62  out/qidi/filament/SUNLU HS Matte PETG HQ.json
+212f822767b5d4d519ebb836fa281f1db21ed791e8e7c9bde3f0716c3e0ddf1d  out/qidi/filament/SUNLU PETG 2.0 HQ.json
+a1eb2a06b633ab46cb661ebbb1b07eef816b515df1b1e49e51c0ef64da7a76c4  out/qidi/filament/SUNLU PLA Matte HQ.json
+03940a57fa5dafaedaa19eae4ba5029afeab970426693d38bb9b09773bc7d9e9  out/qidi/filament/SUNLU PLA+ 2.0 HQ.json
 3a4913370327e697d76bf548b79227e793090dfa00440831e8cd7d5c5e1fd65e  out/qidi/filament/SUNLU TPU 95A HQ.json
 f3bb239755b73746072ec30b13e53c90d5ee6eac9e1af6888483361161dd640f  out/qidi/filament/eSUN PETG HQ.json
 6ef0ba6e47da34dd7dd215610db623a725803f188ecf5a1af97c8d5031f6d5f5  out/qidi/process/0.12mm Detail @X-Max4 0.4.json
@@ -132,13 +132,13 @@ d6a15e5b6ba3dcb633535848b92b7a64eb0e91e23d10ccb4072c3b8482f80687  out/qidi/proce
 a372223272e6353d27bd683914d2fbe1f44b6ed62508360642e1eea9033825a8  out/qidi/process/0.32mm Standard MM-Support @X-Max4 0.8.json
 abdc717f0f6b4349ae397dc48c58f8366c139fbac8e31e1b3963eec0090b0a94  out/qidi/process/0.36mm Strong @X-Max4 0.8.json
 d69dd0b8694fbe2a5dcbf18c08856e09ce5a4031a221808e4c2aab85402e27c0  out/qidi/process/0.36mm Strong MM-Support @X-Max4 0.8.json
-2e9a03cdf4de56f7a80b137f5ca5ce0c2c0335e5c51a5dfc31adbc3c4abe3340  out/snapmaker/filament/Anycubic ASA HQ.json
-acbe1728ae59f64d28b7f23e7ed4f7f4a1bc96d0fd41264f1f455ac1864897ab  out/snapmaker/filament/CC3D HIPS HQ.json
-042f6dba8ba327ecc638cc4001c6da275d8c8442431326b49eacc15f655d037b  out/snapmaker/filament/SUNLU ASA HQ.json
-0f76b9ebb512a0e882c773d1d407c84fab91abe69978333f0665ed8695b55682  out/snapmaker/filament/SUNLU HS Matte PETG HQ.json
-78890140de4565af2ff7bc1734156b708a814eece406d0f6360d9ab7bcae02b3  out/snapmaker/filament/SUNLU PETG 2.0 HQ.json
-3cf1d9d184aecd7357d584a3cd8ab71678998cec571860d3063f9597a9955852  out/snapmaker/filament/SUNLU PLA Matte HQ.json
-1f28828948c6fc1315a90e03e87bce9eab61839da278a2a18048131a03daa9e9  out/snapmaker/filament/SUNLU PLA+ 2.0 HQ.json
+272188b1ba137afae3e3be875b5bffff20fd5c01652f215b955f171d7993a470  out/snapmaker/filament/Anycubic ASA HQ.json
+cdf3c9f2e809a7606a27434ab85337bd139e5882d39a59cd55e03c70422cca91  out/snapmaker/filament/CC3D HIPS HQ.json
+b40b5130eecb04fad484652be03f8af541b46d4f48dd81b854245627d9bb0c39  out/snapmaker/filament/SUNLU ASA HQ.json
+ae3898b59df04abea06d205b887e1fc86137f1e7f039fe8622b49cb130071fec  out/snapmaker/filament/SUNLU HS Matte PETG HQ.json
+9dbfbae2b6ddef8c4f45dfde436178e9880d9b379bcefa561a736fe98ee3f1d5  out/snapmaker/filament/SUNLU PETG 2.0 HQ.json
+b18b6cd64850374b5fd816a275ceea103b8206e2f08a5c7075b270a8ca449ae6  out/snapmaker/filament/SUNLU PLA Matte HQ.json
+9ff4cce55f08e5acb0520bf41dac769e31f860dd4fa4b528ad17b009825b072e  out/snapmaker/filament/SUNLU PLA+ 2.0 HQ.json
 d9334d6450e2dda8d653f5356b15fbb9e16e7a941cc7961a8e5992010f50c9df  out/snapmaker/filament/SUNLU TPU 95A HQ.json
 74f721bf2a303c7be115390237a65e6b02b11504f86ce8b210fa39fc6896e23d  out/snapmaker/filament/eSUN PETG HQ.json
 1a96b23681d9f2b248aa755d094bfa5ab4e762fa58a56071d2455335393c5a86  out/snapmaker/machine/Snapmaker U1 (0.4 nozzle) (LAN).json
