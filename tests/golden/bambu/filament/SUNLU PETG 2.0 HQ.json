@@ -1,0 +1,37 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "SUNLU PETG 2.0 HQ",
+    "inherits": "Generic PETG @BBL H3C",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "SUNLU PETG 2.0 HQ"
+    ],
+    "nozzle_temperature": [
+        "240",
+        "240"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "245",
+        "245"
+    ],
+    "nozzle_temperature_range_low": [
+        "230"
+    ],
+    "nozzle_temperature_range_high": [
+        "270"
+    ],
+    "filament_density": [
+        "1.22"
+    ],
+    "filament_vendor": [
+        "SUNLU"
+    ],
+    "filament_notes": "SUNLU TDS: 230-270 C (230-240 at 50-100 mm/s), bed 70-80, density 1.22, HDT 71, retraction 0.8-1.2 mm. Glue as release agent on smooth PEI. Dry 65 C for 10-12 h, new spools too.",
+    "compatible_printers": [
+        "Bambu Lab H3C 0.4 nozzle",
+        "Bambu Lab H3C 0.6 nozzle",
+        "Bambu Lab H3C 0.8 nozzle"
+    ]
+}

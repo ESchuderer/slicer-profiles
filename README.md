@@ -21,7 +21,7 @@ The zip is attached to each [release](https://github.com/ESchuderer/slicer-profi
 | `src/lint.py`, `src/install.py`, `src/release.py`, `src/docs.py` | lint (no G-code, post-processing or printer address in a preset), install guard, release files, generated docs |
 | `scripts/build.sh` | Generate into `out/` and install into Bambu Studio |
 | `scripts/release.sh` | Build the release files into `dist/` (`--publish` creates the GitHub release) |
-| `tests/` | pytest tests, `check.sh` (the generated output against the committed expectation) |
+| `tests/` | pytest tests, `check.sh` (the generated output against the golden files in `tests/golden/`) |
 
 ## Build your own
 
@@ -45,7 +45,7 @@ uv run ruff check && uv run ruff format --check && uv run basedpyright && uv run
 uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor .github && uv run typos && uv run reuse lint
 ```
 
-`tests/check.sh` regenerates every preset and compares the files' SHA-256 sums with `tests/expected.sha256`. Run `tests/check.sh --update` after an intended change and commit the new sums.
+`uv run python src/fetch.py` fetches the stock profiles pinned in `upstream.lock.toml` (only their JSON files, checked against the locked commit, tree and index version) into `~/.cache/slicer-profiles/upstream`. `tests/check.sh` fetches them, regenerates every preset and compares it with the readable golden files in `tests/golden/`; CI runs it, so no slicer has to be installed. After an intended change, run `tests/check.sh --update` and review `git diff tests/golden`.
 
 ## License
 
@@ -54,4 +54,4 @@ uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor 
 | Code (`src/`, `scripts/`, `tests/`, workflows) | ISC, see [LICENSE](LICENSE) |
 | Data, docs and the generated presets in the release zip | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
 
-`REUSE.toml` states the license of every file. Values taken from makers' data sheets and the slicers' stock profiles are cited, not relicensed. v0.1.0 and earlier releases stay MIT. The generated presets are not committed; they are published as release zips.
+`REUSE.toml` states the license of every file. Values taken from makers' data sheets and the slicers' stock profiles are cited, not relicensed. v0.1.0 and earlier releases stay MIT. The generated presets are published as release zips; `tests/golden/` keeps a copy as the test expectation.

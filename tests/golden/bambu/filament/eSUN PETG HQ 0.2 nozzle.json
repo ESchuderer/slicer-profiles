@@ -1,0 +1,32 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "eSUN PETG HQ 0.2 nozzle",
+    "inherits": "Generic PETG @BBL H3C 0.2 nozzle",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "eSUN PETG HQ 0.2 nozzle"
+    ],
+    "nozzle_temperature": [
+        "245",
+        "245"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "245",
+        "245"
+    ],
+    "nozzle_temperature_range_low": [
+        "230"
+    ],
+    "nozzle_temperature_range_high": [
+        "260"
+    ],
+    "filament_vendor": [
+        "eSUN"
+    ],
+    "filament_notes": "eSUN TDS v2.0: 230-260 C, bed 75-90, density 1.27, HDT 64. The TDS fan 100% is a test condition; moderate cooling here for layer bonding. Dry 60 C for 8-12 h.",
+    "compatible_printers": [
+        "Bambu Lab H3C 0.2 nozzle"
+    ]
+}

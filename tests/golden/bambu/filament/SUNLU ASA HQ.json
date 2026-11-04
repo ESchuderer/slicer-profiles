@@ -1,0 +1,37 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "SUNLU ASA HQ",
+    "inherits": "Generic ASA @BBL H3C 0.4 nozzle",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "SUNLU ASA HQ"
+    ],
+    "nozzle_temperature": [
+        "260",
+        "260"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "260",
+        "260"
+    ],
+    "nozzle_temperature_range_low": [
+        "250"
+    ],
+    "nozzle_temperature_range_high": [
+        "280"
+    ],
+    "filament_density": [
+        "1.04"
+    ],
+    "filament_vendor": [
+        "SUNLU"
+    ],
+    "filament_notes": "SUNLU TDS: 250-260 C at 50-100 mm/s, 260-280 at 100-200, bed 90-110 (thin glue on textured PEI), density 1.04, HDT 101. Dry 80 C for 8 h. Chamber: the H3C stock 60 C (Generic ASA @BBL H3C 0.2 and 0.4 nozzle, Bambu Studio 2.9.1); no maker, OrcaFilamentLibrary (OrcaSlicer 2.4.2) or online database value found.",
+    "compatible_printers": [
+        "Bambu Lab H3C 0.4 nozzle",
+        "Bambu Lab H3C 0.6 nozzle",
+        "Bambu Lab H3C 0.8 nozzle"
+    ]
+}

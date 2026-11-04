@@ -19,6 +19,13 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 ESchuderer"
 SPDX-License-Identifier = "ISC"
 
+# Golden files: the generated presets as the tests expect them, licensed like the release.
+[[annotations]]
+path = ["tests/golden/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 ESchuderer"
+SPDX-License-Identifier = "CC-BY-4.0"
+
 # Own data, docs and schemas: CC BY 4.0. Values taken from maker data sheets and slicer stock profiles
 # are cited as third-party facts, not relicensed.
 [[annotations]]

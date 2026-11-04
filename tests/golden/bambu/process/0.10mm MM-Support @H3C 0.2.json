@@ -1,0 +1,21 @@
+{
+    "type": "process",
+    "from": "User",
+    "name": "0.10mm MM-Support @H3C 0.2",
+    "inherits": "0.10mm Standard @BBL H3C 0.2 nozzle",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "print_settings_id": "0.10mm MM-Support @H3C 0.2",
+    "enable_support": "1",
+    "support_type": "normal(auto)",
+    "support_top_z_distance": "0",
+    "support_bottom_z_distance": "0",
+    "support_interface_top_layers": "3",
+    "support_interface_bottom_layers": "3",
+    "support_interface_spacing": "0",
+    "support_interface_pattern": "rectilinear_interlaced",
+    "support_interface_filament": "2",
+    "support_base_pattern": "rectilinear-grid",
+    "support_object_xy_distance": "0.3",
+    "independent_support_layer_height": "0"
+}

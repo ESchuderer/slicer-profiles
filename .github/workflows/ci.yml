@@ -58,6 +58,28 @@ jobs:
       - name: JSON is valid
         run: for f in config/*.json; do uv run python -m json.tool "$f" >/dev/null; done
 
+  # Generates every preset from the stock profile trees pinned in upstream.lock.toml (no slicer installed)
+  # and compares them with tests/golden; then builds the release files, which lints them for release.
+  generate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: false
+      - run: uv sync --locked
+      - name: fetch pinned stock profiles
+        run: uv run python src/fetch.py
+      - name: golden files
+        run: tests/check.sh
+      - name: release build
+        run: scripts/release.sh v0.0.0
+
   links:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -96,7 +118,7 @@ jobs:
   # The one required status check: green only when every job above passed or was skipped.
   check:
     if: always()
-    needs: [python, repository, links, dependency-review]
+    needs: [python, repository, generate, links, dependency-review]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     permissions: {}

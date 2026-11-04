@@ -18,11 +18,14 @@ import sys
 from pathlib import Path
 from typing import cast
 
+from fetch import PROFILES, tree_dir
+from targets import load
+
 type Value = str | list[str]
 type Preset = dict[str, Value]
 
-# Profile folders of the installed slicers (the owner's machine). SLICER_PROFILES_<TARGET> overrides each,
-# for example with a stock profile tree checked out at the slicer's release tag.
+# Profile folders of the installed slicers, the last choice of source(): SLICER_PROFILES_<TARGET> and the
+# trees src/fetch.py pins come first.
 INSTALLED = {"bambu": "/opt/bambustudio-bin/resources/profiles"}
 INDEX_LISTS = ("machine_model_list", "process_list", "filament_list", "machine_list")
 
@@ -123,10 +126,13 @@ def _find(name: str, vendor: str, root: Path) -> tuple[str, Preset]:
 
 
 def source(target: str) -> Path:
-    """Stock profile folder of a target slicer: SLICER_PROFILES_<TARGET>, else the installed app."""
+    """Stock profile folder of a target: SLICER_PROFILES_<TARGET>, else the tree src/fetch.py pinned, else the app."""
     override = os.environ.get(f"SLICER_PROFILES_{target.upper()}")
     if override:
         return Path(override)
+    pinned = tree_dir(load()[target]) / PROFILES
+    if pinned.is_dir():
+        return pinned
     return Path(INSTALLED[target])
 
 

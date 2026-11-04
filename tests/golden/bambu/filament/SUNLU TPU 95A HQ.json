@@ -1,0 +1,35 @@
+{
+    "type": "filament",
+    "from": "User",
+    "name": "SUNLU TPU 95A HQ",
+    "inherits": "Generic TPU @BBL H3C",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "filament_settings_id": [
+        "SUNLU TPU 95A HQ"
+    ],
+    "nozzle_temperature": [
+        "220",
+        "220"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "225",
+        "225"
+    ],
+    "nozzle_temperature_range_low": [
+        "190"
+    ],
+    "nozzle_temperature_range_high": [
+        "230"
+    ],
+    "filament_density": [
+        "1.21"
+    ],
+    "filament_vendor": [
+        "SUNLU"
+    ],
+    "filament_notes": "SUNLU TDS: 190-230 C, bed 50-60, density 1.21, retraction 0.8-1.2 mm. Engineering plate 35 C with glue. Dry 50-60 C for 6-12 h.",
+    "compatible_printers": [
+        "Bambu Lab H3C 0.4 nozzle"
+    ]
+}

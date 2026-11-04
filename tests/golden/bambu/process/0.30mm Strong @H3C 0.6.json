@@ -1,0 +1,14 @@
+{
+    "type": "process",
+    "from": "User",
+    "name": "0.30mm Strong @H3C 0.6",
+    "inherits": "0.30mm Standard @BBL H3C 0.6 nozzle",
+    "is_custom_defined": "0",
+    "version": "02.09.01.70",
+    "print_settings_id": "0.30mm Strong @H3C 0.6",
+    "wall_loops": "4",
+    "sparse_infill_density": "40%",
+    "sparse_infill_pattern": "gyroid",
+    "top_shell_thickness": "1.6",
+    "bottom_shell_thickness": "1.2"
+}

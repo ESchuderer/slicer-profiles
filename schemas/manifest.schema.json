@@ -18,7 +18,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["target", "app", "version", "preset_version", "repository", "tag", "commit"],
+        "required": ["target", "app", "version", "preset_version", "repository", "tag", "commit", "tree", "vendors"],
         "properties": {
           "target": { "enum": ["bambu"] },
           "app": { "type": "string" },
@@ -26,7 +26,9 @@
           "preset_version": { "type": "string" },
           "repository": { "type": "string", "pattern": "^[\\w.-]+/[\\w.-]+$" },
           "tag": { "type": "string" },
-          "commit": { "$ref": "#/$defs/commit" }
+          "commit": { "$ref": "#/$defs/commit" },
+          "tree": { "$ref": "#/$defs/commit" },
+          "vendors": { "type": "object", "additionalProperties": { "type": "string" } }
         }
       }
     },

@@ -4,6 +4,9 @@
 #   version         the app release
 #   preset_version  the "version" written into every generated preset of that target
 #   repository, tag, commit   where the stock profiles (resources/profiles) of that release live
+#   tree            git tree id of resources/profiles at that commit (src/fetch.py checks it)
+#   vendors         the vendor indexes the generators read, with their profile versions
+# src/fetch.py fills a cache by commit from these entries; nothing of upstream origin is committed.
 schema_version = 1
 
 [targets.bambu]
@@ -13,3 +16,5 @@ preset_version = "02.09.01.70"
 repository = "bambulab/BambuStudio"
 tag = "v02.09.01.70"
 commit = "56a57d00a591360cf41bf21383915ee5bf357be5"
+tree = "0c67abd30c5e8135e0ff218773894473a8869858"
+vendors = { BBL = "02.09.00.74" }
