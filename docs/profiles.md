@@ -92,7 +92,7 @@ Each preset inherits the stock preset of the same filament (or the generic one f
 
 ## "(LAN)" printer presets
 
-Source: `src/gen_machine.py` (Orca, in the `orca-machines` zip under AGPL-3.0-only, because their start G-code is copied from OrcaSlicer's stock profiles) and `src/gen_snapmaker.py` (Snapmaker Orca). Orca stores a printer's network address inside a user printer preset, so each networked printer gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle. Each copy holds the address from `config/printers.json` (release zips: none, set yours in the preset's `print_host` field) and the printer fixes below. Print presets that list the stock printer stay compatible with these copies.
+Source: `src/gen_machine.py` (Orca, in the `orca-machines` zip under AGPL-3.0-only, because their start G-code is copied from OrcaSlicer's stock profiles, [AGPL-3.0 per OrcaSlicer's README](https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/README.md#license)) and `src/gen_snapmaker.py` (Snapmaker Orca). Orca stores a printer's network address inside a user printer preset, so each networked printer gets a copy of its stock preset named `<stock name> (LAN)`, one per nozzle. Each copy holds the address from `config/printers.json` (release zips: none, set yours in the preset's `print_host` field) and the printer fixes below. Print presets that list the stock printer stay compatible with these copies.
 
 Bed temperature in jobs with several filaments, per slicer:
 

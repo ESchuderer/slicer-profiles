@@ -101,3 +101,9 @@ def test_notice_names_every_zip_and_the_agpl_source(out: Path, tmp_path: Path) -
     assert "| `slicer-profiles-orca-machines-v0.2.0.zip` | AGPL-3.0-only |" in text
     assert f"https://github.com/ESchuderer/slicer-profiles/tree/{COMMIT}" in text
     assert (tmp_path / "d" / "LICENSE-AGPL-3.0-only.txt").is_file()
+
+
+def test_build_file_outside_every_zip_stops_the_release(out: Path, tmp_path: Path) -> None:
+    _ = (out / "bambu" / "stray.txt").write_text("x", encoding="utf-8")
+    with pytest.raises(ValueError, match=r"build files in no release zip: \['bambu/stray.txt'\]"):
+        _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")

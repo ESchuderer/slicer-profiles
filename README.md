@@ -71,6 +71,6 @@ uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor 
 |---|---|
 | Code (`src/`, `scripts/`, `tests/`, workflows) | ISC, see [LICENSE](LICENSE) |
 | Data, docs and the generated presets in the release zips | [CC BY 4.0](LICENSES/CC-BY-4.0.txt) |
-| `slicer-profiles-orca-machines` zip: the six OrcaSlicer "(LAN)" printer presets, whose start G-code is copied from OrcaSlicer's stock profiles | [AGPL-3.0-only](release/LICENSE-AGPL-3.0-only.txt), like OrcaSlicer |
+| `slicer-profiles-orca-machines` zip: the six OrcaSlicer "(LAN)" printer presets, whose start G-code is copied from OrcaSlicer's stock profiles | [AGPL-3.0-only](release/LICENSE-AGPL-3.0-only.txt), as [OrcaSlicer states for its code](https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/README.md#license) |
 
 `REUSE.toml` states the license of every file. Values taken from makers' data sheets and the slicers' stock profiles are cited, not relicensed. v0.1.0 and earlier releases stay MIT. The generated presets are not committed; they are published as release zips.
