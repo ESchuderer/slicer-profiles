@@ -4,7 +4,7 @@
 # schema, and SHA256SUMS. Two runs on one commit give identical files.
 #   scripts/release.sh v0.2.0                              build only
 #   scripts/release.sh v0.2.0 --publish NOTES.md           also create the GitHub release from a clean main
-# Needs the stock profiles like scripts/build.sh does (installed slicers or SLICER_PROFILES_*).
+# Needs the stock profiles like scripts/build.sh does: SLICER_PROFILES_*, the trees src/fetch.py pinned, or installed slicers.
 set -euo pipefail
 version=${1:?usage: scripts/release.sh vX.Y.Z [--publish NOTES.md]}
 [[ "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "version must look like v1.2.3" >&2; exit 64; }
