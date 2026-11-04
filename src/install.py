@@ -61,7 +61,7 @@ def _diff(before: str, after: str, rel: str) -> str:
 def edited(app: str, state: Path = STATE, last_build: Path = LAST_BUILD) -> list[str]:
     """Return a report per installed preset that differs from what was installed (deleted files are fine)."""
     manifest = read_manifest(app, state)
-    if manifest is None:
+    if manifest is None or not manifest["dest"]:
         return []
     dest = Path(manifest["dest"])
     found: list[str] = []
@@ -75,8 +75,10 @@ def edited(app: str, state: Path = STATE, last_build: Path = LAST_BUILD) -> list
         if not copy.is_file():
             found.append(f"{current}: no copy of the installed version to compare with")
         elif copy.read_bytes() != current.read_bytes():
-            text = current.read_text(encoding="utf-8")
-            found.append(f"{current}:\n{_diff(copy.read_text(encoding='utf-8'), text, rel)}")
+            # A v0.1.0 manifest has no checksums: out/ stands in for the install and may be newer than it.
+            note = "" if digest else " differs from the last build in out/ (a v0.1.0 install has no checksums)"
+            diff = _diff(copy.read_text(encoding="utf-8"), current.read_text(encoding="utf-8"), rel)
+            found.append(f"{current}:{note}\n{diff}")
     return found
 
 
@@ -84,8 +86,9 @@ def install(app: str, src: Path, dest: Path, state: Path = STATE) -> int:
     """Remove the files of the last install (and the apps' .info sidecars), copy SRC, write the manifest."""
     old = read_manifest(app, state)
     if old is not None:
+        old_dest = Path(old["dest"]) if old["dest"] else dest  # a manifest without a folder: the old bash default
         for rel in old["files"]:
-            for path in (Path(old["dest"]) / rel, (Path(old["dest"]) / rel).with_suffix(".info")):
+            for path in (old_dest / rel, (old_dest / rel).with_suffix(".info")):
                 path.unlink(missing_ok=True)
     shutil.rmtree(state / app, ignore_errors=True)
     files: dict[str, str] = {}

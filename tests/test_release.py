@@ -72,6 +72,8 @@ def test_manifest_validates_and_describes_presets(out: Path, tmp_path: Path) -> 
     machine = presets["orca/machine/Snapmaker U1 (0.4 nozzle) (LAN).json"]
     assert (machine["printer"], machine["nozzle"]) == ("U1", "0.4")
     assert presets["bambu/filament/SUNLU PLA+ 2.0 HQ.json"]["printer"] == "P2S"
+    decor = presets["snapmaker/process/0.12mm Decor @U1 0.4.json"]
+    assert (decor["style"], decor["variant"]) == ("Detail", "Decor")
     assert manifest["printers"] == ["P2S", "U1", "X-Max4"]
 
 

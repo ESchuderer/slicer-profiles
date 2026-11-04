@@ -80,3 +80,13 @@ def test_account_folder_warns_about_cloud_sync(
     src, _, state = dirs
     _ = install.install("orca", src, src.parent.parent / "user" / "123456", state)
     assert "may sync these presets to the vendor's cloud" in capsys.readouterr().err
+
+
+def test_v010_manifest_without_folder_removes_from_the_new_folder(dirs: tuple[Path, Path, Path]) -> None:
+    src, dest, state = dirs
+    (dest / "filament").mkdir(parents=True)
+    _ = (dest / "filament" / "Old.json").write_text("{}", encoding="utf-8")
+    _ = (state / "orca.txt").write_text("filament/Old.json\n", encoding="utf-8")
+    assert install.edited("orca", state) == []
+    _ = install.install("orca", src, dest, state)
+    assert sorted(p.name for p in (dest / "filament").iterdir()) == ["PLA.json"]

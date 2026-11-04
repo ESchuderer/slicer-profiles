@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, cast
 
 from docs import contents
+from gen_process import jobs, preset_name
 from targets import load
 
 if TYPE_CHECKING:
@@ -31,10 +32,11 @@ REPOSITORY = "ESchuderer/slicer-profiles"
 FORMAT = "slicer-profiles-release"
 SLICERS = ("orca", "bambu", "qidi", "snapmaker")
 PRINTERS = {"Bambu Lab P2S": "P2S", "Snapmaker U1": "U1", "Qidi X-Max 4": "X-Max4", "X-Max 4": "X-Max4"}
-TARGET_PRINTER = {"bambu": "P2S", "qidi": "X-Max4"}
-_PROCESS = re.compile(r"(?P<layer>\d+\.\d+)mm (?P<style>\S+)(?: (?P<variant>.+))? @(?P<printer>\S+) (?P<nozzle>\d\.\d)")
+TARGET_PRINTER = {"bambu": "P2S", "qidi": "X-Max4", "snapmaker": "U1"}
 _NOZZLE = re.compile(r"(\d\.\d) nozzle")
 type Entry = dict[str, str | int | None]
+# print preset name -> (printer tag, nozzle, style, variant suffix), from the generator's own job list
+_JOBS = {preset_name(t, n, s, x): (t, n, s, x) for t, n, s, x, _ in jobs()}
 
 
 def sha256(data: bytes) -> str:
@@ -65,8 +67,9 @@ def describe(slicer: str, rel: str, data: bytes) -> Entry:
     kind, name = str(preset.get("type", "")), str(preset.get("name", ""))
     entry: Entry = {"id": f"{slicer}/{rel}", "type": kind, "name": name, "slicer": slicer}
     entry |= {"printer": None, "nozzle": None, "style": None, "variant": None, "filament": None}
-    if kind == "process" and (m := _PROCESS.fullmatch(name)):
-        entry |= {"printer": m["printer"], "nozzle": m["nozzle"], "style": m["style"], "variant": m["variant"]}
+    if kind == "process" and (job := _JOBS.get(name)):
+        tag, nozzle, style, suffix = job
+        entry |= {"printer": tag, "nozzle": nozzle, "style": style, "variant": suffix or None}
     elif kind == "machine":
         entry["printer"] = next((tag for prefix, tag in PRINTERS.items() if name.startswith(prefix)), None)
         entry["nozzle"] = m[1] if (m := _NOZZLE.search(name)) else None

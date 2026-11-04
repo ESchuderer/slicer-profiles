@@ -10,6 +10,7 @@ A block of docs/profiles.md starts with `<!-- generated: NAME -->` and ends with
 import json
 import re
 import sys
+from functools import cache
 from pathlib import Path
 from typing import cast
 
@@ -40,6 +41,7 @@ def _json(path: Path) -> dict[str, dict[str, object]]:
     return cast("dict[str, dict[str, object]]", json.loads(path.read_text(encoding="utf-8")))
 
 
+@cache
 def contents() -> dict[str, Contents]:
     """Return the preset names of every zip: {slicer: {"process": [...], "filament": [...], "machine": [...]}}."""
     filaments = sorted(_json(ROOT / "config" / "filaments.json"))
@@ -111,7 +113,7 @@ def blocks() -> dict[str, str]:
             speeds,
         ),
         "filaments": _table(
-            ["Material", "Presets"], [[m, ", ".join(by_material[m])] for m in MATERIALS if m in by_material]
+            ["Material", "Presets"], [[m, ", ".join(by_material[m])] for m in (*MATERIALS, "other") if m in by_material]
         ),
     }
 
@@ -119,8 +121,9 @@ def blocks() -> dict[str, str]:
 def catalog() -> str:
     """Return docs/catalog.md."""
     parts = [CATALOG_INTRO]
+    zips = contents()
     for slicer, (app, _, _) in ZIPS.items():
-        zip_contents = contents()[slicer]
+        zip_contents = zips[slicer]
         parts.append(f"\n## {app}: `slicer-profiles-{slicer}-<version>.zip`\n")
         parts.append(f"\n### Print presets ({len(zip_contents['process'])})\n\n")
         rows = [[n, PRINTER_NAMES[_tag(n)], n[-3:]] for n in zip_contents["process"]]
@@ -145,6 +148,9 @@ def render() -> dict[Path, str]:
     done = 0
     for m in _BLOCK.finditer(page):
         start, name, end = (cast("str", m.group(i)) for i in (1, 2, 3))
+        if name not in generated:
+            msg = f"{PROFILES.name}: unknown or repeated block <!-- generated: {name} -->"
+            raise ValueError(msg)
         pieces += [page[done : m.start()], start, "\n", generated.pop(name), "\n", end]
         done = m.end()
     if generated:
@@ -156,12 +162,13 @@ def render() -> dict[Path, str]:
 
 def main(argv: list[str]) -> int:
     """Write the pages, or with --check report the stale ones."""
-    stale = [path for path, text in render().items() if not path.is_file() or path.read_text(encoding="utf-8") != text]
+    pages = render()
+    stale = [path for path, text in pages.items() if not path.is_file() or path.read_text(encoding="utf-8") != text]
     if "--check" in argv:
         for path in stale:
             print(f"{path.relative_to(ROOT)} is out of date: run src/docs.py", file=sys.stderr)
         return 1 if stale else 0
-    for path, text in render().items():
+    for path, text in pages.items():
         _ = path.write_text(text, encoding="utf-8")
     return 0
 
