@@ -28,7 +28,8 @@ SPDX-FileCopyrightText = "2026 ESchuderer"
 SPDX-License-Identifier = "ISC"
 
 # Own data: the tables and the generated presets (golden files, licensed like the release zip). Values
-# taken from maker data sheets are cited as third-party facts, and the stock parents are named, not copied.
+# taken from maker data sheets, slicer stock profiles and filament databases are cited as third-party
+# facts, and the stock parents are named, not copied.
 [[annotations]]
 path = ["config/**", "tests/golden/**"]
 precedence = "override"

@@ -54,4 +54,4 @@ uv run shellcheck scripts/*.sh tests/*.sh && uv run actionlint && uv run zizmor 
 | Code, docs, the docs site and the manifest schema (`src/`, `scripts/`, `tests/`, `docs/`, `site/`, `schemas/`, workflows) | ISC, see [LICENSE](LICENSE) |
 | Data (`config/`), the generated presets in the release zip and their copy in `tests/golden/`, `manifest.json` and `SHA256SUMS` | [CC0 1.0](LICENSES/CC0-1.0.txt) |
 
-`REUSE.toml` states the license of every file. Third-party material keeps its license: the presets name the slicers' stock presets as their parents and do not copy them, and values taken from makers' data sheets are cited, not relicensed. v0.1.0 and earlier releases stay MIT.
+`REUSE.toml` states the license of every file. Third-party material keeps its license: the presets name the slicers' stock presets as their parents and do not copy them, and values taken from makers' data sheets, the slicers' stock profiles and filament databases are cited, not relicensed. v0.1.0 and earlier releases stay MIT.

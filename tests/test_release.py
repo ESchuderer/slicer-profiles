@@ -90,6 +90,7 @@ def test_notice_names_every_zip(out: Path, tmp_path: Path) -> None:
     _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
     text = (tmp_path / "d" / "NOTICE.md").read_text(encoding="utf-8")
     assert "| `slicer-profiles-bambu-v0.2.0.zip` | CC0-1.0 |" in text
+    assert "| `manifest.json`, `SHA256SUMS` | CC0-1.0 |" in text
     assert "| `manifest.schema.json`, this file | ISC |" in text
     assert (release.ROOT / "LICENSE").read_text(encoding="utf-8") in text
     assert "AGPL" not in text
