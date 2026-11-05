@@ -3,7 +3,7 @@
 Every preset in the release zips, generated from the tables by `src/docs.py`. What the presets set:
 [profiles.md](profiles.md). Install: [install.md](install.md).
 
-## Bambu Studio: `slicer-profiles-bambu-<version>.zip` (CC-BY-4.0)
+## Bambu Studio: `slicer-profiles-bambu-<version>.zip` (CC0-1.0)
 
 ### Print presets (12)
 

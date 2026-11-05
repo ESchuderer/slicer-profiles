@@ -20,7 +20,7 @@ CATALOG = ROOT / "docs" / "catalog.md"
 PROFILES = ROOT / "docs" / "profiles.md"
 
 
-SLICER, APP, APP_LICENSE = "bambu", "Bambu Studio", "CC-BY-4.0"
+SLICER, APP, APP_LICENSE = "bambu", "Bambu Studio", "CC0-1.0"
 CATALOG_INTRO = """# Preset catalog
 
 Every preset in the release zips, generated from the tables by `src/docs.py`. What the presets set:

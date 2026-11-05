@@ -112,12 +112,15 @@ Built from https://github.com/{REPOSITORY} at commit `{commit}`.
 | File | License |
 |---|---|
 | `slicer-profiles-{SLICER}-{version}.zip` | {APP_LICENSE} |
-| `manifest.json`, `manifest.schema.json`, `SHA256SUMS`, this file | CC-BY-4.0 |
+| `manifest.json`, `SHA256SUMS` | CC0-1.0 |
+| `manifest.schema.json`, this file | ISC |
 
-CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/): credit "slicer-profiles by ESchuderer,
-https://github.com/{REPOSITORY}". The presets name a stock preset of each slicer as their parent and
-hold only the values set by this project; values taken from makers' data sheets are cited facts.
-"""
+CC0-1.0 (https://creativecommons.org/publicdomain/zero/1.0/): no conditions. It covers only what this
+project made. The presets name a stock preset of each slicer as their parent and hold only the values
+set by this project; the stock presets are not copied and keep their own license, and values taken from
+makers' data sheets are cited facts. The ISC files carry this notice:
+
+{(ROOT / "LICENSE").read_text(encoding="utf-8")}"""
 
 
 def catalog_differences(presets: list[Entry]) -> list[str]:
