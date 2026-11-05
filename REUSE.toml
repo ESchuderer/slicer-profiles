@@ -2,15 +2,20 @@ version = 1
 SPDX-PackageName = "slicer-profiles"
 SPDX-PackageDownloadLocation = "https://github.com/ESchuderer/slicer-profiles"
 
-# Code: ISC.
+# Code, docs, the docs site and the manifest schema: ISC.
 [[annotations]]
 path = [
     "src/**",
     "scripts/**",
     "tests/**",
     ".github/**",
+    "docs/**",
+    "schemas/**",
+    "site/src/**",
+    "README.md",
     "pyproject.toml",
     "uv.lock",
+    "upstream.lock.toml",
     ".python-version",
     ".gitignore",
     "REUSE.toml",
@@ -22,18 +27,11 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 ESchuderer"
 SPDX-License-Identifier = "ISC"
 
-# Golden files: the generated presets as the tests expect them, licensed like the release.
+# Own data: the tables and the generated presets (golden files, licensed like the release zip). Values
+# taken from maker data sheets, slicer stock profiles and filament databases are cited as third-party
+# facts, and the stock parents are named, not copied.
 [[annotations]]
-path = ["tests/golden/**"]
+path = ["config/**", "tests/golden/**"]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 ESchuderer"
-SPDX-License-Identifier = "CC-BY-4.0"
-
-# Own data, docs and schemas: CC BY 4.0. Values taken from maker data sheets and slicer stock profiles
-# are cited as third-party facts, not relicensed.
-[[annotations]]
-path = ["config/**", "docs/**", "schemas/**", "site/src/**", "README.md", "upstream.lock.toml"]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 ESchuderer"
-SPDX-License-Identifier = "CC-BY-4.0"
-
+SPDX-License-Identifier = "CC0-1.0"

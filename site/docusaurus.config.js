@@ -44,7 +44,7 @@ const config = {
       ],
     },
     footer: {
-      copyright: "Code ISC, data, docs and presets CC BY 4.0",
+      copyright: "Code and docs ISC, data and presets CC0 1.0",
     },
   },
 };

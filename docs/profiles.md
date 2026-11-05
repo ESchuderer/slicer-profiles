@@ -8,7 +8,7 @@ The presets are Bambu Studio user presets for the Bambu Lab H3C. Each one inheri
 
 | Zip | Print presets | Filament presets | License |
 |---|---|---|---|
-| `bambu` (Bambu Studio) | 12 | 17 | CC-BY-4.0 |
+| `bambu` (Bambu Studio) | 12 | 17 | CC0-1.0 |
 
 <!-- end generated -->
 

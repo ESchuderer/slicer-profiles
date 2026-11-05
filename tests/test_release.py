@@ -62,7 +62,7 @@ def test_manifest_validates_and_describes_presets(out: Path, tmp_path: Path) -> 
         "Strong",
         "MM-Support",
     )
-    assert strong["license"] == "CC-BY-4.0"
+    assert strong["license"] == "CC0-1.0"
     support = presets["bambu/process/0.30mm MM-Support @H3C 0.6.json"]
     assert (support["style"], support["variant"]) == (None, "MM-Support")
     assert presets["bambu/filament/SUNLU PLA+ 2.0 HQ.json"]["printer"] == "H3C"
@@ -89,6 +89,10 @@ def test_catalog_check_reports_a_missing_preset(out: Path, tmp_path: Path) -> No
 def test_notice_names_every_zip(out: Path, tmp_path: Path) -> None:
     _ = release.build("v0.2.0", COMMIT, EPOCH, out, tmp_path / "d")
     text = (tmp_path / "d" / "NOTICE.md").read_text(encoding="utf-8")
-    assert "| `slicer-profiles-bambu-v0.2.0.zip` | CC-BY-4.0 |" in text
+    assert "| `slicer-profiles-bambu-v0.2.0.zip` | CC0-1.0 |" in text
+    assert "| `manifest.json`, `SHA256SUMS` | CC0-1.0 |" in text
+    assert "| `manifest.schema.json`, this file | ISC |" in text
+    assert (release.ROOT / "LICENSE").read_text(encoding="utf-8") in text
     assert "AGPL" not in text
+    assert "CC-BY" not in text
     assert f"at commit `{COMMIT}`" in text
