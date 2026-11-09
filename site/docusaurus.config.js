@@ -10,9 +10,10 @@ const config = {
   organizationName: "ESchuderer",
   projectName: "slicer-profiles",
   trailingSlash: false,
-  onBrokenLinks: "throw",
-  onBrokenAnchors: "throw",
-  markdown: { format: "detect", hooks: { onBrokenMarkdownLinks: "throw" } },
+  // No link check (owner decision): explicit, since Docusaurus defaults broken links (and from v4 anchors) to throw
+  onBrokenLinks: "warn",
+  onBrokenAnchors: "warn",
+  markdown: { format: "detect", hooks: { onBrokenMarkdownLinks: "warn" } },
   i18n: { defaultLocale: "en", locales: ["en"] },
   presets: [
     [
