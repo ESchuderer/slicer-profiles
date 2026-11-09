@@ -25,7 +25,7 @@ jobs:
       - name: install
         run: npm ci --ignore-scripts --no-audit --no-fund
         working-directory: site
-      - name: build (fails on broken links and anchors)
+      - name: build
         run: npm run build
         working-directory: site
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
